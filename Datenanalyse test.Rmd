@@ -1,0 +1,42 @@
+---
+title: "Datenalyse mit R"
+author: "me"
+date: '2022-04-21'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(DT)
+library(leaflet)
+library(dygraphs)
+library(visNetwork)
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r faithful}
+DT::datatable(faithful, colnames = c('Ausbruch', 'Wartend'), options = list(order = list(list(2, 'desc'))))
+
+```
+
+```{r AirPassangers}
+dygraphs::dygraph(AirPassengers) %>% dygraphs::dyRangeSelector(dateWindow = c("1952-01-01", "1958-12-31"))
+```
+
+```{r leaflet}
+ leaflet::leaflet() %>% leaflet::setView(lng=7.75742,lat=49.4469,zoom = 10 )%>% leaflet::addTiles() %>% leaflet::addMarkers(lng=7.75742,lat=49.4469) %>% leaflet::addMarkers(lng=7.60155,lat=49.21171) %>% leaflet::addMarkers(lng=7.36074,lat=49.26265)
+
+```
+
+```{r leaflet2}
+leaflet::leaflet() %>% leaflet::setView(lng=7.75742,lat=49.4469,zoom = 15 )%>% leaflet::addTiles() %>% leaflet::addMarkers(lng=7.75742,lat=49.4469)
+```
+
+```{r leaflet3}
+leaflet::leaflet() %>% leaflet::setView(lng=7.60155,lat=49.21171,zoom = 15 )%>% leaflet::addTiles() %>% leaflet::addMarkers(lng=7.60155,lat=49.21171)
+```
+
+```{r leaflet4}
+leaflet::leaflet() %>% leaflet::setView(lng=7.36074,lat=49.26265,zoom = 15 )%>% leaflet::addTiles() %>% leaflet::addMarkers(lng=7.36074,lat=49.26265)
+```
