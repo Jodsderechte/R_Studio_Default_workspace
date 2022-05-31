@@ -1,0 +1,16 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r setup}
+library(readr)
+vgsales <- read_csv("vgsales.csv")
+```
+
+
+
+```{r plot }
+ggplot(vgsales)+ geom_bar(mapping=aes(x=Platform))
+```

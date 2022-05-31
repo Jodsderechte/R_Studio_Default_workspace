@@ -1,0 +1,32 @@
+---
+title: "VDA Projekt"
+output: 
+   html_document : default
+   html_notebook : default
+---
+
+
+```{r setup, include=TRUE, echo=TRUE, message=FALSE}
+library(readr)
+library(tidyverse)
+library(plotly)
+library(knitr, warn.conflicts = FALSE, quietly=TRUE)
+library(RColorBrewer)
+myPalette <- brewer.pal(5, "YlGn")
+vgsales <- read_csv("vgsales.csv")
+```
+
+
+Anzahl der Videospiele aufgelistet nach Platform
+```{r plot, echo = TRUE, message=FALSE, results='markup', }
+vgsales %>% plot_ly(x=~Platform,color=myPalette[2],stroke=I("black"),name="Amount by Platform") %>% layout(title="Amount by Platform")
+vgsales %>% plot_ly %>% add_boxplot(x=~Platform,color=myPalette[2],stroke=I("black"),name="Amount by Platform") %>% layout(title="Amount by Platform")
+
+vgsales %>% plot_ly() %>% add_bars(x=~Global_Sales, y=~Platform,color=myPalette[3],name="Sales by Platform (in mio)") %>% layout(title="Sales by Platform (in mio)")
+
+vgsales %>% plot_ly(x=~Publisher,color=myPalette[3],name="Game Amount by Publisher") %>% layout(title="Game Amount by Publisher") 
+
+vgsales  %>% group_by(Publisher) %>% summarize(Anzahl =n()) %>%  filter(Anzahl>100) %>% plot_ly() %>% add_bars(x=~Publisher,y=~Anzahl,color=myPalette[5],name="Game Amount by Publisher") %>% layout(title="Game Amount by Publisher")
+```
+TODO Sortierung der daten nach publisher size
+
