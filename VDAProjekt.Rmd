@@ -9,24 +9,110 @@ output:
 ```{r setup, include=TRUE, echo=TRUE, message=FALSE}
 library(readr)
 library(tidyverse)
+library(forcats)
 library(plotly)
 library(knitr, warn.conflicts = FALSE, quietly=TRUE)
 library(RColorBrewer)
-myPalette <- brewer.pal(5, "YlGn")
+library(stringr)
+myPalette <- brewer.pal(8, "YlGn")
 vgsales <- read_csv("vgsales.csv")
 ```
 
 
 Anzahl der Videospiele aufgelistet nach Platform
 ```{r plot, echo = TRUE, message=FALSE, results='markup', }
-vgsales %>% plot_ly(x=~Platform,color=myPalette[2],stroke=I("black"),name="Amount by Platform") %>% layout(title="Amount by Platform")
-vgsales %>% plot_ly %>% add_boxplot(x=~Platform,color=myPalette[2],stroke=I("black"),name="Amount by Platform") %>% layout(title="Amount by Platform")
+vgsales %>% 
+  plot_ly(
+    x=~Platform,
+    stroke=I("black"),
+    name="Amount by Platform") %>%
+  layout(
+    title="Amount by Platform")
+vgsales %>% 
+  plot_ly %>% 
+  add_boxplot(
+    x=~Platform,
+    stroke=I("black"),
+    name="Amount by Platform") %>% 
+  layout(
+    title="Amount by Platform")
 
-vgsales %>% plot_ly() %>% add_bars(x=~Global_Sales, y=~Platform,color=myPalette[3],name="Sales by Platform (in mio)") %>% layout(title="Sales by Platform (in mio)")
+vgsales %>% 
+  plot_ly() %>% 
+  add_bars(
+    x=~Global_Sales,
+    y=~Platform,
+    name="Sales by Platform (in mio)") %>% 
+  layout(
+    title="Sales by Platform (in mio)")
 
-vgsales %>% plot_ly(x=~Publisher,color=myPalette[3],name="Game Amount by Publisher") %>% layout(title="Game Amount by Publisher") 
-
-vgsales  %>% group_by(Publisher) %>% summarize(Anzahl =n()) %>%  filter(Anzahl>100) %>% plot_ly() %>% add_bars(x=~Publisher,y=~Anzahl,color=myPalette[5],name="Game Amount by Publisher") %>% layout(title="Game Amount by Publisher")
 ```
-TODO Sortierung der daten nach publisher size
+Top Publisher nach Anzahl der Games
+```{r plot2, echo = TRUE, message=FALSE, results='markup', }
+grouped <- vgsales  %>% 
+  group_by(Publisher) %>% 
+  summarize(Anzahl =n()) %>%  
+  filter(Anzahl>100) %>% filter(Publisher!="Unknown")
 
+ordered <- grouped[order(grouped$Anzahl), decreasing = FALSE]
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Entertainment")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Interactive")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Studios")
+ordered$Publisher <- as_factor(ordered$Publisher)
+
+
+ax <- list(
+  title = "Publisher"
+)
+
+ay <- list(
+  title = "Anzahl"
+)
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Publisher,Anzahl, .desc="true"),
+           y=~Anzahl,
+           name="Game Amount by Publisher") %>% 
+  layout(title="Game Amount by Publisher",
+         xaxis = ax,
+         yaxis = ay
+         
+         )
+```
+Top Publisher nach Anzahl der Sales
+
+```{r plot3, echo = TRUE, message=FALSE, results='markup', }
+grouped <- vgsales  %>% 
+  group_by(Publisher) %>% 
+  summarize(Anzahl =n(),sum(Global_Sales)) %>%
+  filter(Anzahl>100) %>%
+rename(
+    Global_Sales = "sum(Global_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Entertainment")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Interactive")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Studios")
+ordered$Publisher <- as_factor(ordered$Publisher)
+
+
+ax <- list(
+  title = "Publisher"
+)
+
+ay <- list(
+  title = "Global Sales (in mio)"
+
+)
+
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="Sales Amount by Publisher") %>% 
+  layout(title="Sales Amount by Publisher",
+         xaxis = ax,
+         yaxis = ay
+         )
