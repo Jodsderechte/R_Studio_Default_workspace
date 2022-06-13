@@ -14,6 +14,7 @@ library(plotly)
 library(knitr, warn.conflicts = FALSE, quietly=TRUE)
 library(RColorBrewer)
 library(stringr)
+library(dygraphs)
 myPalette <- brewer.pal(8, "YlGn")
 vgsales <- read_csv("vgsales.csv")
 ```
@@ -523,7 +524,22 @@ ordered%>%
   layout(title="Sales by Genre",
          xaxis = ax,
          yaxis = ay
-         )
+        )
+```
+
+```{r plot(SalesByGenrebyYear), echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>% 
+  group_by(Genre)
+filtered <- grouped %>% select(Year,Genre)
+typeof(vgsales)
+typeof(filtered)
+view(filtered)
+filtered %>%
+plot_ly() %>% 
+  add_bars(x=~Year,
+           y=~Genre)
+#dygraph(filtered)
 ```
 
 ● Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre ->
