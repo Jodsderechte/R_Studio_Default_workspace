@@ -17,7 +17,11 @@ library(stringr)
 myPalette <- brewer.pal(8, "YlGn")
 vgsales <- read_csv("vgsales.csv")
 ```
-
+● Welche Plattform ist die beste und unterscheidet sich diese nach Region?
+Ältere Plattformen/spiele haben mehr verkäufe bzw Wie hat sich die Anzahl der
+verkäufe im laufe der jahre entwickelt?
+● Gibt es Unterschiede in den Regionen/hängt das mit der Anzahl der Einwohner der
+Region zusammen? (Asian>US>EU)
 
 Anzahl der Videospiele aufgelistet nach Platform
 ```{r plot, echo = TRUE, message=FALSE, results='markup', }
@@ -47,6 +51,11 @@ vgsales %>%
     title="Sales by Platform (in mio)")
 
 ```
+Bestimmte Entwickler/Publisher häufen sich (Nintendo/EA)
+
+● Welche Spiele/Publisher/Genres in welchen Teilen der welt sich häufen (Nintendo in
+Asien, Shooter in US/EU)
+
 Top Publisher nach Anzahl der Games
 ```{r plot2, echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
@@ -116,3 +125,9 @@ ordered%>%
          xaxis = ax,
          yaxis = ay
          )
+```
+● Genrenentwicklung über die Jahre
+● Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre ->
+Sales
+● Welche Jahre sind die besten in der Anzahl der releasten games
+● Welche Jahre sind die besten in Anzahl Sales pro game (neuer = besser?)
