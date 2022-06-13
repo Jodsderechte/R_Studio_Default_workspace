@@ -15,6 +15,7 @@ library(knitr, warn.conflicts = FALSE, quietly=TRUE)
 library(RColorBrewer)
 library(stringr)
 library(dygraphs)
+library(xts)
 myPalette <- brewer.pal(8, "YlGn")
 vgsales <- read_csv("vgsales.csv")
 ```
@@ -529,18 +530,24 @@ ordered%>%
 
 ```{r plot(SalesByGenrebyYear), echo = TRUE, message=FALSE, results='markup', }
 
-grouped <- vgsales  %>% 
-  group_by(Genre)
-filtered <- grouped %>% select(Year,Genre)
+grouped <- vgsales  %>%                                 
+  group_by(Year, Genre) %>%
+  dplyr::summarize(gr_sum = sum(Global_Sales)) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  as.data.frame()
+
+
+filtered <- grouped %>% select(Year,Genre,gr_sum)
 typeof(vgsales)
 typeof(filtered)
-view(filtered)
 filtered %>%
 plot_ly() %>% 
   add_bars(x=~Year,
-           y=~Genre)
-#dygraph(filtered)
+           y=~gr_sum, color=~Genre)
+dygraph(vgsales, main = "Sales by Genre by Year")
+dygraph(filtered, main = "Sales by Genre by Year")
 ```
+-Polyline malen lubridate
+
 
 ● Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre ->
 Sales
