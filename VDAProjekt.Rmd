@@ -17,14 +17,12 @@ library(stringr)
 myPalette <- brewer.pal(8, "YlGn")
 vgsales <- read_csv("vgsales.csv")
 ```
-● Welche Plattform ist die beste und unterscheidet sich diese nach Region?
 Ältere Plattformen/spiele haben mehr verkäufe bzw Wie hat sich die Anzahl der
 verkäufe im laufe der jahre entwickelt?
-● Gibt es Unterschiede in den Regionen/hängt das mit der Anzahl der Einwohner der
-Region zusammen? (Asian>US>EU)
+
 
 Anzahl der Videospiele aufgelistet nach Platform
-```{r plot, echo = TRUE, message=FALSE, results='markup', }
+```{r noplot, echo = TRUE, message=FALSE, results='markup', include =FALSE,}
 vgsales %>% 
   plot_ly(
     x=~Platform,
@@ -51,10 +49,194 @@ vgsales %>%
     title="Sales by Platform (in mio)")
 
 ```
+```{r plot, echo = TRUE,message=FALSE,results='markup',}
+grouped <- vgsales  %>% 
+  group_by(Platform) %>% 
+  summarize(Anzahl =n()) 
+
+ordered <- grouped[order(grouped$Anzahl), decreasing = FALSE]
+ordered$Platform <- as_factor(ordered$Platform)
+
+
+ax <- list(
+  title = "Publisher"
+)
+
+ay <- list(
+  title = "Anzahl"
+)
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Platform,Anzahl, .desc="true"),
+           y=~Anzahl,
+           name="Game Amount by Platform") %>% 
+  layout(title="Game Amount by Platform",
+         xaxis = ax,
+         yaxis = ay
+         
+         )
+```
+Welche Plattform ist die beste und unterscheidet sich diese nach Region?
+
+```{r plot(PlatformRanking_Global), echo = TRUE,message=FALSE,results='markup',}
+grouped <- vgsales  %>% 
+  group_by(Platform) %>% 
+  summarize(sum(Global_Sales))  %>%
+rename(
+    Global_Sales = "sum(Global_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+ordered$Platform <- as_factor(ordered$Platform)
+
+
+ax <- list(
+  title = "Platform"
+)
+
+ay <- list(
+  title = "Global Sales (in mio)"
+
+)
+
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="Sales Amount by Platform") %>% 
+  layout(title="Sales Amount by Platform",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+● Gibt es Unterschiede in den Regionen/hängt das mit der Anzahl der Einwohner der
+Region zusammen? (Asian>US>EU)
+
+```{r plot(PlatformRanking_EU), echo = TRUE,message=FALSE,results='markup',}
+grouped <- vgsales  %>% 
+  group_by(Platform) %>% 
+  summarize(sum(EU_Sales))  %>%
+rename(
+    Global_Sales = "sum(EU_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+ordered$Platform <- as_factor(ordered$Platform)
+
+
+ax <- list(
+  title = "Platform"
+)
+
+ay <- list(
+  title = "EU Sales (in mio)"
+
+)
+
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="EU Sales Amount by Platform") %>% 
+  layout(title="EU Sales Amount by Platform",
+         xaxis = ax,
+         yaxis = ay
+         )
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Platform,textinfo='label+percent',
+           name="EU Sales Amount by Publisher") %>% 
+  layout(title="EU Sales Amount by Publisher",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+
+```{r plot(PlatformRanking_NA), echo = TRUE,message=FALSE,results='markup',}
+grouped <- vgsales  %>% 
+  group_by(Platform) %>% 
+  summarize(sum(NA_Sales))  %>%
+rename(
+    Global_Sales = "sum(NA_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+ordered$Platform <- as_factor(ordered$Platform)
+
+
+ax <- list(
+  title = "Platform"
+)
+
+ay <- list(
+  title = "NA Sales (in mio)"
+
+)
+
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="NA Sales Amount by Platform") %>% 
+  layout(title="NA Sales Amount by Platform",
+         xaxis = ax,
+         yaxis = ay
+         )
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Platform,textinfo='label+percent',
+           name="NA Sales Amount by Publisher") %>% 
+  layout(title="NA Sales Amount by Publisher",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+
+```{r plot(PlatformRanking_JP), echo = TRUE,message=FALSE,results='markup',}
+grouped <- vgsales  %>% 
+  group_by(Platform) %>% 
+  summarize(sum(JP_Sales))  %>%
+rename(
+    Global_Sales = "sum(JP_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+ordered$Platform <- as_factor(ordered$Platform)
+
+
+ax <- list(
+  title = "Platform"
+)
+
+ay <- list(
+  title = "JP Sales (in mio)"
+
+)
+
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="JP Sales Amount by Platform") %>% 
+  layout(title="JP Sales Amount by Platform",
+         xaxis = ax,
+         yaxis = ay
+         )
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Platform,textinfo='label+percent',
+           name="JP Sales Amount by Publisher") %>% 
+  layout(title="JP Sales Amount by Publisher",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
 Bestimmte Entwickler/Publisher häufen sich (Nintendo/EA)
 
-● Welche Spiele/Publisher/Genres in welchen Teilen der welt sich häufen (Nintendo in
-Asien, Shooter in US/EU)
 
 Top Publisher nach Anzahl der Games
 ```{r plot2, echo = TRUE, message=FALSE, results='markup', }
@@ -90,7 +272,7 @@ ordered%>%
 ```
 Top Publisher nach Anzahl der Sales
 
-```{r plot3, echo = TRUE, message=FALSE, results='markup', }
+```{r plot(PublisherRanking_Global), echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
   group_by(Publisher) %>% 
   summarize(Anzahl =n(),sum(Global_Sales)) %>%
@@ -126,7 +308,224 @@ ordered%>%
          yaxis = ay
          )
 ```
+
+● Welche Spiele/Publisher/Genres in welchen Teilen der welt sich häufen (Nintendo in
+Asien, Shooter in US/EU)
+
+```{r plot(PublisherRanking_EU), echo = TRUE, message=FALSE, results='markup', }
+grouped <- vgsales  %>% 
+  group_by(Publisher) %>% 
+  summarize(Anzahl =n(),sum(EU_Sales)) %>%
+  filter(Anzahl>100) %>%
+rename(
+    Global_Sales = "sum(EU_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Entertainment")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Interactive")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Studios")
+ordered$Publisher <- as_factor(ordered$Publisher)
+
+
+ax <- list(
+  title = "Publisher"
+)
+
+ay <- list(
+  title = "EU Sales (in mio)"
+
+)
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="EU Sales Amount by Platform") %>% 
+  layout(title="EU Sales Amount by Platform",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Publisher,
+           name="EU Sales Amount by Publisher") %>% 
+  layout(title="EU Sales Amount by Publisher",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+
+```{r plot(PublisherRanking_NA), echo = TRUE, message=FALSE, results='markup', }
+grouped <- vgsales  %>% 
+  group_by(Publisher) %>% 
+  summarize(Anzahl =n(),sum(NA_Sales)) %>%
+  filter(Anzahl>100) %>%
+rename(
+    Global_Sales = "sum(NA_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Entertainment")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Interactive")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Studios")
+ordered$Publisher <- as_factor(ordered$Publisher)
+
+
+ax <- list(
+  title = "Publisher"
+)
+
+ay <- list(
+  title = "NA Sales (in mio)"
+
+)
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="NA Sales Amount by Platform") %>% 
+  layout(title="NA Sales Amount by Platform",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Publisher,textinfo='label+percent',
+           name="NA Sales Amount by Publisher") %>% 
+  layout(title="NA Sales Amount by Publisher",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+
+```{r plot(PublisherRanking_JP), echo = TRUE, message=FALSE, results='markup', }
+grouped <- vgsales  %>% 
+  group_by(Publisher) %>% 
+  summarize(Anzahl =n(),sum(JP_Sales)) %>%
+  filter(Anzahl>100) %>%
+rename(
+    Global_Sales = "sum(JP_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Entertainment")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Interactive")
+ordered$Publisher <-str_remove_all(ordered$Publisher, "Studios")
+ordered$Publisher <- as_factor(ordered$Publisher)
+
+
+ax <- list(
+  title = "Publisher"
+)
+
+ay <- list(
+  title = "JP Sales (in mio)"
+
+)
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="JP Sales Amount by Platform") %>% 
+  layout(title="JP Sales Amount by Platform",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Publisher,
+           name="JP Sales Amount by Publisher") %>% 
+  layout(title="JP Sales Amount by Publisher",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+
 ● Genrenentwicklung über die Jahre
+```{r plot(GenreAmount_GLobal), echo = TRUE, message=FALSE, results='markup', }
+grouped <- vgsales  %>% 
+  group_by(Genre) %>% 
+  summarize(Anzahl =n())
+
+grouped$Anzahl<-as_vector(grouped$Anzahl)
+ordered <- grouped[order(grouped$Anzahl), decreasing = FALSE]
+ordered$Genre <- as_factor(ordered$Genre)
+
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Anzahl"
+
+)
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Genre,Anzahl, .desc="true"),
+           y=~Anzahl,
+           name="Amount by Genre") %>% 
+  layout(title="Amount by Genre",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Anzahl,labels=~Genre,
+           name="Amount by Genre") %>% 
+  layout(title="Amount by Genre",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+```{r plot(SalesByGenre), echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>% 
+  group_by(Genre) %>% 
+  summarize(sum(Global_Sales))  %>%
+rename(
+    Global_Sales = "sum(Global_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Sales"
+
+)
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="Sales by Genre") %>% 
+  layout(title="Sales by Genre",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Genre,
+           name="Sales by Genre") %>% 
+  layout(title="Sales by Genre",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+
 ● Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre ->
 Sales
 ● Welche Jahre sind die besten in der Anzahl der releasten games
