@@ -1,8 +1,11 @@
 ---
 title: "VDA Projekt"
 output: 
-   html_document : default
-   html_notebook : default
+   html_document : 
+    code_folding: hide
+   html_notebook : 
+    code_folding: hide
+   
 ---
 
 
@@ -19,8 +22,6 @@ library(xts)
 myPalette <- brewer.pal(8, "YlGn")
 vgsales <- read_csv("vgsales.csv")
 ```
-Ältere Plattformen/spiele haben mehr verkäufe bzw Wie hat sich die Anzahl der
-verkäufe im laufe der jahre entwickelt?
 
 
 Anzahl der Videospiele aufgelistet nach Platform
@@ -78,6 +79,39 @@ ordered%>%
          
          )
 ```
+Ältere Plattformen/spiele haben mehr verkäufe bzw Wie hat sich die Anzahl der
+verkäufe im laufe der jahre entwickelt?
+(Gefiltert auf Plattformen mit mindestens 60 mio in Sales im entsprechenden Jahr)
+```{r plot(SalesPerPlatformbyYear), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year, Platform) %>%
+  dplyr::summarize(gr_sum = sum(Global_Sales)) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017')  %>% filter(gr_sum>60)%>%
+  as.data.frame()
+grouped <- grouped %>%arrange(desc(gr_sum)) %>% 
+  group_by(Year, Platform) %>%
+  slice(1:3)
+
+filtered <- grouped %>% select(Year,Platform,gr_sum)
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Sales per Platform (in mio)"
+
+)
+
+
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'one',color = ~Platform)%>% 
+  layout(title="Sales per Platform from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
+
 Welche Plattform ist die beste und unterscheidet sich diese nach Region?
 
 ```{r plot(PlatformRanking_Global), echo = TRUE,message=FALSE,results='markup',}
@@ -343,8 +377,8 @@ ordered%>%
   plot_ly() %>% 
   add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
            y=~Global_Sales,
-           name="EU Sales Amount by Platform") %>% 
-  layout(title="EU Sales Amount by Platform",
+           name="EU Sales Amount by Publisher") %>% 
+  layout(title="EU Sales Amount by Publisher",
          xaxis = ax,
          yaxis = ay
          )
@@ -388,8 +422,8 @@ ordered%>%
   plot_ly() %>% 
   add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
            y=~Global_Sales,
-           name="NA Sales Amount by Platform") %>% 
-  layout(title="NA Sales Amount by Platform",
+           name="NA Sales Amount by Publisher") %>% 
+  layout(title="NA Sales Amount by Publisher",
          xaxis = ax,
          yaxis = ay
          )
@@ -433,8 +467,8 @@ ordered%>%
   plot_ly() %>% 
   add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
            y=~Global_Sales,
-           name="JP Sales Amount by Platform") %>% 
-  layout(title="JP Sales Amount by Platform",
+           name="JP Sales Amount by Publisher") %>% 
+  layout(title="JP Sales Amount by Publisher",
          xaxis = ax,
          yaxis = ay
          )
@@ -449,7 +483,7 @@ ordered%>%
          )
 ```
 
-● Genrenentwicklung über die Jahre
+
 ```{r plot(GenreAmount_GLobal), echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
   group_by(Genre) %>% 
@@ -528,6 +562,59 @@ ordered%>%
         )
 ```
 
+● Genrenentwicklung über die Jahre
+```{r plot(AmountOfGamesByGenrebyYear), echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year, Genre) %>%
+  dplyr::summarize(Anzahl =n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  as.data.frame()
+
+
+filtered <- grouped %>% select(Year,Genre,Anzahl)
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Anzahl"
+
+)
+
+filtered %>%
+plot_ly() %>% 
+  add_lines(x=~Year,
+           y=~Anzahl, color=~Genre)
+
+
+
+filtered %>%
+plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', fill = 'tozeroy',color = ~Genre)%>% 
+  layout(title="Amount by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+filtered %>%
+plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', stackgroup = 'one',color = ~Genre)%>% 
+  layout(title="Amount by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+ay <- list(
+  title = "Percent %"
+
+)
+
+filtered %>%
+plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', stackgroup = 'one',groupnorm = 'percent',color = ~Genre)%>% 
+  layout(title="Marketamount genreshift in % from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
+● Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre ->
+Sales
 ```{r plot(SalesByGenrebyYear), echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
@@ -537,19 +624,160 @@ grouped <- vgsales  %>%
 
 
 filtered <- grouped %>% select(Year,Genre,gr_sum)
-typeof(vgsales)
-typeof(filtered)
+
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Global_Sales"
+
+)
+
 filtered %>%
 plot_ly() %>% 
-  add_bars(x=~Year,
-           y=~gr_sum, color=~Genre)
-dygraph(vgsales, main = "Sales by Genre by Year")
-dygraph(filtered, main = "Sales by Genre by Year")
+  add_lines(x=~Year,
+           y=~gr_sum, color=~Genre) %>% 
+  layout(title="Sales by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+
+
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', fill = 'tozeroy',color = ~Genre) %>% 
+  layout(title="Sales by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'one',color = ~Genre)%>% 
+  layout(title="Sales by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+ay <- list(
+  title = "Percent %"
+
+)
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'one',groupnorm = 'percent',color = ~Genre)%>% 
+  layout(title="Marketshare genreshift in % from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
 ```
--Polyline malen lubridate
 
-
-● Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre ->
-Sales
 ● Welche Jahre sind die besten in der Anzahl der releasten games
+```{r plot(AmountByYear), echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year) %>%
+  dplyr::summarize(Anzahl =n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  as.data.frame()
+
+
+filtered <- grouped %>% select(Year,Anzahl)
+
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Amount"
+
+)
+
+filtered %>%
+plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'lines', fill = 'tozeroy') %>% 
+  layout(title="Game Amount from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
 ● Welche Jahre sind die besten in Anzahl Sales pro game (neuer = besser?)
+
+```{r plot(SalesbyGameByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year) %>%
+  dplyr::summarize(gr_sum = sum(Global_Sales)/n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  as.data.frame()
+
+
+filtered <- grouped %>% select(Year,gr_sum)
+
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Sales Per Game (in mio)"
+
+)
+
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozeroy') %>% 
+  layout(title="Sales per Game from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
+```{r plot(SalesPerGamePerGenrebyYear), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year, Genre) %>%
+  dplyr::summarize(gr_sum = sum(Global_Sales)/n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  as.data.frame()
+
+
+filtered <- grouped %>% select(Year,Genre,gr_sum)
+view(filtered)
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Sales per Game"
+
+)
+
+filtered %>%
+plot_ly() %>% 
+  add_lines(x=~Year,
+           y=~gr_sum, color=~Genre) %>% 
+  layout(title="Sales per Game by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+
+
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', fill = 'tozeroy',color = ~Genre) %>% 
+  layout(title="Sales per Game by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'one',color = ~Genre)%>% 
+  layout(title="Sales per Game by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+ay <- list(
+  title = "Percent %"
+
+)
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'one',groupnorm = 'percent',color = ~Genre)%>% 
+  layout(title="Marketshare in Sales per Game by Genre from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+```
