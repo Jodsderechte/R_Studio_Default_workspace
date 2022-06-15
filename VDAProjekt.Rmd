@@ -22,9 +22,100 @@ library(xts)
 myPalette <- brewer.pal(8, "YlGn")
 vgsales <- read_csv("vgsales.csv")
 ```
+Die idee des Projekts ist die Analyse der Video Game Releases im laufe der Jahre von 1980-2016.
 
 
-Anzahl der Videospiele aufgelistet nach Platform
+Zuerst schauen wir und sie Anzahl der Videospiele und die Anzahl der verkäufe im laufe der Jahre an.
+Hierzu verwenden wir Scatter Plots
+
+
+```{r plot(AmountByYear), echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year) %>%
+  dplyr::summarize(Anzahl =n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  as.data.frame()
+
+
+filtered <- grouped %>% select(Year,Anzahl)
+
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Amount"
+
+)
+
+filtered %>%
+plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'lines', fill = 'tozeroy') %>% 
+  layout(title="Game Amount from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
+
+```{r plot(GameSalesByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year) %>%
+  dplyr::summarize(gr_sum = sum(Global_Sales)) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  as.data.frame()
+
+
+filtered <- grouped %>% select(Year,gr_sum)
+
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Sales Per Game (in mio)"
+
+)
+
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozeroy') %>% 
+  layout(title="Sales per Game from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
+
+```{r plot(SalesbyGameByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year) %>%
+  dplyr::summarize(gr_sum = sum(Global_Sales)/n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  as.data.frame()
+
+
+filtered <- grouped %>% select(Year,gr_sum)
+
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Sales per Year(in mio)"
+
+)
+
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozeroy') %>% 
+  layout(title="Sales per Game from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
+Hier erkennen wir das 2008 und 2009 die Jahre waren in denen die Meisten Games Releast wurden und diese auch die meisten Verkäufe haben.
+Den größten per Game Verkaufswert gab es allerdings 1984,1985 und 1989. Neuere spiele hingegen verkaufen sich durchschnittlich schlechter was durch das größere Angebot auch zu erwarten ist.
+
+Nun betrachten wir die Anzahl der Videospiele aufgelistet nach Platform.
 ```{r noplot, echo = TRUE, message=FALSE, results='markup', include =FALSE,}
 vgsales %>% 
   plot_ly(
@@ -52,6 +143,8 @@ vgsales %>%
     title="Sales by Platform (in mio)")
 
 ```
+Hierbei stellt sich die Frage ob ältere Plattformen mehr Spielereleases haben wovon auszugehen ist.
+Hierzu verwenden wir ein einfaches Balkendiagramm welche eine gute erste übersicht bietet.
 ```{r plot, echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
   group_by(Platform) %>% 
@@ -79,40 +172,10 @@ ordered%>%
          
          )
 ```
-Ältere Plattformen/spiele haben mehr verkäufe bzw Wie hat sich die Anzahl der
-verkäufe im laufe der jahre entwickelt?
-(Gefiltert auf Plattformen mit mindestens 60 mio in Sales im entsprechenden Jahr)
-```{r plot(SalesPerPlatformbyYear), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
-
-grouped <- vgsales  %>%                                 
-  group_by(Year, Platform) %>%
-  dplyr::summarize(gr_sum = sum(Global_Sales)) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017')  %>% filter(gr_sum>60)%>%
-  as.data.frame()
-grouped <- grouped %>%arrange(desc(gr_sum)) %>% 
-  group_by(Year, Platform) %>%
-  slice(1:3)
-
-filtered <- grouped %>% select(Year,Platform,gr_sum)
-ax <- list(
-  title = "Year"
-)
-
-ay <- list(
-  title = "Sales per Platform (in mio)"
-
-)
+Dies lässt sich nicht generell bestätigen aber ein Trend ist definitiv erkennbar.
 
 
-filtered %>%
-plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'one',color = ~Platform)%>% 
-  layout(title="Sales per Platform from 1980-2016",
-         xaxis = ax,
-         yaxis = ay
-         )
-
-```
-
-Welche Plattform ist die beste und unterscheidet sich diese nach Region?
+Nun stellt sich die Frage welche Plattform die meisten Sales hat.
 
 ```{r plot(PlatformRanking_Global), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -146,9 +209,13 @@ ordered%>%
          yaxis = ay
          )
 ```
-● Gibt es Unterschiede in den Regionen/hängt das mit der Anzahl der Einwohner der
-Region zusammen? (Asian>US>EU)
+Wie sich herausstellt ist dies jedoch nicht die Platform welches die meisten Gamereleases hat.
 
+Nun analzsieren wir die unterschiede der Regionen.
+
+Hierzu verwenden wir Sowohl sorted bar plots sowie der abwechslungshalber pie charts.
+
+Einzuwenden hierbei ist das die Regionen natürlich unterschiedlich viele Einwohner haben ein vergleich der Absoluten Saleswerte ist hierbei natürlich nur wenig ausschlaggebend zeigt aber einen generellen beliebtheitstrend der Konsolen auf.
 ```{r plot(PlatformRanking_EU), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
   group_by(Platform) %>% 
@@ -265,16 +332,54 @@ ordered%>%
 ordered%>%
   plot_ly() %>% 
   add_pie(values =~Global_Sales,labels=~Platform,textinfo='label+percent',
-           name="JP Sales Amount by Publisher") %>% 
-  layout(title="JP Sales Amount by Publisher",
+           name="JP Sales Amount by Platform") %>% 
+  layout(title="JP Sales Amount by Platform",
          xaxis = ax,
          yaxis = ay
          )
 ```
-Bestimmte Entwickler/Publisher häufen sich (Nintendo/EA)
+Wohingegen in EU sony mit der PS2 und PS3 die liste anführt hat in den USA Microsoft mit der Xbox360 die Nase vorn. In Japan hingegen ist wie zu erwarten Nintendo mit dem DS der Markführer.
+
+Um sich das Ganze etwas genauer anzuschauen betrachten wir die Anzahl der Sales per Platform im Verlauf der Jahre.
+
+Um eine überladung des Diagramms zu verhindern werden hier allerdings nur Plattformen mit mindestens 60 mio in Sales im entsprechenden Jahr berücksichtigt. Dies hat den Nachteil das einige z.T wichtige Daten Fehlen, ein Weglassen ebenjenes Filters fürt aber zu kompletter unübersichtlichkeit.
+```{r plot(SalesPerPlatformbyYear), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>%                                 
+  group_by(Year, Platform) %>%
+  dplyr::summarize(gr_sum = sum(Global_Sales)) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017')  %>% filter(gr_sum>60)%>%
+  as.data.frame()
+grouped <- grouped %>%arrange(desc(gr_sum)) %>% 
+  group_by(Year, Platform) %>%
+  slice(1:3)
+
+filtered <- grouped %>% select(Year,Platform,gr_sum)
+ax <- list(
+  title = "Year"
+)
+
+ay <- list(
+  title = "Sales per Platform (in mio)"
+
+)
 
 
-Top Publisher nach Anzahl der Games
+filtered %>%
+plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'one',color = ~Platform)%>% 
+  layout(title="Sales per Platform from 1980-2016",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
+Hier erkennen wir das Platform, wie zu erwarten, meist kurz nach Release die größten verkäufe verzeichnen.
+
+
+
+
+Nun stellt sich die Frage ob sich neben bestimmten Platformen auch bestimmte Entwickler/Publisher häufen. Hierbei gehen wir davon aus das vermutlich Nintendo und EA die liste anführen.
+Hierzu verwenden wir wiederum sorted Bar Charts und kürzen die Namen und die Begriffe "Entertainment", "Interactive" und "Studios" da dies die Namen nur unnötig verlängert und Filtern Publisher mit Geringen Anzahl an Game Releases.
+
 ```{r plot2, echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
   group_by(Publisher) %>% 
@@ -306,7 +411,6 @@ ordered%>%
          
          )
 ```
-Top Publisher nach Anzahl der Sales
 
 ```{r plot(PublisherRanking_Global), echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
@@ -345,8 +449,10 @@ ordered%>%
          )
 ```
 
-● Welche Spiele/Publisher/Genres in welchen Teilen der welt sich häufen (Nintendo in
-Asien, Shooter in US/EU)
+Auffällig ist hier die diskrepanz zwischen Anzahl der Spielereleases und Anzahl der Spieleverkäufe. Im gegensatz zu der Anzahl der Spiele (bei dem Nintendo nur auf platz 6 Sitz) dominiert Nintendo im anzahl der Sales.
+
+
+Nun stellt sich wieder einmal die Frage ob sich dies in Bestimmten teilen der Welt unterscheidet und hierzu verwenden wir wiederum die SortedBar/Piechart kombo und die bereits genannten Filter
 
 ```{r plot(PublisherRanking_EU), echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
@@ -482,7 +588,9 @@ ordered%>%
          yaxis = ay
          )
 ```
+Zwischen Eu und US lassen sich hier kaum Unterschiede feststellen in Japan hingegen ist eine verschiebung zu erkennen. Japanische Publisher führen hierbei die Liste an und drängen andere große unternehmen von den Top spots.
 
+Nun schauen wir uns die Genreverteilung von Videospielen an. Hierzu verwenden wir wiederum die Altbekannte sorted Bar/Pie-Chart kombo.
 
 ```{r plot(GenreAmount_GLobal), echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
@@ -522,7 +630,8 @@ ordered%>%
          yaxis = ay
          )
 ```
-```{r plot(SalesByGenre), echo = TRUE, message=FALSE, results='markup', }
+Hierbei ist zu erkennen das Action und Sports ein Großteil (34%) der Genres ausmachen. Die Frage ist jedoch wie sind die Verkäufe verteilt und beeinflusst die anzahl der Games pro Genre irgendwie die Verkaufszahlen?
+```{r plot(SalesByGenre_Global), echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>% 
   group_by(Genre) %>% 
@@ -561,8 +670,131 @@ ordered%>%
          yaxis = ay
         )
 ```
+Hierbei erkennen wir das es einige Unterschiede gibt Action und sports machen jedoch weiterhin einen Grosteil des Markts aus.
 
-● Genrenentwicklung über die Jahre
+Nun schauen wir uns die Unterscheide in den Regionen an.
+```{r plot(SalesByGenre_EU), echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>% 
+  group_by(Genre) %>% 
+  summarize(sum(EU_Sales))  %>%
+rename(
+    Global_Sales = "sum(EU_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Sales"
+
+)
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="Sales by Genre (EU)") %>% 
+  layout(title="Sales by Genre (EU)",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Genre,
+           name="Sales by Genre (EU)") %>% 
+  layout(title="Sales by Genre (EU)",
+         xaxis = ax,
+         yaxis = ay
+        )
+```
+
+```{r plot(SalesByGenre_NA), echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>% 
+  group_by(Genre) %>% 
+  summarize(sum(NA_Sales))  %>%
+rename(
+    Global_Sales = "sum(NA_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Sales"
+
+)
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="Sales by Genre (NA)") %>% 
+  layout(title="Sales by Genre (NA)",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Genre,
+           name="Sales by Genre (NA)") %>% 
+  layout(title="Sales by Genre (NA)",
+         xaxis = ax,
+         yaxis = ay
+        )
+```
+
+```{r plot(SalesByGenre_JP), echo = TRUE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>% 
+  group_by(Genre) %>% 
+  summarize(sum(JP_Sales))  %>%
+rename(
+    Global_Sales = "sum(JP_Sales)"
+    )
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Sales"
+
+)
+
+ordered%>%
+  plot_ly() %>% 
+  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc="true"),
+           y=~Global_Sales,
+           name="Sales by Genre (JP)") %>% 
+  layout(title="Sales by Genre (JP)",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+ordered%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Genre,
+           name="Sales by Genre (JP)") %>% 
+  layout(title="Sales by Genre (JP)",
+         xaxis = ax,
+         yaxis = ay
+        )
+```
+Hierbei erkennen wir wieder einmal das US und EU recht ähnlich sind wohingegen Japan ein gänzlich anderes Genreshema erkennen lässt. In Japan dominiert Role-Playing welches sich in EU und US nur auf platz 7 befindet.
+
+Nun schauen wir uns die Genreentwicklung über die Jahre an. Hierzu verwenden wir ein LinePlot sowie verschieden Scatter Plots.
 ```{r plot(AmountOfGamesByGenrebyYear), echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
@@ -613,8 +845,7 @@ plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', stackgroup = 'o
          yaxis = ay
          )
 ```
-● Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre ->
-Sales
+Nun stellt sich die Frage wi
 ```{r plot(SalesByGenrebyYear), echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
@@ -669,64 +900,7 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          yaxis = ay
          )
 ```
-
-● Welche Jahre sind die besten in der Anzahl der releasten games
-```{r plot(AmountByYear), echo = TRUE, message=FALSE, results='markup', }
-
-grouped <- vgsales  %>%                                 
-  group_by(Year) %>%
-  dplyr::summarize(Anzahl =n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
-  as.data.frame()
-
-
-filtered <- grouped %>% select(Year,Anzahl)
-
-ax <- list(
-  title = "Year"
-)
-
-ay <- list(
-  title = "Amount"
-
-)
-
-filtered %>%
-plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'lines', fill = 'tozeroy') %>% 
-  layout(title="Game Amount from 1980-2016",
-         xaxis = ax,
-         yaxis = ay
-         )
-
-```
-● Welche Jahre sind die besten in Anzahl Sales pro game (neuer = besser?)
-
-```{r plot(SalesbyGameByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
-
-grouped <- vgsales  %>%                                 
-  group_by(Year) %>%
-  dplyr::summarize(gr_sum = sum(Global_Sales)/n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
-  as.data.frame()
-
-
-filtered <- grouped %>% select(Year,gr_sum)
-
-ax <- list(
-  title = "Year"
-)
-
-ay <- list(
-  title = "Sales Per Game (in mio)"
-
-)
-
-filtered %>%
-plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozeroy') %>% 
-  layout(title="Sales per Game from 1980-2016",
-         xaxis = ax,
-         yaxis = ay
-         )
-
-```
+Nun stellt sich die Frage hab sich die Verkäufe ähnlich der anzahl der GameReleases entwickelt?
 ```{r plot(SalesPerGamePerGenrebyYear), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
