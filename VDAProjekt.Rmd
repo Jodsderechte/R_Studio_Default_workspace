@@ -21,7 +21,7 @@ library(dygraphs)
 library(xts)
 myPalette <- brewer.pal(8, "YlGn")
 vgsales <- read_csv("vgsales.csv")
-WorldPopulation <- read.csv("H:/Hochschule/VDA/R_Studio_Default_workspace/API_SP.POP.TOTL_DS2_en_csv_v2_4218816.csv")
+WorldPopulation <- read.csv("API_SP.POP.TOTL_DS2_en_csv_v2_4218816.csv")
 ```
 Das verwendete Dataset des Projekts: https://www.kaggle.com/datasets/gregorut/videogamesales
 
@@ -1001,6 +1001,10 @@ grouped$Publisher <-str_remove_all(grouped$Publisher, "Studios")
 grouped$Publisher <-str_remove_all(grouped$Publisher, "Games")
 grouped$Publisher <-str_remove_all(grouped$Publisher, "Game")
 
+PublisherSales <- grouped %>% group_by(Publisher) %>% summarize(sum(Global_Sales))
+
+  
+
 ax <- list(
   title = "Genre"
 )
@@ -1021,20 +1025,5 @@ grouped%>%
          barmode = 'stack'
          )
 
-
-```
-
-
-Wie sieht es mit den Pro kopf Sales Global und pro Region aus?
-
-```{r plot(SalesPerGamePerPersonperYear), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
-grouped <- vgsales  %>%                                 
-  group_by(Year) %>%
-  dplyr::summarize(gr_sum = sum(Global_Sales), Population = sum(WorldPopulation$Year)) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
-  as.data.frame()
-
-view(grouped)
-filtered <- grouped %>% select(Year,gr_sum)
-view(filtered)
 
 ```
