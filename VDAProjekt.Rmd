@@ -1001,8 +1001,6 @@ grouped$Publisher <-str_remove_all(grouped$Publisher, "Studios")
 grouped$Publisher <-str_remove_all(grouped$Publisher, "Games")
 grouped$Publisher <-str_remove_all(grouped$Publisher, "Game")
 
-PublisherSales <- grouped %>% group_by(Publisher) %>% summarize(sum(Global_Sales))
-
   
 
 ax <- list(
@@ -1020,6 +1018,45 @@ grouped%>%
             type='bar',
            color=~fct_reorder(Genre,Global_Sales, .desc="true"))  %>% 
   layout(title="Sales by Genre By Publisher",
+         xaxis = ax,
+         yaxis = ay,
+         barmode = 'stack'
+         )
+
+
+```
+```{r plot(AmountGenrebyPublisher), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+grouped <- vgsales  %>% 
+  group_by(Publisher,Genre) %>% 
+  summarize(Anzahl =n(),sum(Global_Sales))  %>%
+rename(
+    Global_Sales = "sum(Global_Sales)"
+    ) %>% filter(Global_Sales>50)
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+
+grouped$Publisher <-str_remove_all(grouped$Publisher, "Entertainment")
+grouped$Publisher <-str_remove_all(grouped$Publisher, "Interactive")
+grouped$Publisher <-str_remove_all(grouped$Publisher, "Studios")
+grouped$Publisher <-str_remove_all(grouped$Publisher, "Games")
+grouped$Publisher <-str_remove_all(grouped$Publisher, "Game")
+
+
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Amount"
+
+)
+
+grouped%>%
+  plot_ly(x=~fct_reorder(Publisher,Anzahl, .desc="true"),
+           y=~Anzahl,
+            type='bar',
+           color=~fct_reorder(Genre,Anzahl, .desc="true"))  %>% 
+  layout(title="Amount by Genre By Publisher",
          xaxis = ax,
          yaxis = ay,
          barmode = 'stack'
