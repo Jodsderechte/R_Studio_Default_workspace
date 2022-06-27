@@ -985,14 +985,26 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
 
 Wie sieht es mit Genres pro publisher aus?
 
-Hierzu verwenden wir ein stacked Bar-Plot. Dazu filtern wir Genres von Publishern mit mindestens 50 mio in Sales. Dies entfernt natürlich einiges an Information allerdings geht sonst einiges an Übersichtlichkeit verloren. Zusätzlich werden erneut die Worte "Entertainment", "Interactive", "Game", "Games" und "Studios" entfernt.
+Hierzu verwenden wir ein stacked Bar-Plot. Dazu filtern wir die top 10 Publishern aka Publisher mit min 116 mio in Sales. Dies entfernt natürlich einiges an Information allerdings geht sonst einiges an Übersichtlichkeit verloren. Zusätzlich werden erneut die Worte "Entertainment", "Interactive", "Game", "Games" und "Studios" entfernt.
 ```{r plot(GenrebyPublisher), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+
 grouped <- vgsales  %>% 
   group_by(Publisher,Genre) %>% 
   summarize(sum(Global_Sales))  %>%
 rename(
     Global_Sales = "sum(Global_Sales)"
-    ) %>% filter(Global_Sales>50)
+    ) 
+
+PublisherSales <- grouped %>% 
+  group_by(Publisher) %>% 
+  summarize(sum(Global_Sales)) %>%
+rename(
+    Global_Sales = "sum(Global_Sales)"
+    ) %>% filter(Global_Sales>300)
+
+grouped <- grouped %>% filter(Publisher %in% PublisherSales$Publisher)
+
 grouped$Global_Sales<-as_vector(grouped$Global_Sales)
 
 grouped$Publisher <-str_remove_all(grouped$Publisher, "Entertainment")
@@ -1013,7 +1025,7 @@ ay <- list(
 )
 
 grouped%>%
-  plot_ly(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+  plot_ly(x=~Publisher,
            y=~Global_Sales,
             type='bar',
            color=~fct_reorder(Genre,Global_Sales, .desc="true"))  %>% 
@@ -1026,14 +1038,28 @@ grouped%>%
 
 ```
 ```{r plot(AmountGenrebyPublisher), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+
+
 grouped <- vgsales  %>% 
   group_by(Publisher,Genre) %>% 
   summarize(Anzahl =n(),sum(Global_Sales))  %>%
 rename(
     Global_Sales = "sum(Global_Sales)"
-    ) %>% filter(Global_Sales>50)
-grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+    )
 
+PublisherSales <- grouped %>% 
+  group_by(Publisher) %>% 
+  summarize(sum(Global_Sales)) %>%
+rename(
+    Global_Sales = "sum(Global_Sales)"
+    ) %>% filter(Global_Sales>300)
+
+
+
+grouped <- grouped  %>% filter(Publisher %in% PublisherSales$Publisher)
+
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
 grouped$Publisher <-str_remove_all(grouped$Publisher, "Entertainment")
 grouped$Publisher <-str_remove_all(grouped$Publisher, "Interactive")
 grouped$Publisher <-str_remove_all(grouped$Publisher, "Studios")
@@ -1052,10 +1078,10 @@ ay <- list(
 )
 
 grouped%>%
-  plot_ly(x=~fct_reorder(Publisher,Anzahl, .desc="true"),
+  plot_ly(x=~Publisher,
            y=~Anzahl,
             type='bar',
-           color=~fct_reorder(Genre,Anzahl, .desc="true"))  %>% 
+           color=~Genre)  %>% 
   layout(title="Amount by Genre By Publisher",
          xaxis = ax,
          yaxis = ay,
