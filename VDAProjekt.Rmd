@@ -873,6 +873,8 @@ plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', stackgroup = 'o
          yaxis = ay
          )
 ```
+Hierbei zu erkennen ist Obwohl die Anzahl der Jährlichen Spielereleases über die Jahre hinweg stetig wächst bleiben die Meisten Genres ähnlich viel vertreten. Auffällig sind hierbei Strategy-Games die erst 1991 das erste mal auftretem Seitdem obwohl sie Leicht an Marketshare verlieren grob gleich bleiben. Außerdem sind Action Games die Spiele mit der wohl größten volatilität. Sind es 1982 noch fast 50% der Gamereleases fällt deren aufkommen 1084 schon auf nur noch knapp 10% ab und 1986 steigt der Wert wieder auf fast 30%. Dieser Trend setzt sich fort bis 1996 ab welchem Zeitpunkt sich Action Games von 3.6% über die Jahre bis 2016 bis 35% entwickeln.
+
 Schauen wir uns an wie sich die verkäufe entwickelt haben.
 ```{r plot(SalesByGenrebyYear), echo = TRUE, message=FALSE, results='markup', }
 
@@ -928,6 +930,8 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          yaxis = ay
          )
 ```
+Wie zu erwarten lässt sich hier ein Großer overlap zu den Anzahl der Gamereleases feststellen.
+
 Nun stellt sich die Frage hab sich die Verkäufe ähnlich der anzahl der GameReleases entwickelt?
 ```{r plot(SalesPerGamePerGenrebyYear), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
 
@@ -982,8 +986,10 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          yaxis = ay
          )
 ```
+Auch hier ist wie erwartet die Entwicklung Prozentual ähnlich sind. Auffällig ist jedoch das Shooter trotz ihrer geringen Vertretung in der Prozentualen Verteilung 1984 sowie 2014,2015 und 2016 die Nase Vorne haben. Platform Games haben 1985,1988 und 1990 die Nase Vorne. Die Hochzeit der Puzzle Games sind unangefochten 1988 mit dem Weltweitbekannten und auf Platz 6 der meistverkauften videospiele: Tetris. Ein genauerer vergleich der Ausschläge mit den dementsprechenden Videospielen wäre hier wünschenswert würde aber das Ausmaß dieser Arbeit sprengen.
 
-Wie sieht es mit Genres pro publisher aus?
+
+Nun stellt sich die Frage wie es mit Genres pro publisher aussieht? Gibt es hier Publisher die verschiedene Genres bevorzugen bzw. deren Bestseller sich in bestimmten Genres Tummeln?
 
 Hierzu verwenden wir ein stacked Bar-Plot. Dazu filtern wir die top 10 Publishern aka Publisher mit min 116 mio in Sales. Dies entfernt natürlich einiges an Information allerdings geht sonst einiges an Übersichtlichkeit verloren. Zusätzlich werden erneut die Worte "Entertainment", "Interactive", "Game", "Games" und "Studios" entfernt.
 ```{r plot(GenrebyPublisher), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
@@ -1028,7 +1034,7 @@ grouped%>%
   plot_ly(x=~Publisher,
            y=~Global_Sales,
             type='bar',
-           color=~fct_reorder(Genre,Global_Sales, .desc="true"))  %>% 
+           color=~Genre)  %>% 
   layout(title="Sales by Genre By Publisher",
          xaxis = ax,
          yaxis = ay,
@@ -1089,4 +1095,184 @@ grouped%>%
          )
 
 
+
 ```
+Bei dem vergleich der Werte ist hier zu bemerken, dass die meisten Publisher Hierbei sich mit der Anzahl der Spiele und den Sales gut abdecken. Die auffälligsten diskrepanzen sind hierbei EA mit dem Sports Genre und ihren järlich releasten Spielen FiFa/NBA2k etc. sowie Nintendo mit der Platformreihe Super Mario. Schauen wir uns diese Beiden Firmen Noch einmal im Detail an.
+
+Hierzu verwenden wir wieder die Bar/Pie chart Combo die uns Bereits aus vorderen Teilen der Ausarbeitung bekannt sind.
+```{r plot(GenrebyPublisherEA), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+
+grouped <- vgsales  %>% 
+  group_by(Publisher,Genre) %>% 
+  summarize(sum(Global_Sales))  %>%
+rename(
+    Global_Sales = "sum(Global_Sales)"
+    ) %>% 
+  filter(Publisher == "Electronic Arts")
+
+
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Sales"
+
+)
+
+grouped%>%
+  plot_ly() %>% add_bars(x=~Genre,
+           y=~Global_Sales,
+           color=~Genre)  %>% 
+  layout(title="Sales by Genre for Electronic Arts",
+         xaxis = ax,
+         yaxis = ay,
+         barmode = 'stack'
+         )
+
+grouped%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Genre,textinfo='label+percent',sort = FALSE,
+           name="Sales by Genre for Electronic Arts") %>% 
+  layout(title="Sales by Genre for Electronic Arts",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+
+```
+```{r plot(AmountGenrebyPublisherEA), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>% 
+  group_by(Publisher,Genre) %>% 
+  summarize(Anzahl =n())  %>% 
+  filter(Publisher == "Electronic Arts")
+
+
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Amount"
+
+)
+
+
+
+grouped%>%
+  plot_ly() %>% add_bars(x=~Genre,
+           y=~Anzahl,
+           color=~Genre)  %>% 
+  layout(title="Amount by Genre for Electronic Arts",
+         xaxis = ax,
+         yaxis = ay,
+         barmode = 'stack'
+         )
+
+
+grouped%>%
+  plot_ly() %>% 
+  add_pie(values =~Anzahl,labels=~Genre,textinfo='label+percent',sort = FALSE,
+           name="Amount by Genre for Electronic Arts") %>% 
+  layout(title="Amount by Genre for Electronic Arts",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
+Schauen wir uns EA hier im Detail an fällt allerdings auf das die Diskrepanz zwischen Sales und Anzahl der Gamereleases für EA bei Sports gar nicht so groß ist (41.5% vs 43.2%). Die größeren diskrepanzen sind hier Shooter welches nur 10% der Gamereleases sind aber gut 15% der Sales und Action mit 13.5% der Gamereleases und 10.4% der Sales.
+
+Schauen wir uns nun Nintendo an.
+```{r plot(GenrebyPublisherNintendo), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+
+grouped <- vgsales  %>% 
+  group_by(Publisher,Genre) %>% 
+  summarize(sum(Global_Sales))  %>%
+rename(
+    Global_Sales = "sum(Global_Sales)"
+    ) %>% 
+  filter(Publisher == "Nintendo")
+
+
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Sales"
+
+)
+
+grouped%>%
+  plot_ly() %>% add_bars(x=~Genre,
+           y=~Global_Sales,
+           color=~Genre)  %>% 
+  layout(title="Sales by Genre for Nintendo",
+         xaxis = ax,
+         yaxis = ay,
+         barmode = 'stack'
+         )
+
+grouped%>%
+  plot_ly() %>% 
+  add_pie(values =~Global_Sales,labels=~Genre,textinfo='label+percent',sort = FALSE,
+           name="Sales by Genre for Nintendo") %>% 
+  layout(title="Sales by Genre for Nintendo",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+
+```
+```{r plot(AmountGenrebyPublisherNintendo), include=TRUE, echo = FALSE, message=FALSE, results='markup', }
+
+grouped <- vgsales  %>% 
+  group_by(Publisher,Genre) %>% 
+  summarize(Anzahl =n())  %>% 
+  filter(Publisher == "Nintendo")
+
+
+grouped$Global_Sales<-as_vector(grouped$Global_Sales)
+
+ax <- list(
+  title = "Genre"
+)
+
+ay <- list(
+  title = "Amount"
+
+)
+
+
+
+grouped%>%
+  plot_ly() %>% add_bars(x=~Genre,
+           y=~Anzahl,
+           color=~Genre)  %>% 
+  layout(title="Amount by Genre for Nintendo",
+         xaxis = ax,
+         yaxis = ay,
+         barmode = 'stack'
+         )
+
+
+grouped%>%
+  plot_ly() %>% 
+  add_pie(values =~Anzahl,labels=~Genre,textinfo='label+percent',sort = FALSE,
+           name="Amount by Genre for Nintendo") %>% 
+  layout(title="Amount by Genre for Nintendo",
+         xaxis = ax,
+         yaxis = ay
+         )
+
+```
+Bei Nintendo zu erkennen ist hier, dass Platform spiele ein Kassenchlager sind. Nehmen diese nur 16% der spielereleases ein so bringen sie dennoch 24% der Sales ein. Gleiches Gilt für Sport games. 8% gegenüber 12%. Action (11% vs 7%), Misc (14% vs 10%) und Puzzle Games (10.5% vs 7%) sind jedoch nicht so erfolgreich.
