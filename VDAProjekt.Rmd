@@ -11,8 +11,12 @@ output:
    
 ---
 <center>![](Videogames.png) </center>
-Das verwendete Dataset des Projekts: https://www.kaggle.com/datasets/gregorut/videogamesales welches aus den Daten von https://www.vgchartz.com/ für die Jahre 1980 bis 2016 besteht.
-Dieses Dataset umfasst die Folgenden Spalten bzw.Daten.
+
+***
+
+### **Angaben zu den Daten**
+Das verwendete Dataset des Projekts: https://www.kaggle.com/datasets/gregorut/videogamesales   
+Dies besteht aus den Daten von https://www.vgchartz.com/ für die Jahre 1980 bis 2016 und umfasst die Folgenden Spalten bzw.Daten.
 
 * Rank - Die Platzierung des Spiels nach Anzahl der Verkäufen
 * Name - Der Name des Spiels
@@ -26,24 +30,74 @@ Dieses Dataset umfasst die Folgenden Spalten bzw.Daten.
 * Other_Sales - Die Anzahl der Verkäufe im Rest der Welt (in millionen)
 * Global_Sales - Die Anzahl der Verkäufe Weltweit (in millionen)
 
-Bevor wir mit der Analyse der Daten beginnen können Stellen wir erstmal ein paar Thesen auf die wir im laufe des Projekts Bestätigen bzw Wiederlegen wollen.
+***
+
+### **Inhaltsverzeichnis**
 
 
-1. [Welche Jahre sind die besten in der Anzahl der releasten Games und Sales? (Werden heutzutage mehr Spiele Releast als noch 1980?)](#VideoGameReleases)
-2. [Welche Jahre sind die besten in Anzahl Sales pro Game (heißt neuer automatisch besser?)](#VideoGameReleases)
-3. [Welche Plattform ist die beste in Anzahl verkäufen? Welche in Anzahl der Game Releases? (Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe?)](#Platformanalyse)
-4. [Favorisieren verschiedene Regionen verschiedene Platformen? (Verkaufen die Regionenheimischen Platformen automatisch auch die Meisten Spiele?)](#PlatformRankingByRegion)
-5. [Wie Entwickeln sich die Verkäufe pro Platform im laufe der Jahre? (Haben Platformen kurz nach Release den größten "Hype"?)](#SalesPerPlatform)
-6. [Bestimmte Publisher häufen sich in Anzahl der Spiele und der Verkäufen (z.B. Nintendo, EA, Activision Blizzard)](#PublisherReleases)
-7. [Gibt es regionale Unterschiede in den Publishern? (Werden Regioneninterne Publisher Favoritisiert?)](#PublisherRankingbyRegion)
-8. [Wie sind die Genres der Spiele verteilt? (Häufen sich bestimmte Genres bei Anzahl und Verkaufszahlen? Gibt es Genres die besser/schlechter Performen als sie sollten?)](#GenreAmountGlobal)
-9. [Gibt es regionale Unterschiede in den Genres?(Gibt es Regionen die Spezifische Genres Favorisieren welche in anderen Regionen nur eine geringe Rolle spielt?)](#GenreAmountByRegion)
-* [Ältere Plattformen/spiele haben mehr verkäufe bzw Wie hat sich die Anzahl der verkäufe im laufe der jahre entwickelt?]()
-* [Genrenentwicklung über die Jahre]()
-* [Welche Spiele/Publisher/Genres in welchen Teilen der welt sich häufen (Nintendo in Asien, Shooter in US/EU)]()
-* [Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre -> Sales]()
-* [Gibt es Unterschiede in den Regionen/hängt das mit der Anzahl der Einwohner der Region zusammen? (Asia>US>EU)]()
+1. Releaseanalyse
+    + [nach Anzahl](#VideoGameReleases)
+    + [nach Sales](#VideoGameReleases)
+    + [nach Sales pro Game](#VideoGameReleases)
+    
+2. Platformanalyse
+    + [Global](#Platformanalyse)
+    + [nach Region](#PlatformRankingByRegion)
+    + [Verkaufszhlentwicklung im laufe der Jahre](#SalesPerPlatform)
+    
+3. Publisheranalyse 
+    + [Global](#PublisherReleases)
+    + [nach Region](#PublisherRankingbyRegion)
+    
+4. Genreanalyse
+    + [Global](#GenreAmountGlobal)
+    + [nach Region](#GenreAmountByRegion)
+    
+5. Genreverteilung pro Jahr
+    + [nach Anzahl](#GenreAmountPerYear)
+    + [nach Verkaufszahlen](#GenreSalesPerYear)
+    + [nach Verkaufszahlen pro Spiel](#GenreSalesPerGamePerYear)
+    
+6. Publisher Genres
+    + [für die Top Publisher](#GenreByPublisherGlobal)
+    + [Detailanalyse Electronic Arts](#GenreByPublisherEA)
+    + [Detailanalyse Nintendo](#GenreByPublisherNintendo)
+    
+7. Kritischer Rückblick
+    + [Ausblick in die Zukunft](#AusblickInDieZukunft)
+    + [Aufgetretene Probleme](#AufgetreteneProbleme)
 
+***
+### Thesen
+
+Bevor wir mit der Analyse der Daten beginnen können Stellen wir erstmal ein paar Thesen bzw. Fragestellungen auf die wir im laufe des Projekts hinterfragen bzw beantworten wollen.  
+
+* Welche Jahre sind die besten in der Anzahl der releasten Games und Sales?  [Antwort](#VideoGameReleasesAmount)
+* Werden heutzutage mehr Spiele Releast als noch 1980? [Antwort](#VideoGameReleases)
+* Welche Jahre sind die besten in Anzahl Sales pro Game? Werden neuere Spiele automatisch mehr Gekauft? [Antwort](#VideoGameReleases)
+
+* Welche Plattform ist die beste in Anzahl verkäufen? Welche in Anzahl der Game Releases? [Antwort](#Platformanalyse)
+* Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe? [Antwort](#Platformanalyse)
+* Favorisieren verschiedene Regionen verschiedene Platformen? Verkaufen die Regionenheimischen Platformen automatisch auch die meisten Spiele? [Antwort](#PlatformRankingByRegion)
+* Wie Entwickeln sich die Verkäufe pro Platform im laufe der Jahre? Haben Platformen kurz nach Release den größten "Hype"? [Antwort](#SalesPerPlatform)
+
+* Bestimmte Publisher häufen sich in Anzahl der Spiele und der Verkäufen (z.B. Nintendo, EA, Activision Blizzard) [Antwort](#PublisherReleases)  
+* Gibt es regionale Unterschiede in den Publishern? Werden Regioneninterne Publisher Favoritisiert? [Antwort](#PublisherRankingbyRegion)
+
+* Wie sind die Genres der Spiele verteilt? Häufen sich bestimmte Genres bei Anzahl und Verkaufszahlen? Gibt es Genres die besser/schlechter Performen als sie sollten? [Antwort](#GenreAmountGlobal)   
+* Gibt es regionale Unterschiede in den Genres? (Gibt es Regionen die Spezifische Genres Favorisieren welche in anderen Regionen nur eine geringe Rolle spielt?) [Antwort](#GenreAmountByRegion)
+
+* Wie haben sich die Genres über die Jahre entwickelt? [Antwort](#GenreAmountPerYear)
+* Gibt es Genres die mal großen Einfluss hatten und nun Bedeutungslos sind? [Antwort](#GenreSalesPerGamePerYear)
+
+* Gibt es Publisher die bestimmte Genres bevorzugen bzw. Publisher deren Games eines bestimmten Genres sich besonders gut Verkaufen? [Antwort](#GenreByPublisherGlobal)
+
+
+***
+
+### Daten und Librarys
+Nach dem Vorstellen der Daten und dem aufstellen der initialen Thesen können wir nun mit dem einlesen der Daten beginnen.  
+Zusätzlich erstellen wir noch eine Farbpalette und importieren die Librarys
 ```{r setup, include=TRUE, echo=TRUE, message=FALSE}
 library(readr)
 library(tidyverse)
@@ -59,17 +113,20 @@ myPalette <- brewer.pal(10, "Paired")
 vgsales <- read_csv("vgsales.csv")
 ```
 
-
+***
 
 
 # Video Game Releases {#VideoGameReleases}
 
-Zuerst schauen wir und die Anzahl der Videospiele und die Anzahl der Verkäufe im laufe der Jahre an.
 
-Hierzu verwenden wir Liniendiagramme. Außerdem filtern wir alle Datensätze in denen kein Jahr angegeben ist sowie Datensätze mit den Jahren 2017 und 2020 um Fehlerhafte Daten und unvollständige Daten aus der Liste zu entfernen.
+Als erstes schauen wir uns die Anzahl der Videospielreleases, die Anzahl der Verkäufe und die Verkäufe pro Spiel im laufe der Jahre an.
+
 
 ## Game Releases over the Years {.tabset}
-### Game Amount 
+### Game Amount {#VideoGameReleasesAmount}
+
+Unsere erste These war "Welche Jahre sind die besten in der Anzahl der releasten Games und Sales?" Um dieser Fragestellung auf den Grund zugehen müssen wir zuerst einmal die Daten der Tabelle vgsales mithilfe der Funktion *group_by(Year)* anhand der Jahre Zusammenfassen. Nun erhalten wir eine nach den Jahren zusammengefasste Tabelle deren Einträge wir mit der Funktion  *dplyr::summarize(Anzahl =n())* abzählen und als Wert Anzahl abspeichern. Aufgrund der für diese analyse Fehlerhaften Daten verwenden wir noch die Funktion *filter()* um alle fehlenden Jahreseinträge sowie die Jahre 2020 und 2017 herauszufiltern. Letztere Jahre sind daher fehlerhaft, da der Datensatz 2016 erstellt wurde. Diese Daten speichern wir als *data.frame* in der Variable *grouped* ab. Im folgenden verwenden wir ebenjenes data.frame um nur die Einträge Jahr und Anzahl zu selectieren und in der Variable *filtered* abzuspeichern. Die erhaltene Tabelle hat nun zwei Spalten: Jahr und Anzahl. Desweiteren erstellen wir zwei Weitere Variablen *ax* und *ay* welche beide eine Liste mit nur einem Attribut sind: "Title". Nun verwenden wir *plot_ly()* um mithilfe der *type = 'scatter'* und *mode = 'lines'* Parameter ein Liniendiagramm zu erstellen. Außerdem nutzen wir die *layout()* funktion um einen titel zu erstellen, sowie mithilfe unsere beiden Variablen ax und ay um die Achsen zu beschriften
+
 ```{r plot(AmountByYear), echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
@@ -97,6 +154,13 @@ plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'lines', fill = 'tozero
          )
 
 ```
+
+Betrachten wir einmal das entstandene Diagramm. Zwischen 1980 und 1993 sind hier kaum unterschiede festzustellen und die Schwankungen können aufgrund der geringen Zahl der Veröffentlichungen (zwischen 14 und 49) vernachlässigt werden.Ab 1993 können wir dann eine stetiges Wachstum feststellen welches 1998 vorerst den höchstwert erreicht. In den Jahren 1999 und 2000 geht die Anzahl erst einmal leicht zurück bevor sich der Wert bis 2002 von 349 auf 829 mehr als verdoppelt. Bis 2004 ist wiederum ein leichter Rückgang festzustellen auf welchem ein Stetiges Wachstum zum Höchstwert von 1428 (2008) sowie 1431 (2009) folgt. Danach folgt ein extremer und mit unterbrechung von 2014 (582) und 2015 (614) stetiger Rückgang in den Releasezahlen auf einen Stand von 344 im Jahr 2016.
+
+Sehen wir uns diese Zahlen einmal genauer an kommt die Frage auf Woran diese Extremen Zahlen in den veröffentlichungen zurückzuführen sind? An diesem Punkt der Analyse können wir nur Spekulieren die Spitzen könnten allerdings an den Veröffentlichungen großer, den Markt bestimmenden Plattformen wie der PS2/3, der Xbox und den Platformen von Nintendo wie Gamecube oder Wii zurückzuführen sein.  
+Hierzu aber später [mehr](#SalesPerPlatform).
+
+
 ### Game Sales
 ```{r plot(GameSalesByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
 
@@ -153,14 +217,14 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozero
          )
 
 ```
+Den größten per Game Verkaufswert gab es allerdings 1984,1985 und 1989. Neuere spiele hingegen verkaufen sich durchschnittlich schlechter was durch das größere Angebot auch zu erwarten ist.
+
+
 ## {-}
 
 ***
 
-#Platform Analyse {#Platformanalyse}
-
-Hier erkennen wir das 2008 und 2009 die Jahre waren in denen die Meisten Games Releast wurden und diese auch die meisten Verkäufe haben.
-Den größten per Game Verkaufswert gab es allerdings 1984,1985 und 1989. Neuere spiele hingegen verkaufen sich durchschnittlich schlechter was durch das größere Angebot auch zu erwarten ist.
+# Platform Analyse {#Platformanalyse}
 
 Nun betrachten wir die Anzahl der Videospiele aufgelistet nach Platform.
 ```{r noplot, echo = TRUE, message=FALSE, results='markup', include =FALSE,}
@@ -202,7 +266,7 @@ ordered$Platform <- as_factor(ordered$Platform)
 
 
 ax <- list(
-  title = "Publisher"
+  title = "Platform"
 )
 
 ay <- list(
@@ -956,7 +1020,7 @@ Zwischen EU und US lassen sich hier kaum Unterschiede feststellen in Japan hinge
 
 ***
 
-# Genreverteilung der Videospiele {#GenreAmountGlobal}
+# Genreverteilung der Videospiele nach Anzahl {#GenreAmountGlobal}
 
 Nun schauen wir uns die Genreverteilung von Videospielen an. Hierzu verwenden wir wiederum die Altbekannte sorted Bar/Pie-Chart kombo.
 
@@ -1031,6 +1095,8 @@ ordered%>%
 ## {-}
 
 Hierbei ist zu erkennen das Action und Sports ein Großteil (34%) der Genres ausmachen. Die Frage ist jedoch wie sind die Verkäufe verteilt und beeinflusst die anzahl der Games pro Genre irgendwie die Verkaufszahlen?
+
+
 
 ## Sales Amount {.tabset}
 
@@ -1320,6 +1386,8 @@ Hierbei erkennen wir wieder einmal das US und EU recht ähnlich sind wohingegen 
 
 Nun schauen wir uns die Genreentwicklung über die Jahre an. Hierzu verwenden wir LinePlots.
 
+# Genreentwicklung im laufe der Jahre nach anzahl {#GenreAmountPerYear}
+
 ## Genre Amount per Year {.tabset}
 
 ### Lines
@@ -1441,6 +1509,8 @@ plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', stackgroup = 'o
 ## {-}
 
 Hierbei zu erkennen ist Obwohl die Anzahl der Jährlichen Spielereleases über die Jahre hinweg stetig wächst bleiben die Meisten Genres ähnlich viel vertreten. Auffällig sind hierbei Strategy-Games die erst 1991 das erste mal auftretem Seitdem obwohl sie Leicht an Marketshare verlieren grob gleich bleiben. Außerdem sind Action Games die Spiele mit der wohl größten volatilität. Sind es 1982 noch fast 50% der Gamereleases fällt deren aufkommen 1084 schon auf nur noch knapp 10% ab und 1986 steigt der Wert wieder auf fast 30%. Dieser Trend setzt sich fort bis 1996 ab welchem Zeitpunkt sich Action Games von 3.6% über die Jahre bis 2016 bis 35% entwickeln.
+
+# Genreentwicklung im laufe der Jahre nach Verkaufszahlen {#GenreSalesPerYear}
 
 Schauen wir uns an wie sich die verkäufe entwickelt haben.
 
@@ -1571,6 +1641,8 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
 
 Wie zu erwarten lässt sich hier ein Großer overlap zu den Anzahl der Gamereleases feststellen.
 
+# Genreentwicklung im laufe der Jahre nach Verkaufszahlen pro Spiel {#GenreSalesPerGamePerYear}
+
 Nun stellt sich die Frage hab sich die Verkäufe ähnlich der anzahl der GameReleases entwickelt?
 
 ## Sales per Game per Year {.tabset}
@@ -1697,6 +1769,8 @@ Nun stellt sich die Frage wie es mit Genres pro publisher aussieht? Gibt es hier
 
 Hierzu verwenden wir ein stacked Bar-Plot. Dazu filtern wir die top 10 Publishern aka Publisher mit min 116 mio in Sales. Dies entfernt natürlich einiges an Information allerdings geht sonst einiges an Übersichtlichkeit verloren. Zusätzlich werden erneut die Worte "Entertainment", "Interactive", "Game", "Games" und "Studios" entfernt.
 
+# Genreverteilung nach Publisher {#GenreByPublisherGlobal}  
+
 ## Genre by Publisher {.tabset}
 
 ### Sales
@@ -1815,6 +1889,8 @@ grouped%>%
 Bei dem vergleich der Werte ist hier zu bemerken, dass die meisten Publisher Hierbei sich mit der Anzahl der Spiele und den Sales gut abdecken. Die auffälligsten diskrepanzen sind hierbei EA mit dem Sports Genre und ihren järlich releasten Spielen FiFa/NBA2k etc. sowie Nintendo mit der Platformreihe Super Mario. Schauen wir uns diese Beiden Firmen Noch einmal im Detail an.
 
 Hierzu verwenden wir wieder die Bar/Pie chart Combo die uns Bereits aus vorderen Teilen der Ausarbeitung bekannt sind.
+
+# Genreverteilung für Publisher Electronic Arts{#GenreByPublisherEA} 
 
 ## Genre für Electronic Arts {.tabset}
 
@@ -1958,6 +2034,8 @@ grouped%>%
 ```
 ## {-}
 Schauen wir uns EA hier im Detail an fällt allerdings auf das die Diskrepanz zwischen Sales und Anzahl der Gamereleases für EA bei Sports gar nicht so groß ist (41.5% vs 43.2%). Die größeren diskrepanzen sind hier Shooter welches nur 10% der Gamereleases sind aber gut 15% der Sales und Action mit 13.5% der Gamereleases und 10.4% der Sales.
+
+# Genreverteilung für Nintendo {#GenreByPublisherNintendo} 
 
 Schauen wir uns nun Nintendo an.
 
@@ -2112,10 +2190,16 @@ grouped%>%
 Bei Nintendo zu erkennen ist hier, dass Platform spiele ein Kassenchlager sind. Nehmen diese nur 16% der spielereleases ein so bringen sie dennoch 24% der Sales ein. Gleiches Gilt für Sport games. 8% gegenüber 12%. Action (11% vs 7%), Misc (14% vs 10%) und Puzzle Games (10.5% vs 7%) sind jedoch nicht so erfolgreich.
 
 
-# Ausblick in die Zukunft
+# Ausblick in die Zukunft {#AusblickInDieZukunft}
 
 Ein Vergleich der Ausschläge mit den dementsprechenden Videospielen.
 
 Eine genaue Analyse der Gamesales pro jahr (aka tetrist 1950 30 mal testris 2015 300000 mal) geben die daten nicht her.
 
 eine anylse der Coronapandemie veränderungen (geben die daten nicht her)
+
+# Aufgetretene Probleme {#AufgetreteneProbleme}
+
+Colorbrewer wird nicht in jeder Grafik akzeptiert
+
+Sales pro Game analyse rechnet nicht spiele pro platform zusammen
