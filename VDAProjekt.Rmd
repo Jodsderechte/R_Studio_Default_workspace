@@ -1,13 +1,48 @@
 ---
-title: "VDA Projekt"
+title: "Video Game Sales"
 output: 
    html_document : 
+    includes:
+      after_body: footer.html
     code_folding: hide
+    theme: cosmo
    html_notebook : 
     code_folding: hide
    
 ---
+<center>![](Videogames.png) </center>
+Das verwendete Dataset des Projekts: https://www.kaggle.com/datasets/gregorut/videogamesales welches aus den Daten von https://www.vgchartz.com/ für die Jahre 1980 bis 2016 besteht.
+Dieses Dataset umfasst die Folgenden Spalten bzw.Daten.
 
+* Rank - Die Platzierung des Spiels nach Anzahl der Verkäufen
+* Name - Der Name des Spiels
+* Platform - Die Platform auf der das Spiel veröffentlicht wurde (z.B. PC,PS4, etc.)
+* Year - Das Jahr der Veröffentlichung des Spiels
+* Genre - Das Genre des Spiels (z.B. Sport,Action, Puzzle)
+* Publisher - Der Publisher des Spiels
+* NA_Sales - Die Anzahl der Verkäufe in Nord-Amerika (in millionen)
+* EU_Sales - Die Anzahl der Verkäufe in Europa (in millionen)
+* JP_Sales - Die Anzahl der Verkäufe in Japan (in millionen)
+* Other_Sales - Die Anzahl der Verkäufe im Rest der Welt (in millionen)
+* Global_Sales - Die Anzahl der Verkäufe Weltweit (in millionen)
+
+Bevor wir mit der Analyse der Daten beginnen können Stellen wir erstmal ein paar Thesen auf die wir im laufe des Projekts Bestätigen bzw Wiederlegen wollen.
+
+
+1. [Welche Jahre sind die besten in der Anzahl der releasten Games und Sales? (Werden heutzutage mehr Spiele Releast als noch 1980?)](#VideoGameReleases)
+2. [Welche Jahre sind die besten in Anzahl Sales pro Game (heißt neuer automatisch besser?)](#VideoGameReleases)
+3. [Welche Plattform ist die beste in Anzahl verkäufen? Welche in Anzahl der Game Releases? (Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe?)](#Platformanalyse)
+4. [Favorisieren verschiedene Regionen verschiedene Platformen? (Verkaufen die Regionenheimischen Platformen automatisch auch die Meisten Spiele?)](#PlatformRankingByRegion)
+5. [Wie Entwickeln sich die Verkäufe pro Platform im laufe der Jahre? (Haben Platformen kurz nach Release den größten "Hype"?)](#SalesPerPlatform)
+6. [Bestimmte Publisher häufen sich in Anzahl der Spiele und der Verkäufen (z.B. Nintendo, EA, Activision Blizzard)](#PublisherReleases)
+7. [Gibt es regionale Unterschiede in den Publishern? (Werden Regioneninterne Publisher Favoritisiert?)](#PublisherRankingbyRegion)
+8. [Wie sind die Genres der Spiele verteilt? (Häufen sich bestimmte Genres bei Anzahl und Verkaufszahlen? Gibt es Genres die besser/schlechter Performen als sie sollten?)](#GenreAmountGlobal)
+9. [Gibt es regionale Unterschiede in den Genres?(Gibt es Regionen die Spezifische Genres Favorisieren welche in anderen Regionen nur eine geringe Rolle spielt?)](#GenreAmountByRegion)
+* [Ältere Plattformen/spiele haben mehr verkäufe bzw Wie hat sich die Anzahl der verkäufe im laufe der jahre entwickelt?]()
+* [Genrenentwicklung über die Jahre]()
+* [Welche Spiele/Publisher/Genres in welchen Teilen der welt sich häufen (Nintendo in Asien, Shooter in US/EU)]()
+* [Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre -> Sales]()
+* [Gibt es Unterschiede in den Regionen/hängt das mit der Anzahl der Einwohner der Region zusammen? (Asia>US>EU)]()
 
 ```{r setup, include=TRUE, echo=TRUE, message=FALSE}
 library(readr)
@@ -19,27 +54,15 @@ library(RColorBrewer)
 library(stringr)
 library(dygraphs)
 library(xts)
+suppressPackageStartupMessages(library(dplyr))
 myPalette <- brewer.pal(10, "Paired")
 vgsales <- read_csv("vgsales.csv")
 ```
-Das verwendete Dataset des Projekts: https://www.kaggle.com/datasets/gregorut/videogamesales
-
-Dieses Dataset umfasst verschiedene Daten zu Videogamereleases und Sales zwischen 1980 und 2016.
-
-Ideen/Statements:
 
 
-Bestimmte Entwickler/Publisher häufen sich (Nintendo/EA)
-Ältere Plattformen/spiele haben mehr verkäufe bzw Wie hat sich die Anzahl der verkäufe im laufe der jahre entwickelt?
-Genrenentwicklung über die Jahre
-Welche Spiele/Publisher/Genres in welchen Teilen der welt sich häufen (Nintendo in Asien, Shooter in US/EU)
-Gibt es Statistische zusammenhänge zwischen einzelnen Faktoren e.g. Genre -> Sales
-Welche Jahre sind die besten in der Anzahl der releasten games und hängt dies mit den Sales zusammen? (je mehr Total Sales desto mehr Games verkaufen sich)
-Welche Jahre sind die besten in Anzahl Sales pro game (neuer = besser?)
-Welche Plattform ist die beste und unterscheidet sich diese nach Region?
-Gibt es Unterschiede in den Regionen/hängt das mit der Anzahl der Einwohner der Region zusammen? (Asia>US>EU)
 
 
+# Video Game Releases {#VideoGameReleases}
 
 Zuerst schauen wir und die Anzahl der Videospiele und die Anzahl der Verkäufe im laufe der Jahre an.
 
@@ -102,7 +125,7 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozero
          )
 
 ```
-### Sales per Game
+### Sales per Game 
 ```{r plot(SalesbyGameByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
@@ -131,6 +154,11 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozero
 
 ```
 ## {-}
+
+***
+
+#Platform Analyse {#Platformanalyse}
+
 Hier erkennen wir das 2008 und 2009 die Jahre waren in denen die Meisten Games Releast wurden und diese auch die meisten Verkäufe haben.
 Den größten per Game Verkaufswert gab es allerdings 1984,1985 und 1989. Neuere spiele hingegen verkaufen sich durchschnittlich schlechter was durch das größere Angebot auch zu erwarten ist.
 
@@ -230,7 +258,11 @@ ordered%>%
 ```
 Wie sich herausstellt ist dies jedoch nicht die Platform welches die meisten Gamereleases hat.
 
-Nun analzsieren wir die unterschiede der Regionen.
+***
+
+# Platform Ranking nach Region {#PlatformRankingByRegion}
+
+Nun analysieren wir die unterschiede der Regionen.
 
 Hierzu verwenden wir sowohl sorted bar plots sowie um einen besseren Überblick über die Prozentualverteilung der Konsolen in den einzelnen Regionen Pie charts.
 
@@ -440,8 +472,13 @@ ordered%>%
 
 
 ## {-}
+
+
 Im genensatz zur EU, in der das japanische unternehmen Sony mit der PS2 und PS3 die liste anführt, hat in den USA das Landeseigene softwareunternehmen Microsoft mit der Xbox360 die Nase vorn. In Japan hingegen ist wie zu erwarten der japanische hersteller Nintendo mit dem DS der Markführer.
 
+***
+
+# Platform Sales im laufe der Jahre {#SalesPerPlatform}
 Um sich das Ganze etwas genauer anzuschauen betrachten wir die Anzahl der Sales per Platform im Verlauf der Jahre.
 
 Um eine überladung des Diagramms zu verhindern werden hier allerdings nur Plattformen mit mindestens 60 mio in Sales im entsprechenden Jahr berücksichtigt. Dies hat den Nachteil das einige z.T wichtige Daten Fehlen, ein Weglassen ebenjenes Filters fürt aber zu kompletter Unübersichtlichkeit.
@@ -477,7 +514,9 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
 Hier erkennen wir das Platform, wie zu erwarten, meist kurz nach Release die größten Verkaufszahlen verzeichnen.
 
 
+***
 
+# Publisher Vergleich {#PublisherReleases}
 
 Nun stellt sich die Frage ob sich neben bestimmten Platformen auch bestimmte Entwickler/Publisher häufen. Hierbei gehen wir davon aus das vermutlich Nintendo und EA die Liste anführen.
 Hierzu verwenden wir wiederum sorted Bar-Charts und kürzen die Namen um die Begriffe "Entertainment", "Interactive", "Game", "Games" und "Studios" da dies die Namen nur unnötig verlängert und Filtern Publisher mit Geringen Anzahl an Game Releases.
@@ -591,8 +630,11 @@ Auffällig ist hier die diskrepanz zwischen Anzahl der Spielereleases und Anzahl
 
 Nun stellt sich wieder einmal die Frage ob sich dies in Bestimmten teilen der Welt unterscheidet und hierzu verwenden wir wiederum die SortedBar/Piechart kombo und die bereits genannten Filter
 
-## Publisher Ranking {.tabset}
+***
 
+# Publisher Ranking nach Region {#PublisherRankingbyRegion}
+
+## Publisher Ranking nach Region {.tabset}
 ### Balkendiagramme {.tabset}
 #### Europa
 
@@ -912,6 +954,10 @@ ordered%>%
 
 Zwischen EU und US lassen sich hier kaum Unterschiede feststellen in Japan hingegen ist eine verschiebung zu erkennen. Japanische Publisher führen hierbei die Liste an und drängen andere große unternehmen von den Top spots.
 
+***
+
+# Genreverteilung der Videospiele {#GenreAmountGlobal}
+
 Nun schauen wir uns die Genreverteilung von Videospielen an. Hierzu verwenden wir wiederum die Altbekannte sorted Bar/Pie-Chart kombo.
 
 ## Genre Amount {.tabset}
@@ -1062,6 +1108,8 @@ ordered%>%
 Hierbei erkennen wir das es einige Unterschiede gibt Action und sports machen jedoch weiterhin einen Grosteil des Markts aus.
 
 Nun schauen wir uns die Unterscheide in den Regionen an.
+
+# Regionale Unterschiede der Genres {#GenreAmountByRegion}
 
 ## SalesbyGenre {.tabset}
 
