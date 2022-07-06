@@ -11,7 +11,7 @@ output:
    
 ---
 <center>![](Videogames.png) </center>
-
+<center># Florian Reichle</center>
 ***
 
 ### **Angaben zu den Daten**
@@ -72,12 +72,12 @@ Dies besteht aus den Daten von https://www.vgchartz.com/ für die Jahre 1980 bis
 
 Bevor wir mit der Analyse der Daten beginnen können Stellen wir erstmal ein paar Thesen bzw. Fragestellungen auf die wir im laufe des Projekts hinterfragen bzw beantworten wollen.  
 
-* Welche Jahre sind die besten in der Anzahl der releasten Games und Sales?  [Antwort](#VideoGameReleasesAmount)
-* Werden heutzutage mehr Spiele Releast als noch 1980? [Antwort](#VideoGameReleases)
+* Welche Jahre sind die besten in der Anzahl der releasten Games und Sales?  [Antwort](#VideoGameReleases)
+* Werden heutzutage mehr Spiele Releast und Verkauft als noch 1980? [Antwort](#VideoGameReleases)
 * Welche Jahre sind die besten in Anzahl Sales pro Game? Werden neuere Spiele automatisch mehr Gekauft? [Antwort](#VideoGameReleases)
 
 * Welche Plattform ist die beste in Anzahl verkäufen? Welche in Anzahl der Game Releases? [Antwort](#Platformanalyse)
-* Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe? [Antwort](#Platformanalyse)
+* Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe? [Antwort](#PlatformRankingGlobal_End)
 * Favorisieren verschiedene Regionen verschiedene Platformen? Verkaufen die Regionenheimischen Platformen automatisch auch die meisten Spiele? [Antwort](#PlatformRankingByRegion)
 * Wie Entwickeln sich die Verkäufe pro Platform im laufe der Jahre? Haben Platformen kurz nach Release den größten "Hype"? [Antwort](#SalesPerPlatform)
 
@@ -125,7 +125,7 @@ Als erstes schauen wir uns die Anzahl der Videospielreleases, die Anzahl der Ver
 ## Game Releases over the Years {.tabset}
 ### Game Amount {#VideoGameReleasesAmount}
 
-Unsere erste These war "Welche Jahre sind die besten in der Anzahl der releasten Games und Sales?" Um dieser Fragestellung auf den Grund zugehen müssen wir zuerst einmal die Daten der Tabelle vgsales mithilfe der Funktion *group_by(Year)* anhand der Jahre Zusammenfassen. Nun erhalten wir eine nach den Jahren zusammengefasste Tabelle deren Einträge wir mit der Funktion  *dplyr::summarize(Anzahl =n())* abzählen und als Wert Anzahl abspeichern. Aufgrund der für diese analyse Fehlerhaften Daten verwenden wir noch die Funktion *filter()* um alle fehlenden Jahreseinträge sowie die Jahre 2020 und 2017 herauszufiltern. Letztere Jahre sind daher fehlerhaft, da der Datensatz 2016 erstellt wurde. Diese Daten speichern wir als *data.frame* in der Variable *grouped* ab. Im folgenden verwenden wir ebenjenes data.frame um nur die Einträge Jahr und Anzahl zu selectieren und in der Variable *filtered* abzuspeichern. Die erhaltene Tabelle hat nun zwei Spalten: Jahr und Anzahl. Desweiteren erstellen wir zwei Weitere Variablen *ax* und *ay* welche beide eine Liste mit nur einem Attribut sind: "Title". Nun verwenden wir *plot_ly()* um mithilfe der *type = 'scatter'* und *mode = 'lines'* Parameter ein Liniendiagramm zu erstellen. Außerdem nutzen wir die *layout()* funktion um einen titel zu erstellen, sowie mithilfe unsere beiden Variablen ax und ay um die Achsen zu beschriften
+Unsere erste These war "Welche Jahre sind die besten in der Anzahl der releasten Games und Sales?" Um dieser Fragestellung auf den Grund zugehen müssen wir zuerst einmal die Daten der Tabelle vgsales mithilfe der Funktion *group_by(Year)* anhand der Jahre Zusammenfassen. Nun erhalten wir eine nach den Jahren zusammengefasste Tabelle deren Einträge wir mit der Funktion  *dplyr::summarize(Anzahl =n())* abzählen und als Wert Anzahl abspeichern. Aufgrund der für diese analyse Fehlerhaften Daten verwenden wir noch die Funktion *filter()* um alle fehlenden Jahreseinträge sowie die Jahre 2020 und 2017 herauszufiltern. Letztere Jahre sind daher fehlerhaft, da der Datensatz 2016 erstellt wurde. Diese Daten speichern wir als *data.frame* in der Variable *grouped* ab. Im folgenden verwenden wir ebenjenes data.frame um nur die Einträge Jahr und Anzahl zu selektieren und in der Variable *filtered* abzuspeichern. Die erhaltene Tabelle hat nun zwei Spalten: Jahr und Anzahl. Desweiteren erstellen wir zwei Weitere Variablen *ax* und *ay* welche beide eine Liste mit nur einem Attribut sind: "Title". Nun verwenden wir *plot_ly()* um mithilfe der *type = 'scatter'* und *mode = 'lines'* Parameter ein Liniendiagramm zu erstellen. Außerdem nutzen wir die *layout()* funktion um einen titel zu erstellen, sowie mithilfe unsere beiden Variablen ax und ay die Achsen zu beschriften.
 
 ```{r plot(AmountByYear), echo = TRUE, message=FALSE, results='markup', }
 
@@ -161,7 +161,10 @@ Sehen wir uns diese Zahlen einmal genauer an kommt die Frage auf Woran diese Ext
 Hierzu aber später [mehr](#SalesPerPlatform).
 
 
-### Game Sales
+### Game Sales {#VideoGameReleasesSales}
+
+Um dem zweiten Teil der Fragestellung auf den Grund gehen zu können müssen wir erneut die Daten der Tabelle vgsales mithilfe der Funktion *group_by(Year)* anhand der Jahre Zusammenfassen. Nun erhalten wir wieder die nach den Jahren zusammengefasste Tabelle deren Einträge wir mit der Funktion  *dplyr::summarize(gr_sum = sum(Global_Sales))* zusammenfassen. Dem Aufmerksamen Leser wird auffallen das hier ein kleiner aber feiner Unterschied zum vorherigen Aufruf besteht. Statt *Anzahl =n()* nutzen wir hier *gr_sum = sum(Global_Sales)*. Diese Funktion summiert alle Werte der Spalte Global_Sales auf und speichert den den Wert in die Spalte *gr_sum*. Aufgrund der für diese analyse weiterhin Fehlerhaften Daten verwenden wir erneut die Funktion *filter()* um alle fehlenden Jahreseinträge sowie die Jahre 2020 und 2017 herauszufiltern.  Diese Daten speichern wir wieder als *data.frame* in der Variable *grouped* ab. Im folgenden verwenden wir ebenjenes data.frame um nur die Einträge Jahr und *gr_sum* zu selektieren und in der Variable *filtered* abzuspeichern. Die erhaltene Tabelle hat nun zwei Spalten: Jahr und *gr_sum*. Desweiteren erstellen wir erneut die Variablen *ax* und *ay*. Nun verwenden wir *plot_ly()* um mithilfe der *type = 'scatter'* und *mode = 'lines'* Parameter ein Liniendiagramm zu erstellen. Außerdem nutzen wir die *layout()* funktion um einen titel zu erstellen, sowie mithilfe unsere beiden Variablen ax und ay die Achsen zu beschriften.
+
 ```{r plot(GameSalesByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
@@ -189,16 +192,23 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozero
          )
 
 ```
+
+Betrachten wir nun das entstandene Diagramm fällt uns zuerst auf, dass es dem vorherigen recht ähnlich sieht. Dies ist kaum verwunderlich und stellt keinen nennenswerten Wissensgewinn da. Der wohl Nenneswerteste unterschied ist das Fehlen des Anstiegs, welcher in der Anzahl der Gamereleases zum Jahr 2015 festzustellen war. Durch den direkten Vergleich ist dies allerdings ein guter Zeitpunkt um uns mit unserer Zweiten These auseinanderzusetzen. *"Werden heutzutage mehr Spiele Releast und Verkauft als noch 1980?"*. Diese sehen wir aufjedenfall bestätigt obwohl Festzustellen ist, dass die besten Jahre sowohl in verkäufen als auch in der Anzahl die Jahre 2008 und 2009 waren. Dies Wirft natürlich die Frage auf was der Grund für diesen Verlauf ist und wäre ein Interessanter ansatz für eine [weitere Arbeit](#AusblickInDieZukunft).
+
 ### Sales per Game 
+
+Die Frage die Wir allerdings beantworten können ist *"Werden neuere Spiele automatisch mehr Gekauft?"*. Dafür kombinieren wir die beiden bereits Verwendeten ansätze. 
+Wir fassen wieder die daten mithilfe von *group_by(Year)* anhand der Jahre Zusammen. Die erhaltene Tabelle fassen wir wieder mit  *dplyr::summarize(gr_sum = sum(Global_Sales))* zusammen. Diesmal nutzen wir jedoch eine kombination aus *sum(Global_Sales)* und *n()*. Wir addieren die Spalte *Global_Sales*, teilen dies durch die Anzahl der Einträge und speichern den Wert in die Spalte *gamesales* (*gamesales = sum(Global_Sales)/n()*). Danach filtern wir die Daten erneut und speichern sie als *data.frame* in grouped ab. Diesmal selektieren wie die Einträge der Spalte Jahr sowie *gamesales* und speichern sie in der Variable *filtered* ab. Zuletzt erstellen wir erneut die Variablen *ax* und *ay* und verwenden *plot_ly()* um mithilfe der *type = 'scatter'* und *mode = 'lines'* Parameter ein Liniendiagramm zu erstellen sowie die *layout()* funktion um einen titel zu erstellen und mithilfe unsere beiden Variablen ax und ay die Achsen zu beschriften.
+
 ```{r plot(SalesbyGameByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
   group_by(Year) %>%
-  dplyr::summarize(gr_sum = sum(Global_Sales)/n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
+  dplyr::summarize(gamesales = sum(Global_Sales)/n()) %>% filter(Year!='N/A')%>%filter(Year!=2020) %>% filter(Year!='2017') %>%
   as.data.frame()
 
 
-filtered <- grouped %>% select(Year,gr_sum)
+filtered <- grouped %>% select(Year,gamesales)
 
 ax <- list(
   title = "Year"
@@ -210,15 +220,14 @@ ay <- list(
 )
 
 filtered %>%
-plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozeroy' ,colors = myPalette) %>% 
+plot_ly(x = ~Year, y = ~gamesales, type = 'scatter', mode = 'lines', fill = 'tozeroy' ,colors = myPalette) %>% 
   layout(title="Sales per Game from 1980-2016",
          xaxis = ax,
          yaxis = ay
          )
 
 ```
-Den größten per Game Verkaufswert gab es allerdings 1984,1985 und 1989. Neuere spiele hingegen verkaufen sich durchschnittlich schlechter was durch das größere Angebot auch zu erwarten ist.
-
+Sahen sich die beiden Diagramme für Anzahl und Verkaufszahlen noch recht ähnlich stellt sich hier ein deutlich unterschiedlicher Verlauf da. Ist der Wert zwischen 1980 (1.26) und 1983 (0.98) noch relativ gering steigt dieser Massiv für die Jahre 1984(3.59) und 1985(3.85) bevor er 1986(1.76) und 1987(1.35) wieder absinkt. Genauso schnell wie der wert abgesunken ist steigt er allerdings auch wieder auf 3.14(1988) bevor er 1989 den Höchststand mit 4.32 erreicht. Danach sinkt der wieder ab um sich nach einem kurzen ausschlag 1992 in den Jahren bis 2014 auf einen relativ stetigen Wert Zwischen 0.5 und 0.7 einzupendeln erst 2015 und 2016 sinkt dieser unter 0.5. Diese Extremen ausschläge in den Früheren Jahren lassen sich mit der Geringen anzahl der Spiele erklären. Einzelne gute laufende Spiele machen hier noch einen Großteil des Markts aus wohingegen sich neuere spiele, sowohl gegen eine Großzahl von bereits etablierten Spiele als auch eine große Anzahl neuer Releases, durchsetzen müssen.
 
 ## {-}
 
@@ -226,8 +235,7 @@ Den größten per Game Verkaufswert gab es allerdings 1984,1985 und 1989. Neuere
 
 # Platform Analyse {#Platformanalyse}
 
-Nun betrachten wir die Anzahl der Videospiele aufgelistet nach Platform.
-```{r noplot, echo = TRUE, message=FALSE, results='markup', include =FALSE,}
+```{r noplot, echo = FALSE, message=FALSE, results='markup', include =FALSE,}
 vgsales %>% 
   plot_ly(
     x=~Platform,
@@ -254,8 +262,16 @@ vgsales %>%
     title="Sales by Platform (in mio)")
 
 ```
-Hierbei stellt sich die Frage ob ältere Plattformen mehr Spielereleases haben wovon auszugehen ist.
-Hierzu verwenden wir ein einfaches Balkendiagramm welche eine gute erste übersicht bietet.
+
+Viedeospiele gibt es in den Unterschiedlichsten Farben und Formen. Was Sie jedoch alle gemeinsam haben ist, dass sie auf einem medium Gespielt werden. Sei es Sonys Playstation, Microsofts xBox, Nintendos Spielekonsolen wie die Wii oder der einfache desktop PC. Die Frage die Sich jeder Fan jedoch schonmal gestellt hat und über die häufig diskutiert wird ist welche ist die Beste? Da dies immer im Auge des Betrachters liegt versuchen wir zumindestens zu klären *Welche Platform ist die beste in Anzahl verkäufen? Welche in Anzahl der Game Releases?*. Zum beantworten dieser Frage ist der Vorhandene Datensatz nicht ganz optimal aber hierzu weiteres im [Fazit](#AufgetreteneProbleme).
+
+
+## Platform Ranking Global {.tabset}
+
+### Amount
+
+Um sich einen guten Überblick über die Rankings der Platformen zu verschaffen nutzen wir hier ein Paretodiagramm. Dies sind nach der Größe der Werte sortierte Säulendiagramme. Zum erstellen des Diagramms brauchen wir zuerst einmal wieder unseren Datensatz den wir diesmal mithilfe des *group_by* Befehls anhand der *Platform* gruppieren. Danach nutzen wir erneut *summarize(Anzahl =n()* um die Einträge abzuzählen und den wert als Anzahl abzuspeichern. Um die Einträge der Anzahl nach zu sortieren nutzen wir zuerst den Befehl *grouped[order(grouped$Anzahl), decreasing = FALSE]* und weisen das Ergebnis der neuen Tabelle *Ordered* zu. Dieser Befehl sieht relativ komplet aus lässt sich jedoch recht einfach aufdröseln. Order sortiert die Tabelle nach der gegebenen Spalte und der Parameter *decreasing =* gibt an ob der größte Wert am Anfang oder Ende stehen soll. Das Dollar Zeichen selektiert hierbei die Spalte mit dem dahinterstehenden Name aus der vorher stehenden Tabelle getreu nach dem Schema *Tabelle$Spalte*. Danach müssen wir noch die Spalte *Platform* als faktor einlesen welches wir mit dem Befehl *as_factor(ordered$Platform)* tun. Danach erstellen wir unsere beiden Variablen ax und ay zur Achsenbeschriftung. Nun kommen wir zur eigentlichen Diagrammerstellung. Wir geben die Tabelle *ordered* weiter an *plot_ly()* und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Der unterschied zwischen Balken und Paretodiagramm liegt hierbei in der Parameterübergabe. Schauen wir uns die relevanten Teile einmal genauer an. Der interessante Teil passiert hierbei bei der zuweisung der X-Achse und hier sehen wir auch den Grund für unsere vorherige umwandlung der Spalte Platform zu einem faktor. *x=~fct_reorder(Platform,Anzahl, .desc="true"),y=~Anzahl* Wir nutzen den Befehel *fct_reorder()* um die Platformen nach der Anzahl sortiert her anzuordnen. Der erste Parameter ist hierbei die zu sortierende Spalte, der zweite die nach der sortiert werden soll. Der Parameter .desc steht descending und bestimmt wie sortiert werden soll, in unserem fall der größte Wert zuerst. Zu guter letzt geben wir dem Diagramm noch einen Namen, weisen die Farbpalette zu und setzen das Layout mit dem Titel sowie unseren beiden Achsenbeschriftungen.
+
 ```{r plot, echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
   group_by(Platform) %>% 
@@ -283,10 +299,11 @@ ordered%>%
          
          )
 ```
-Dies lässt sich nicht generell bestätigen aber ein Trend ist definitiv erkennbar.
+
+Beim Betrachten des Diagramms erkennen wir das weder ganz alte noch ganz neue Platformen die Nase vorne haben. An den ersten beiden Stellen und weit abgeschlagen vom Rest der Platformen finden sich hier der DS von Nintendo (2163) und die Playstation 2 von Sony (2161). Dies ist weiter nicht Verwunderlich da beide auch die Konsolen sind die sich [Weltweit am besten verkauft haben](https://de.statista.com/statistik/daten/studie/160549/umfrage/anzahl-der-weltweit-verkauften-spielkonsolen-nach-konsolentypen/). Ein weiterer Grund für deren hohe Spieleanzahl ist vermutlich auch deren Stellung als Platzhirsche im Konsolen- bzw. Handheldmarkt. Weiterhin können wir erkennen das es meist die ältere Generationen einer Konsole sind die mehr Spiele haben. Die Playsatation 2 hat beispielsweise mehr Spiele als PS3 und PS4, die XboX360 mehr als die xBoxOne und der DS mehr als der 3DS. Dies scheint jedoch nicht auf die erste Generation zuzutreffen. Die Playstation hat mehr verkäufe als die PS4 aber weniger als PS3 und PS2. Die Xbox mehr als die XboxOne aber weniger als die Xbox360.
 
 
-Nun stellt sich die Frage welche Plattform die meisten Sales hat.
+### Sales
 
 ```{r plot(PlatformRanking_Global), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -322,9 +339,13 @@ ordered%>%
 ```
 Wie sich herausstellt ist dies jedoch nicht die Platform welches die meisten Gamereleases hat.
 
+## {-}
+
+##### *Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe?* {#PlatformRankingGlobal_End}
+
 ***
 
-# Platform Ranking nach Region {#PlatformRankingByRegion}
+# Platform Sales nach Region {#PlatformRankingByRegion}
 
 Nun analysieren wir die unterschiede der Regionen.
 
@@ -2203,3 +2224,5 @@ eine anylse der Coronapandemie veränderungen (geben die daten nicht her)
 Colorbrewer wird nicht in jeder Grafik akzeptiert
 
 Sales pro Game analyse rechnet nicht spiele pro platform zusammen
+
+Mobilegames fehlen im datensatz umfast nur 16k game von weltweit mehr als 3.3 mio https://www.statista.com/statistics/293304/number-video-gamers/#:~:text=In%20total%2C%20there%20were%20an,billion%20gamers%20across%20the%20globe.
