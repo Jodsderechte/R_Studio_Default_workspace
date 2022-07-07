@@ -1,14 +1,17 @@
 ---
 title: "Video Game Sales"
 output: 
-   html_document : 
-    includes:
-      after_body: footer.html
-    code_folding: hide
-    theme: cosmo
-   html_notebook : 
-    code_folding: hide
    
+   html_document : 
+      includes:
+        after_body: footer.html
+      theme: cosmo
+      code_folding: hide
+   html_notebook : 
+      code_folding: hide
+      includes:
+        after_body: footer.html
+      theme: cosmo
 ---
 <center>![](Videogames.png) </center>
 <center> 
@@ -100,6 +103,7 @@ Bevor wir mit der Analyse der Daten beginnen können Stellen wir erstmal ein paa
 ### Daten und Librarys
 Nach dem Vorstellen der Daten und dem aufstellen der initialen Thesen können wir nun mit dem einlesen der Daten beginnen.  
 Zusätzlich erstellen wir noch eine Farbpalette und importieren die Librarys
+
 ```{r setup, include=TRUE, echo=TRUE, message=FALSE}
 library(readr)
 library(tidyverse)
@@ -119,9 +123,6 @@ vgsales <- read_csv("vgsales.csv")
 
 
 # Video Game Releases {#VideoGameReleases}
-
-
-Als erstes schauen wir uns die Anzahl der Videospielreleases, die Anzahl der Verkäufe und die Verkäufe pro Spiel im laufe der Jahre an.
 
 
 ## Game Releases over the Years {.tabset}
@@ -272,7 +273,7 @@ Viedeospiele gibt es in den Unterschiedlichsten Farben und Formen. Was Sie jedoc
 
 ### Amount
 
-Um sich einen guten Überblick über die Rankings der Platformen zu verschaffen nutzen wir hier ein Paretodiagramm. Dies sind nach der Größe der Werte sortierte Säulendiagramme. Zum erstellen des Diagramms brauchen wir zuerst einmal wieder unseren Datensatz den wir diesmal mithilfe des *group_by* Befehls anhand der *Platform* gruppieren. Danach nutzen wir erneut *summarize(Anzahl =n()* um die Einträge abzuzählen und den wert als Anzahl abzuspeichern. Um die Einträge der Anzahl nach zu sortieren nutzen wir zuerst den Befehl *grouped[order(grouped$Anzahl),decreasing = FALSE]* und weisen das Ergebnis der neuen Tabelle *Ordered* zu. Dieser Befehl sieht relativ komplex aus lässt sich jedoch recht einfach aufdröseln. Order sortiert die Tabelle nach der gegebenen Spalte und der Parameter *decreasing =* gibt an ob der größte Wert am Anfang oder Ende stehen soll. Das Dollar Zeichen selektiert hierbei die Spalte mit dem dahinterstehenden Name aus der vorher stehenden Tabelle getreu nach dem Schema *Tabelle$Spalte*. Danach müssen wir noch die Spalte *Platform* als faktor einlesen welches wir mit dem Befehl *as_factor(ordered$Platform)* tun. Danach erstellen wir unsere beiden Variablen ax und ay zur Achsenbeschriftung. Nun kommen wir zur eigentlichen Diagrammerstellung. Wir geben die Tabelle *ordered* weiter an *plot_ly()* und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Der unterschied zwischen Balken und Paretodiagramm liegt hierbei in der Parameterübergabe. Schauen wir uns die relevanten Teile einmal genauer an. Der interessante Teil passiert hierbei bei der zuweisung der X-Achse und hier sehen wir auch den Grund für unsere vorherige umwandlung der Spalte Platform zu einem faktor. *x=~fct_reorder(Platform,Anzahl, .desc="true"),y=~Anzahl* Wir nutzen den Befehel *fct_reorder()* um die Platformen nach der Anzahl sortiert her anzuordnen. Der erste Parameter ist hierbei die zu sortierende Spalte, der zweite die nach der sortiert werden soll. Der Parameter .desc steht descending und bestimmt wie sortiert werden soll, in unserem fall der größte Wert zuerst. Zu guter letzt geben wir dem Diagramm noch einen Namen, weisen die Farbpalette zu und setzen das Layout mit dem Titel sowie unseren beiden Achsenbeschriftungen.
+Um sich einen guten Überblick über die Rankings der Platformen zu verschaffen nutzen wir hier ein Paretodiagramm. Dies sind nach der Größe der Werte sortierte Säulendiagramme. Zum erstellen des Diagramms brauchen wir zuerst einmal wieder unseren Datensatz den wir diesmal mithilfe des *group_by* Befehls anhand der *Platform* gruppieren. Danach nutzen wir erneut *summarize(Anzahl =n()* um die Einträge abzuzählen und den wert als Anzahl abzuspeichern. Um die Einträge der Anzahl nach zu sortieren nutzen wir zuerst den Befehl *grouped[order(grouped\$Anzahl),decreasing = FALSE]* und weisen das Ergebnis der neuen Tabelle *Ordered* zu. Dieser Befehl sieht relativ komplex aus lässt sich jedoch recht einfach aufdröseln. Order sortiert die Tabelle nach der gegebenen Spalte und der Parameter *decreasing =* gibt an ob der größte Wert am Anfang oder Ende stehen soll. Das Dollar Zeichen selektiert hierbei die Spalte mit dem dahinterstehenden Name aus der vorher stehenden Tabelle getreu nach dem Schema *Tabelle\$Spalte*. Danach müssen wir noch die Spalte *Platform* als faktor einlesen welches wir mit dem Befehl *as_factor(ordered\$Platform)* tun. Danach erstellen wir unsere beiden Variablen ax und ay zur Achsenbeschriftung. Nun kommen wir zur eigentlichen Diagrammerstellung. Wir geben die Tabelle *ordered* weiter an *plot_ly()* und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Der unterschied zwischen Balken und Paretodiagramm liegt hierbei in der Parameterübergabe. Schauen wir uns die relevanten Teile einmal genauer an. Der interessante Teil passiert hierbei bei der zuweisung der X-Achse und hier sehen wir auch den Grund für unsere vorherige umwandlung der Spalte Platform zu einem faktor. *x=~fct_reorder(Platform,Anzahl, .desc="true"),y=~Anzahl* Wir nutzen den Befehel *fct_reorder()* um die Platformen nach der Anzahl sortiert her anzuordnen. Der erste Parameter ist hierbei die zu sortierende Spalte, der zweite die nach der sortiert werden soll. Der Parameter .desc steht descending und bestimmt wie sortiert werden soll, in unserem fall der größte Wert zuerst. Zu guter letzt geben wir dem Diagramm noch einen Namen, weisen die Farbpalette zu und setzen das Layout mit dem Titel sowie unseren beiden Achsenbeschriftungen.
 
 ```{r plot, echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -307,7 +308,8 @@ Beim Betrachten des Diagramms erkennen wir das weder ganz alte noch ganz neue Pl
 
 ### Sales
 
-Schauen wir uns nun die Verkaufszahlen der Spiele der einzelnen Platformen an. Wir verwenden hier wieder ein Paretodiagramm und gehen ähnlich des vorherigen Diagramms vor. Zuerst nutzen wir wieder die *group_by* Funktion um nach den Platformen zu gruppieren. Da wir nun aber die Verkaufszahlen betrachten wollen nutzen wir *summarize()* auf die *Global_Sales* Spalte. Nun nutzen wir die *rename()* funktion um die so entstandene Spale *sum(Global_Sales)* in *Global_Sales* umzubenennen. Dies hat keinen weiteren Nutzen außer uns im späteren Verlauf die Referenzierung der Spalte einfacher zu machen. Um später nach dieser neu erstellten Spalte sortieren zu können müssen wir diese zuerst in einen Vector umwandeln. Dies tun wir mit dem Befehl *grouped$Global_Sales<-as_vector(grouped$Global_Sales)*. Nun können wir die Tabelle sortieren und in der Variable ordered abspeichern *ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]*. Als letzten Schritt bevor es an die erstellung des Diagramms geht wandeln wir noch die Spalte Platform in einen Factor um *ordered$Platform <- as_factor(ordered$Platform)* und erstellen erneut unsere Achsenbeschriftungen ax und ay. Zur erstellung des Diagramms übergeben wir unsere *ordered* Tabelle an die *plot_ly()* funktion und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Hier verwenden wir wieder die Parameter *x=~fct_reorder(Platform,Global_Sales, .desc="true"), y=~Global_Sales* um den x wert, also die Platformen nach den Global Sales zu sortieren bevor wir den namen und die Farbe des Diagramms setzen. Zu guter Letzt benutzen wir noch die Layout funktion um dem Diagramm einen Titel zu geben und unsere beiden Achsenbeschriftungen zu erstellen.
+Schauen wir uns nun die Verkaufszahlen der Spiele der einzelnen Platformen an. Wir verwenden hier wieder ein Paretodiagramm und gehen ähnlich des vorherigen Diagramms vor. Zuerst nutzen wir wieder die *group_by* Funktion um nach den Platformen zu gruppieren. Da wir nun aber die Verkaufszahlen betrachten wollen nutzen wir *summarize()* auf die *Global_Sales* Spalte. Nun nutzen wir die *rename()* funktion um die so entstandene Spale *sum(Global_Sales)* in *Global_Sales* umzubenennen. Dies hat keinen weiteren Nutzen außer uns im späteren Verlauf die Referenzierung der Spalte einfacher zu machen. Um später nach dieser neu erstellten Spalte sortieren zu können müssen wir diese zuerst in einen Vector umwandeln. Dies tun wir mit dem Befehl *grouped\$Global_Sales<-as_vector(grouped\$Global_Sales)*. Nun können wir die Tabelle sortieren und in der Variable ordered abspeichern 
+*ordered <- grouped[order(grouped\$Global_Sales), decreasing = FALSE]*. Als letzten Schritt bevor es an die erstellung des Diagramms geht wandeln wir noch die Spalte Platform in einen Factor um *ordered$Platform <- as_factor(ordered\$Platform)* und erstellen erneut unsere Achsenbeschriftungen ax und ay. Zur erstellung des Diagramms übergeben wir unsere *ordered* Tabelle an die *plot_ly()* funktion und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Hier verwenden wir wieder die Parameter *x=~fct_reorder(Platform,Global_Sales, .desc="true"), y=~Global_Sales* um den x wert, also die Platformen nach den Global Sales zu sortieren bevor wir den namen und die Farbe des Diagramms setzen. Zu guter Letzt benutzen wir noch die Layout funktion um dem Diagramm einen Titel zu geben und unsere beiden Achsenbeschriftungen zu erstellen.
 
 ```{r plot(PlatformRanking_Global), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
