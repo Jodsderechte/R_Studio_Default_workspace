@@ -11,7 +11,9 @@ output:
    
 ---
 <center>![](Videogames.png) </center>
-<center># Florian Reichle</center>
+<center> 
+# Florian Reichle 
+</center>
 ***
 
 ### **Angaben zu den Daten**
@@ -270,7 +272,7 @@ Viedeospiele gibt es in den Unterschiedlichsten Farben und Formen. Was Sie jedoc
 
 ### Amount
 
-Um sich einen guten Überblick über die Rankings der Platformen zu verschaffen nutzen wir hier ein Paretodiagramm. Dies sind nach der Größe der Werte sortierte Säulendiagramme. Zum erstellen des Diagramms brauchen wir zuerst einmal wieder unseren Datensatz den wir diesmal mithilfe des *group_by* Befehls anhand der *Platform* gruppieren. Danach nutzen wir erneut *summarize(Anzahl =n()* um die Einträge abzuzählen und den wert als Anzahl abzuspeichern. Um die Einträge der Anzahl nach zu sortieren nutzen wir zuerst den Befehl *grouped[order(grouped$Anzahl), decreasing = FALSE]* und weisen das Ergebnis der neuen Tabelle *Ordered* zu. Dieser Befehl sieht relativ komplet aus lässt sich jedoch recht einfach aufdröseln. Order sortiert die Tabelle nach der gegebenen Spalte und der Parameter *decreasing =* gibt an ob der größte Wert am Anfang oder Ende stehen soll. Das Dollar Zeichen selektiert hierbei die Spalte mit dem dahinterstehenden Name aus der vorher stehenden Tabelle getreu nach dem Schema *Tabelle$Spalte*. Danach müssen wir noch die Spalte *Platform* als faktor einlesen welches wir mit dem Befehl *as_factor(ordered$Platform)* tun. Danach erstellen wir unsere beiden Variablen ax und ay zur Achsenbeschriftung. Nun kommen wir zur eigentlichen Diagrammerstellung. Wir geben die Tabelle *ordered* weiter an *plot_ly()* und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Der unterschied zwischen Balken und Paretodiagramm liegt hierbei in der Parameterübergabe. Schauen wir uns die relevanten Teile einmal genauer an. Der interessante Teil passiert hierbei bei der zuweisung der X-Achse und hier sehen wir auch den Grund für unsere vorherige umwandlung der Spalte Platform zu einem faktor. *x=~fct_reorder(Platform,Anzahl, .desc="true"),y=~Anzahl* Wir nutzen den Befehel *fct_reorder()* um die Platformen nach der Anzahl sortiert her anzuordnen. Der erste Parameter ist hierbei die zu sortierende Spalte, der zweite die nach der sortiert werden soll. Der Parameter .desc steht descending und bestimmt wie sortiert werden soll, in unserem fall der größte Wert zuerst. Zu guter letzt geben wir dem Diagramm noch einen Namen, weisen die Farbpalette zu und setzen das Layout mit dem Titel sowie unseren beiden Achsenbeschriftungen.
+Um sich einen guten Überblick über die Rankings der Platformen zu verschaffen nutzen wir hier ein Paretodiagramm. Dies sind nach der Größe der Werte sortierte Säulendiagramme. Zum erstellen des Diagramms brauchen wir zuerst einmal wieder unseren Datensatz den wir diesmal mithilfe des *group_by* Befehls anhand der *Platform* gruppieren. Danach nutzen wir erneut *summarize(Anzahl =n()* um die Einträge abzuzählen und den wert als Anzahl abzuspeichern. Um die Einträge der Anzahl nach zu sortieren nutzen wir zuerst den Befehl *grouped[order(grouped$Anzahl),decreasing = FALSE]* und weisen das Ergebnis der neuen Tabelle *Ordered* zu. Dieser Befehl sieht relativ komplex aus lässt sich jedoch recht einfach aufdröseln. Order sortiert die Tabelle nach der gegebenen Spalte und der Parameter *decreasing =* gibt an ob der größte Wert am Anfang oder Ende stehen soll. Das Dollar Zeichen selektiert hierbei die Spalte mit dem dahinterstehenden Name aus der vorher stehenden Tabelle getreu nach dem Schema *Tabelle$Spalte*. Danach müssen wir noch die Spalte *Platform* als faktor einlesen welches wir mit dem Befehl *as_factor(ordered$Platform)* tun. Danach erstellen wir unsere beiden Variablen ax und ay zur Achsenbeschriftung. Nun kommen wir zur eigentlichen Diagrammerstellung. Wir geben die Tabelle *ordered* weiter an *plot_ly()* und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Der unterschied zwischen Balken und Paretodiagramm liegt hierbei in der Parameterübergabe. Schauen wir uns die relevanten Teile einmal genauer an. Der interessante Teil passiert hierbei bei der zuweisung der X-Achse und hier sehen wir auch den Grund für unsere vorherige umwandlung der Spalte Platform zu einem faktor. *x=~fct_reorder(Platform,Anzahl, .desc="true"),y=~Anzahl* Wir nutzen den Befehel *fct_reorder()* um die Platformen nach der Anzahl sortiert her anzuordnen. Der erste Parameter ist hierbei die zu sortierende Spalte, der zweite die nach der sortiert werden soll. Der Parameter .desc steht descending und bestimmt wie sortiert werden soll, in unserem fall der größte Wert zuerst. Zu guter letzt geben wir dem Diagramm noch einen Namen, weisen die Farbpalette zu und setzen das Layout mit dem Titel sowie unseren beiden Achsenbeschriftungen.
 
 ```{r plot, echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -305,6 +307,8 @@ Beim Betrachten des Diagramms erkennen wir das weder ganz alte noch ganz neue Pl
 
 ### Sales
 
+Schauen wir uns nun die Verkaufszahlen der Spiele der einzelnen Platformen an. Wir verwenden hier wieder ein Paretodiagramm und gehen ähnlich des vorherigen Diagramms vor. Zuerst nutzen wir wieder die *group_by* Funktion um nach den Platformen zu gruppieren. Da wir nun aber die Verkaufszahlen betrachten wollen nutzen wir *summarize()* auf die *Global_Sales* Spalte. Nun nutzen wir die *rename()* funktion um die so entstandene Spale *sum(Global_Sales)* in *Global_Sales* umzubenennen. Dies hat keinen weiteren Nutzen außer uns im späteren Verlauf die Referenzierung der Spalte einfacher zu machen. Um später nach dieser neu erstellten Spalte sortieren zu können müssen wir diese zuerst in einen Vector umwandeln. Dies tun wir mit dem Befehl *grouped$Global_Sales<-as_vector(grouped$Global_Sales)*. Nun können wir die Tabelle sortieren und in der Variable ordered abspeichern *ordered <- grouped[order(grouped$Global_Sales), decreasing = FALSE]*. Als letzten Schritt bevor es an die erstellung des Diagramms geht wandeln wir noch die Spalte Platform in einen Factor um *ordered$Platform <- as_factor(ordered$Platform)* und erstellen erneut unsere Achsenbeschriftungen ax und ay. Zur erstellung des Diagramms übergeben wir unsere *ordered* Tabelle an die *plot_ly()* funktion und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Hier verwenden wir wieder die Parameter *x=~fct_reorder(Platform,Global_Sales, .desc="true"), y=~Global_Sales* um den x wert, also die Platformen nach den Global Sales zu sortieren bevor wir den namen und die Farbe des Diagramms setzen. Zu guter Letzt benutzen wir noch die Layout funktion um dem Diagramm einen Titel zu geben und unsere beiden Achsenbeschriftungen zu erstellen.
+
 ```{r plot(PlatformRanking_Global), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
   group_by(Platform) %>% 
@@ -337,21 +341,27 @@ ordered%>%
          yaxis = ay
          )
 ```
-Wie sich herausstellt ist dies jedoch nicht die Platform welches die meisten Gamereleases hat.
+Schauen wir uns das Entstandene Diagramm einmal auf fallen uns direkt zwei Dinge auf. Zum einen fehlt der Nintendo DS auf dem Spitzenplatz zusammen mit der PS2 und ist nur auf Platz 5, zum anderen ist der Unterschied zwischen den Spitzenplätzen bzw dem Spitzenplatz und dem rest der top 5 deutlich geringer. Waren es bei der Spieleanzahl noch fast 40% unterschied zwischen platz 1/2 und platz 3-4 so sind es hier nur knapp 20%. Die Restlichen plätze der Top 5 sind allerdings größtenteils gleich geblieben. Zusätzlich zum absacken des Nintendo DS von platz 1 auf platz 5 hat nur die XboX360 ihre Position in der Rangliste verändert.
 
 ## {-}
 
 ##### *Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe?* {#PlatformRankingGlobal_End}
 
+Beim Betrachten beider Diagramme oder sogar nur einem der Diagramme erkennt der Aufmerksame Betrachter relativ schnell das hier keine Pauschalantwort auf diese Fragestellung möglich ist. Dies ist aber irgendwie zu erwarten gewesen es gibt so viele Faktoren die den Erfolg einer bestimmten Platform bestimmen und es ist unmöglich dieses an einem Faktor festzulegen. Wwelche Frage wir allerdings beantworten konnten, zumindestens teilweise, ist die Frage nach der "besten Platform. Die **PS2** ist sowohl weit oben in der Spieleanzahl, als auch Spitzenreiter in den Gamverkäufen. Der Nintendo DS ist zwar in der Spieleanzahl sogar knapp vor der PS2 in den verkäufen aber weit abgeschlagen auf Platz 5. Ausschlaggebender als vergleichsargument wäre jedoch die Anzahl der Verkauften Spiele pro Spiel doch weiteres hierzu im [Ausblick in die Zukunft](#AusblickInDieZukunft)
+
+Offensichtlich ist ein Datensatz zu Anzahl der Spieleverkäufe vorallem ein so lückenhafter nicht optimal aber dazu weiteres im [Fazit](#AufgetreteneProbleme).
+
 ***
 
 # Platform Sales nach Region {#PlatformRankingByRegion}
 
-Nun analysieren wir die unterschiede der Regionen.
+Da wir nun geklärt haben welche Platformen die Nase vorne haben wäre es doch Interessant herauszufinden ob es Regionale unterschiede gibt.
+*Favorisieren verschiedene Regionen verschiedene Platformen? Verkaufen die Regionenheimischen Platformen automatisch auch die meisten Spiele?*
 
-Hierzu verwenden wir sowohl sorted bar plots sowie um einen besseren Überblick über die Prozentualverteilung der Konsolen in den einzelnen Regionen Pie charts.
+Hierbei können wir natürlich nur die Verkaufszahlen heranziehen. Theoretisch wäre auch ein Vergleich in anzahl der Spiele möglich würde aber diese Arbeit Sprengen da der Datensatz diese Informationen nicht ohne weiteres [hergibt](#AufgetreteneProbleme).
+Zum Beantworten dieser Frage benutzen wir erneut Paretodiagramme und um sich einen Groben überblick zu schaffen Kreisdiagramme. Diese haben ihre eigenen [Probleme](#AufgetreteneProbleme) bieten uns aber ein gutes Tool zur groben übersicht über die Prozentualverteilung der Konsolen und bringt etwas Abwechslung in diese bisher sehr Balkendiagramm lastige ausarbeitung.
 
-Einzuwenden hierbei ist, dass die Regionen natürlich unterschiedlich viele Einwohner haben.Ein vergleich der absoluten Saleswerte ist hierbei natürlich nur wenig ausschlaggebend zeigt aber einen generellen beliebtheitstrend der Konsolen auf.
+[Einzuwenden hierbei ist](#AufgetreteneProbleme), dass die Regionen natürlich unterschiedlich viele Einwohner haben.Ein vergleich der absoluten Saleswerte ist hierbei natürlich nur wenig ausschlaggebend zeigt aber einen generellen beliebtheitstrend der Konsolen in den einzelnen Regionen auf.
 
 ## Platform Ranking {.tabset}
 
@@ -2219,6 +2229,8 @@ Eine genaue Analyse der Gamesales pro jahr (aka tetrist 1950 30 mal testris 2015
 
 eine anylse der Coronapandemie veränderungen (geben die daten nicht her)
 
+Platformanalyse: Verkauften Spiele pro Spiel pro platform
+
 # Aufgetretene Probleme {#AufgetreteneProbleme}
 
 Colorbrewer wird nicht in jeder Grafik akzeptiert
@@ -2226,3 +2238,9 @@ Colorbrewer wird nicht in jeder Grafik akzeptiert
 Sales pro Game analyse rechnet nicht spiele pro platform zusammen
 
 Mobilegames fehlen im datensatz umfast nur 16k game von weltweit mehr als 3.3 mio https://www.statista.com/statistics/293304/number-video-gamers/#:~:text=In%20total%2C%20there%20were%20an,billion%20gamers%20across%20the%20globe.
+
+oft doppelter code durch verwendung in mehreren Diagrammen mit nur leichten änderungen
+
+Platformanalyse nach region Vergleich in anzahl der Spiele nicht möglich da herkunftsland des spiels nicht klar
+
+Regionaler vergleich aufgrund von unterschiedlichen enwohner zahlen nur prozentual nicht absolut möglich
