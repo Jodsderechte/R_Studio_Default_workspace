@@ -368,6 +368,9 @@ Zum Beantworten dieser Frage benutzen wir erneut Paretodiagramme und um sich ein
 ## Platform Ranking {.tabset}
 
 ### Balkendiagramme {.tabset}
+
+Die Erstellung der Paretodiagramme werde ich an dieser Stelle nicht mehr genauer erläutern, da das Grundprinzip weiterhin das gleiche bleibt einziger unterschied zwischen den verschiedenen Diagrammen ist hierbei der wert in der summarize Funktion *summarize(sum(EU_Sales))* EU_Sales für EU NA_SALES für US und JP_SALES für Japan sowie der Titel und die Achsenbeschriftungen. Eine genauere Erläuterung zur Erstellung von Paretodiagrammen gibt es [hier](#Platformanalyse).
+
 #### Europa
 ```{r plot(PlatformRanking_EU1), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -401,6 +404,8 @@ ordered%>%
          yaxis = ay
          )
 ```
+Hatte im Globalen durchshcnitt die PS2 noch deutlich die Nase vorne ist in EU die PS3 noch vor der PS2 und diese haben beide noch einen Recht weiten Vorsprung auf Platz 3 und 4. Die Playstation 1 sichert sich in Europa einen platz in den top 5 und auch die PS4 rückt einen Platz nach Vorne. Den wohl größten Sprung legt allerdings der PC hin. Ist dieser Global noch auf Platz 10 so belegt er in Europa platz 7. Auch außerhalb der Top 10 gibt es einige verschiebungen aufgrund des eher Geringeren Marketshares sehen wir hier allerdings von einer genaueren Analyse ab. Zusammenfassend können wir also sagen das Europa Sony konsolen sowie den Pc überdurchschnittlich gerne Nutzen.
+
 #### Nord-Amerika
 ```{r plot(PlatformRanking_NA1), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -434,7 +439,7 @@ ordered%>%
          yaxis = ay
          )
 ```
-
+Im direkten Vergleich mit EU fällt hier sofort ins Auge, dass die Playstation 2 zwar weiterhin von dem ersten Platz verdrängt wurde, Microsofts Xbox360 hier Sonys Playstation 3 allerdings auf dem ersten Platz ablöst. Auch die Wii hat erkennbar mehr Verkäufe als noch in Europa.
 #### Japan
 ```{r plot(PlatformRanking_JP1), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
