@@ -55,7 +55,8 @@ Dies besteht aus den Daten von https://www.vgchartz.com/ für die Jahre 1980 bis
     + [nach Region](#PublisherRankingbyRegion)
     
 4. Genreanalyse
-    + [Global](#GenreAmountGlobal)
+    + [nach Anzahl](#GenreAmountGlobal)
+    + [nach Verkaufszahlen](#GenreSalesGlobal)
     + [nach Region](#GenreAmountByRegion)
     
 5. Genreverteilung pro Jahr
@@ -971,6 +972,8 @@ ordered%>%
          )
 ```
 
+Im vergleich zu den Globalen Verkaufszahlen fällt hier auf das EA (23.7%) deutlich dichter hinter Nintendo(26.7%) auf dem Zweiten Platz ist. Der Abstand zwischen EA und Activision (13.7%) ist dementsprechend auch deutlich größer. Die restlichen werte unterscheiden sich kaum.
+
 #### Nord-Amerika
 
 ```{r plot(PublisherRanking_NA2), echo = TRUE, message=FALSE, results='markup', }
@@ -1022,6 +1025,8 @@ ordered%>%
          yaxis = ay
          )
 ```
+
+Auch in Nord Amerika kann EA(21.3%) leicht größere Verkaufszahlen im vergleich mit Nintendo (29.3%) als noch Global verbuchen diese sind jedoch geringer als noch in Europa. Im gegensatz zu Europa scheint jedoch Activision (15.4%) in Amerika deutlich beliebter zu sein. Die weiteren Publisher sind auch weiterhin nicht Relevant.
 
 #### Japan
 
@@ -1075,15 +1080,17 @@ ordered%>%
          )
 ```
 
+Japan Zeigt hier wohl den Deutlichsten unterschied auf. Nintendo (80.1%) Dominiert hier die Verkaufszahlen mit der mehr als 6 fachen menge an verkäufen als Sony (13%) welche sich den 2. Platz sichern. Die anderen Publisher sind mit weniger als 2.5% alle fast gleich irrelevant in Japan. 
+
 ## {-}
 
-Zwischen EU und US lassen sich hier kaum Unterschiede feststellen in Japan hingegen ist eine verschiebung zu erkennen. Japanische Publisher führen hierbei die Liste an und drängen andere große unternehmen von den Top spots.
+Zwischen EU und US lassen sich hier kaum Unterschiede feststellen in Japan hingegen ist eine deutliche verschiebung zu erkennen. Japanische Publisher führen hierbei die Liste an und drängen andere große unternehmen von den Top spots. Dementsprechend können wir schlussfolgern das manche Regionen, vorallem Japan welches die kleinste Region ist, deutliche vorlieben in spielen bestimmter Publisher haben, welche von der Globalen norm Abweichen. Eine Genauere Analyse von Europa und Nord Amerika durch unterteilung in Länder/Staaten währe hier vermutlich deutlich interessanter wird von den Daten jedoch leider nicht angeboten.
 
 ***
 
 # Genreverteilung der Videospiele nach Anzahl {#GenreAmountGlobal}
 
-Nun schauen wir uns die Genreverteilung von Videospielen an. Hierzu verwenden wir wiederum die Altbekannte sorted Bar/Pie-Chart kombo.
+Da wir uns nu klar geworden sind, dass es bestimmte Publisher gibt, die beliebter sind als andere wäre es interessant herauszufinden ob bestimmte Spiele Genres beliebter sind als andere. Hierzu vergleichen wir zuerst einmal die Genres nach anzahl der Spielereleases und verwenden erneut ein [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion). Anzumerken ist hierbei jedoch das Spiele meist mehr als einem Genre angehören in diesem Datensatz ist jedoch immer nur eins angegeben.
 
 ## Genre Amount {.tabset}
 
@@ -1121,6 +1128,8 @@ ordered%>%
 
 ```
 
+Der Anführer der Liste ist mit deutlichem Abstand Action (GTA,Bloodborne) mit 3316. Auf dem Zweiten platz findet sich Sports (2346) mit reihen wie FIFA und NBA2k. Den dritten Platz belegt ein Genre das aus vielen verschiedenen Genren besteht die in dieser Liste nicht aufgeführt werden mit 1739. Misc beinhaltet spiele wie Just Dance (Musik/Rhythmus) oder Minecraft ein Sandbox Survival game. Danach kommen mit geringerem Abstand der Reihe nach Role-Playing (Witcher, The Elder Scrolls) mit 1488, Shooter (Call of Duty, Doom) mit 1310, Adventure (God of War, Life is Strange) mit 1286 und Racing (Gran Tourismo, Forza) mit 1249. Danach folgen mit einem größeren Abstand Platform (Super Mario, LittleBigPlanet) mit 886, Simulation (Sims, Microsoft Flight Simulator) mit 867 sowie Fighting (Tekken, Super Smash Bros) mit 884. Zu guter letzt fehlen noch Strategy (Age of Empires, Civilisation) mit 681 sowie Puzzle (Portal,Tetris) mit 582.
+
 ### Kreis Diagramm
 
 ```{r plot(GenreAmount_GLobal2), echo = TRUE, message=FALSE, results='markup', }
@@ -1153,11 +1162,15 @@ ordered%>%
          )
 ```
 
+Der Anführer der Liste ist mit deutlichem Abstand Action (GTA,Bloodborne) mit 20%. Auf dem Zweiten platz findet sich Sports (14.1%) mit reihen wie FIFA und NBA2k. Den dritten Platz belegt ein Genre das aus vielen verschiedenen Genren besteht die in dieser Liste nicht aufgeführt werden mit 10.5%. Misc beinhaltet spiele wie Just Dance (Musik/Rhythmus) oder Minecraft ein Sandbox Survival game. Danach kommen mit geringerem Abstand der Reihe nach Role-Playing (Witcher, The Elder Scrolls) mit 8.96%, Shooter (Call of Duty, Doom) mit 7.89%, Adventure (God of War, Life is Strange) mit 7.75% und Racing (Gran Tourismo, Forza) mit 7.53%. Danach folgen mit einem größeren Abstand Platform (Super Mario, LittleBigPlanet) mit 5.34%, Simulation (Sims, Microsoft Flight Simulator) mit 5.22% sowie Fighting (Tekken, Super Smash Bros) mit 5.11%. Zu guter letzt fehlen noch Strategy (Age of Empires, Civilisation) mit 4.1% sowie Puzzle (Portal,Tetris) mit 3.51%.
+
 ## {-}
 
-Hierbei ist zu erkennen das Action und Sports ein Großteil (34%) der Genres ausmachen. Die Frage ist jedoch wie sind die Verkäufe verteilt und beeinflusst die anzahl der Games pro Genre irgendwie die Verkaufszahlen?
+Auffällig hierbei ist das die Größten vier Genres 53.56% der Spielereleases ausmachen. Dies ist ansich nicht weiter Verwunderlich. In der Spieleindustrie bzw allgemein, ist es ein gerne genutztes konzept Funktionierende dinge zu übernehmen. Dies ist vorallem auffällig bei Spielen, welche ganze Genres prägen. Sei es Minecraft für die Survival Games (DayZ, Rust), World of Warcraft für die MMORPG's (Final Fantasy 14, Guild Wars 2) oder die Warcraft 3 mod Dota welche das MOBA genre (League of Legends, Dota 2) nach sich gezogen hat.
 
+# Genreverteilung der Videospiele nach Verkaufszahlen {#GenreSalesGlobal}
 
+Schauen wir uns nun jedoch an ob die Verkaufszahlen die gleichen häufungen aufzeigen und verwenden wieder ein [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion). Es gilt weiterhin die obengenannte Problematik der Genrenotation des Datensatzes.
 
 ## Sales Amount {.tabset}
 
@@ -1196,6 +1209,9 @@ ordered%>%
 
 ```
 
+Auf Platz 1 und 2 der Liste befinden sich weiterhin Action (1.751 mrd) und Spots (1.33 mrd). Platz 3 belegt hier jedoch nicht Misc welches mit 809.96 mio auf platz 6 abgerutscht ist sondern Shooter (1.037 mrd). Platz 4 wird weiterhin von Role-Playing (927.37 mio) belegt. Auch Platform (831.37) verkaufen sich deutlich besser und sichern sich Platz 5. Die restlichen Genres unterscheiden sich Kaum in Anzahl und Verkaufszahlen.
+
+
 ### Kreis Diagramm
 
 ```{r plot(SalesByGenre_Global2), echo = TRUE, message=FALSE, results='markup', }
@@ -1229,14 +1245,16 @@ ordered%>%
         )
 ```
 
+Auf Platz 1 und 2 der Liste befinden sich weiterhin Action (19.6%) und Spots (14.9%). Platz 3 belegt hier jedoch nicht Misc welches mit 9.08% auf platz 6 abgerutscht ist sondern Shooter (11.6%). Platz 4 wird weiterhin von Role-Playing (10.4%) belegt. Auch Platform (9.32%) verkaufen sich deutlich besser und sichern sich Platz 5. Die restlichen Genres unterscheiden sich Kaum in Anzahl und Verkaufszahlen.
 
 ## {-}
 
-Hierbei erkennen wir das es einige Unterschiede gibt Action und sports machen jedoch weiterhin einen Grosteil des Markts aus.
+Beim Betrachten fällt hier auf, dass sich einige Genres deutlich besser verkaufen als andere. Vorallem Shooter und Platform spiele sind hier die Kassenschlager wenn man die Verkaufszahlen mit Anzahl der Spiele vergleicht. Die großen Genres Action und Sports sind jedoch sowohl in verkaufszahlen als auch Anzahl der Spiele unangefochten auf platz 1 und 2.
 
-Nun schauen wir uns die Unterscheide in den Regionen an.
 
 # Regionale Unterschiede der Genres {#GenreAmountByRegion}
+
+Nachdem wir vorhin bei den Platformen deutliche Regionale Unterschiede feststellen konnten stellt sich bei den Genres die gleiche Frage und dementsprechend auch wieder der gleiche Lösungsansatz mit [Pareto-](#Platformanalyse) und [Kreisdiagrammen](#PlatformRankingByRegion).
 
 ## SalesbyGenre {.tabset}
 
@@ -2283,4 +2301,4 @@ Regionaler vergleich aufgrund von unterschiedlichen enwohner zahlen nur prozentu
 
 Platform ranking per year filter nach total sales wäre besser zu besseren übersicht.
 
-Publisaher Ranking by Region vermutlich unterschiedlicher ausgang in Japan ohne ANzahl filter
+Publisaher Ranking by Region vermutlich unterschiedlicher ausgang in Japan ohne ANzahl filter.
