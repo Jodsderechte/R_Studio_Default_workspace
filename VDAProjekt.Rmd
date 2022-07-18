@@ -404,7 +404,7 @@ ordered%>%
          yaxis = ay
          )
 ```
-Hatte im Globalen durchshcnitt die PS2 noch deutlich die Nase vorne ist in EU die PS3 noch vor der PS2 und diese haben beide noch einen Recht weiten Vorsprung auf Platz 3 und 4. Die Playstation 1 sichert sich in Europa einen platz in den top 5 und auch die PS4 rückt einen Platz nach Vorne. Den wohl größten Sprung legt allerdings der PC hin. Ist dieser Global noch auf Platz 10 so belegt er in Europa platz 7. Auch außerhalb der Top 10 gibt es einige verschiebungen aufgrund des eher Geringeren Marketshares sehen wir hier allerdings von einer genaueren Analyse ab. Zusammenfassend können wir also sagen das Europa Sony konsolen sowie den Pc überdurchschnittlich gerne Nutzen.
+Hatte im Globalen durchschnitt die PS2 noch deutlich die Nase vorne ist in EU die PS3 (343.71) noch vor der PS2 (339.29) und diese haben beide noch einen Recht weiten Vorsprung auf Platz 3 (280.58) und 4 (268.38) welche respektive von der Xbox360 und der Wii belegt werden. Die Playstation 1 (213.6) sichert sich in Europa einen platz in den top 5 und auch die PS4 (123.7) rückt einen Platz nach Vorne. Den wohl größten Sprung legt allerdings der PC (139.68) hin. Ist dieser Global noch auf Platz 10 so belegt er in Europa platz 7. Auch außerhalb der Top 10 gibt es einige verschiebungen aufgrund des eher Geringeren Marketshares sehen wir hier allerdings von einer genaueren Analyse ab. Zusammenfassend können wir also sagen das Europa Sony konsolen sowie den Pc überdurchschnittlich gerne Nutzen.
 
 #### Nord-Amerika
 ```{r plot(PlatformRanking_NA1), echo = TRUE,message=FALSE,results='markup',}
@@ -439,7 +439,8 @@ ordered%>%
          yaxis = ay
          )
 ```
-Im direkten Vergleich mit EU fällt hier sofort ins Auge, dass die Playstation 2 zwar weiterhin von dem ersten Platz verdrängt wurde, Microsofts Xbox360 hier Sonys Playstation 3 allerdings auf dem ersten Platz ablöst. Auch die Wii hat erkennbar mehr Verkäufe als noch in Europa.
+Im direkten Vergleich mit EU fällt hier sofort ins Auge, dass die Playstation 2 (583.84) zwar weiterhin von dem ersten Platz verdrängt wurde, Microsofts Xbox360 (601.05) hier Sonys Playstation 3 (392.26) allerdings auf dem ersten Platz ablöst. Auch die Wii (507.71) hat erkennbar mehr Verkäufe als noch in Europa. PS4 (96.8) und PC (93.28) spiele verkaufen sich in Nord-Amerika deutlich weniger als in Europa wohingegen die Restlichen Platformen größtenteils Ähnlich verteilt bleiben.
+
 #### Japan
 ```{r plot(PlatformRanking_JP1), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -473,9 +474,14 @@ ordered%>%
          yaxis = ay
          )
 ```
+Japan ist wohl der größte Ausreißer der drei Regionen. Hier führt der Nintendo DS (175.57) die Liste an. Auch der Abstand auf Platz 2 ist hier größer als in den anderen Regionen welcher nicht von der Playstation 2 (Platz 3) sondern der Playstation 1 belegt wird. Weit abgeschlagen ist die PS2 (139.2 mio) von der PS1(139.82) jedoch nicht. Sonys beide Konsolen sind auch die einzigen nicht Nintendo konsolen in den Top 7. Allegemein ist hier ein großer Fokus auf Japanische unternehmen zu erkennen wenn man bedenkt das die erste, nicht japanische konsole, die Xbox 360 (12.43) auf Platz 17 ist. Japanische hersteller sind in der Spieleindustrie weit verbreitet ein so extremes Verhältnis ist Global jedoch nicht die Norm. Schauen wir uns das ganze einmal genauer als Kreisdiagramme an um die Verhältnise etwas deutlicher zu machen.
+
 ### kreisdiagramme {.tabset}
 
+Da wir bisher noch keine Kreisdiagramme genutzt haben schauen wir uns erst mal die Unterschiede in der Diagrammerstellung an bevor wir uns auf die Analyse ebenjener Diagramme stürzen. Der einfachheit halber schauen wir uns das ganze nur am Beispiel Europa an, die anderen Diagramme unterscheiden sich aber nur in dem Wert in der *summarize* funktion sowie den Achsen- und der Diagrbeschriftung. Der Grundaufbau der Diagramm erstellung ist hier wieder ähnlich wie bei den Paretodiagrammen. Zuerst gruppieren wir die Daten, sortieren sie nach Anzahl der Verkäufe und erstellen unsere Achsenbeschriftungen. Danach zum interessanten Teil der Diagrammerstellung welcher sich eigentlich auch nicht groß von den Paretodiagrammen unterscheidet. Wir übergeben unsere Sortierten Daten an *Plot_ly()* und verwenden die Funktion *add_pie* mit entsprechenden Parametern zur Diagramm erstellung. Diese unterscheiden sich etwas von den Paretodiagrammen. *Values* sind hierbei die Werte, die die Größe und *labels* die Bezeichnung der "Kuchenstücke" festlegen. Der letzte interessante Parameter ist *textinfo* mit welchem Festgelegt wird was als text in den Abschnitten aufgeführt wird. In unserem Beispiel nutzen wir hier *textinfo='label+percent'* umd sowohl die Bezeichnungen als auch den Genauen Prozentwert anzuzeigen.
+
 #### Europa
+
 ```{r plot(PlatformRanking_EU2), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
   group_by(Platform) %>% 
@@ -506,6 +512,8 @@ ordered%>%
          yaxis = ay
          )
 ```
+Ohne direkte Globale vergleichsdiagramme können wir hier im ersten Schritt noch keine großartigen Aussagen treffen werden aber im späteren Verlauf auf diese eingehen. Was wir hier allerdings gut erkennen Können ist, dass die größten vier Platformen hier 50.5% der Gesamtverkäufe ausmachen und Sonys Konsolen sogar 28%.
+
 #### Nord-Amerika
 ```{r plot(PlatformRanking_NA2), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -538,7 +546,7 @@ ordered%>%
          yaxis = ay
          )
 ```
-
+Beim betrachten des Diagrammes für Amerika sehen wir das die Top 4, welche weiterhin aus XboX360 Wii Ps2 und PS3 bestehen, nur noch 47.53% ausmachen. Größter Verlierer sind hier Sonys Konsolen, welche nur noch 22.23% ausmachen.
 #### Japan
 ```{r plot(PlatformRanking_JP2), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -571,19 +579,19 @@ ordered%>%
          yaxis = ay
          )
 ```
-
+In Japan machen die Top 4 44.23% aus bestehen aber bis auf die PS2 aus gänzlich anderen Konsolen. Da Sonys PS3 von der PS ersetzt wird halten diese weiterhin 21.6% der Top 4. Nintendo holt sich hier jedoch den Größten Anteil mit 22.63%. Ein vergleich dieser Werte ist jedoch, wie bereits im Vorspann der Platform Rankings erwähnt mit Problemen gehaft. Genaueres hierzu wie bereits erwähnt im [Fazit](#AufgetreteneProbleme).
 
 ## {-}
 
 
-Im genensatz zur EU, in der das japanische unternehmen Sony mit der PS2 und PS3 die liste anführt, hat in den USA das Landeseigene softwareunternehmen Microsoft mit der Xbox360 die Nase vorn. In Japan hingegen ist wie zu erwarten der japanische hersteller Nintendo mit dem DS der Markführer.
-
 ***
 
 # Platform Sales im laufe der Jahre {#SalesPerPlatform}
-Um sich das Ganze etwas genauer anzuschauen betrachten wir die Anzahl der Sales per Platform im Verlauf der Jahre.
 
-Um eine überladung des Diagramms zu verhindern werden hier allerdings nur Plattformen mit mindestens 60 mio in Sales im entsprechenden Jahr berücksichtigt. Dies hat den Nachteil das einige z.T wichtige Daten Fehlen, ein Weglassen ebenjenes Filters fürt aber zu kompletter Unübersichtlichkeit.
+Nachdem wir uns die Platform verteilung angeschaut haben stellt sich die Frage ob es im laufe der Jahre unterschiede in den Verkäufen gibt.
+
+
+Um uns dies anzuschaun verwenden wir eine neue art der Grafik die wir bisher noch nicht verwendet haben. Zum erstellen der Grafik gruppieren wir zuerst wieder unsere Daten und addieren die werte der Sales pro Jahr und Platform auf. ZUsätzlich zum Filter der ungültigen Jahre filter wir allerdings alle Summen mit weniger als 60 mio in Sales. Dies ist um eine Überladung des Diagramms zu verhindern führt aber zu anderen [Problemen](#AufgetreteneProbleme). Neu in der erstellung dieses Diagramms sind auch die befehle *arrange()* und *slice()*. Arrange sortiert die Tabelle anhand der gegebenen Spalte in unserem fall ist das die Summe der Globalen verkäufe. Slice entfernt alle Spalten bis auf jene, welche wir verwenden wollen. Neu bei der Diagamm erstellung sind hier die Parameter *mode = 'none'* sowie *stackgroup = 'one'* welche die hier zu sehende Grafik erzeugen.
 ```{r plot(SalesPerPlatformbyYear), echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
@@ -613,15 +621,17 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          )
 
 ```
-Hier erkennen wir das Platform, wie zu erwarten, meist kurz nach Release die größten Verkaufszahlen verzeichnen.
+Im ersten Moment ist die Grafik sehr verwirrend aber dröseln wir das ganze einmal genauer auf. Zuerst einmal fällt auf, dass die Jahre 1980-1988 sowie 1990-1005 und 2016 fehlen. Dies liegt an den oben gewählten Filtern und den in den jahren pro Platform gemessen zu geringen Verkaufszahlen. Zwischen den Jahren 1996 und 2000 ist hier nur die Playstation, welche 1994 veröffentlicht wurde zu erkennen. Im Jahre 2000 wird diese dann von der Playstation 2, welche am 04.03.2000 releast wurde abgelöst. Auch der Gameboy Advanced  hier in den Jahren 2000-2003 sowie 2004 zu erkennen, obwohl dieser Global erst mitte des jahres 2001 releast wurde.2004 wird die Playstation 2 dann von der Xbox, welche am 22.02.2002 erstmals veröffentlich wurde, kurzzeitig abgelöst bevor die Wii(02.12.2006) mit nur einem Verkaufsmonat des Jahres 2006 die führung übernimmt. Auch die Verkaufszahlen des Nintendo DS (02.12.2004) sind in den Jahren 2005-2010 gut erkennbar. Die XboX360 (10.12.2005) übernimmt ab 2007 den ersten Platz der Rangliste und wird erst 2014 von der PS4(15.11.2013) abgelöst.
+
+Allgemein ist hier ein Trend erkennbar. Meist verkaufen Platformen wie zu erwarten einige Zeit nach Release die meisten Spiele. Erstaunlicherweise ist dies jedoch nicht kurz nach Release sondern z.T. erst einige Jahre später. Interessant währe hier eine detailliertere analyse aber weiteres dazu [hier](#AusblickInDieZukunft).
+
 
 
 ***
 
 # Publisher Vergleich {#PublisherReleases}
 
-Nun stellt sich die Frage ob sich neben bestimmten Platformen auch bestimmte Entwickler/Publisher häufen. Hierbei gehen wir davon aus das vermutlich Nintendo und EA die Liste anführen.
-Hierzu verwenden wir wiederum sorted Bar-Charts und kürzen die Namen um die Begriffe "Entertainment", "Interactive", "Game", "Games" und "Studios" da dies die Namen nur unnötig verlängert und Filtern Publisher mit Geringen Anzahl an Game Releases.
+Nachdem wir uns nun eine Übersicht über die Platformen gemacht haben wäre es doch interessant zu wissen ob sich neben bestimmten Platformen auch bestimmte Entwickler/Publisher häufen. Anzunehmen ist hierbei das Namenhafte Publisher wie EA und Nintendo die Liste anführen. Hierzu verwenden wir wiederum Paretodiagramme. Eine genauere erklärung zur erstellung ebenjener gibt es [hier](#Platformanalyse). Einzige neuerung in diesem abschnitt ist das Kürzen der Namen um die Begriffe "Entertainment", "Interactive", "Game", "Games" und "Studios" da dies die Namen nur unnötig verlängert. Um dies zu erreichen mutzen wir die Funktion *str_remove_all()* auf die Spalte Publisher. 
 
 ## Publisher {.tabset}
 
@@ -675,6 +685,9 @@ ordered%>%
          
          )
 ```
+
+Betrachten wir zuerst einmal die Anzahl der Spielereleases. Wenig überaschend ist hier EA (1351), mit jährlich veröffentlichenden namenhaften Spielen wie FIFA und Madden NFL sowie anderen bekannten Reihen wie Need for Speed, Battlefield oder Sims, anführer der Liste. An zweiter stelle befindet sich Activision (975) die unter anderem Spiele wie World of Warcraft, die Diablo reihe sowie Candy Crush entwickelten. Zum Zeitpunkt der Erstellung dieser Arbeit sind diese noch ein eigener Konzern werden allerdings vorausichtlich 2023 Teil von Microsoft. Darauf folgen in kurzen abständen Ubisoft (921), welche für Assasins Creed, Rainbox six oder Anno bekannt sind, sowie THQ  mit 715 (Gothic, Darksiders, TitanQuest). Auch Nintendo (703) mit Mario, Pokemon und Zelda sowie Sony (638), bekannt durch die Gran Tourismo und Uncharted Reihe sowie The last of Us, sind nicht weit abgeschlagen. Den letzten platz der Top Publisher belegt Take Two, welche für GTA, Borderlands und Civilization bekannt sind, mit 413.
+
 ### Sales
 ```{r plot(PublisherRanking_Global), echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
@@ -727,16 +740,17 @@ ordered%>%
          )
 ```
 ## {-}
-Auffällig ist hier die diskrepanz zwischen Anzahl der Spielereleases und Anzahl der Spieleverkäufe. Im gegensatz zu der Anzahl der Spiele (bei dem Nintendo nur auf platz 6 Sitz) dominiert Nintendo im anzahl der Sales.
 
+Beim Betrachten der Verkaufszahlen fällt hier direkt die diskrepanz zwischen Anzahl der Spielereleases und Anzahl der Spieleverkäufe auf. Im gegensatz zu der Anzahl der Spiele (bei dem Nintendo nur auf platz 6 Sitz) dominiert Nintendo(1.786 mrd) in Sales. EA (1.1 mrd), welche noch mit Abstand die meisten spielreleases hatten sind in den Verkäufen nur noch mit deutlichem Abstand auf Platz 2. Auch die anderen Plätze verändern sich leicht die Unterschiede sind hier jedoch deutlich geringer als bei Nintendo und EA. Interessant wäre hierzu vielleicht noch ein direkter vergleich zwischen Anzahl und Sales aber genaueres dazu im [Fazit](#AusblickInDieZukunft)
 
-Nun stellt sich wieder einmal die Frage ob sich dies in Bestimmten teilen der Welt unterscheidet und hierzu verwenden wir wiederum die SortedBar/Piechart kombo und die bereits genannten Filter
 
 ***
 
 # Publisher Ranking nach Region {#PublisherRankingbyRegion}
 
-## Publisher Ranking nach Region {.tabset}
+Nachdem wir uns einen Allgemeinen Überblick über die Publisher gemacht haben betrachten wir die Regionalen unterschiede in den Verkaufszahlen. Hierzu verwenden wir erneut die Bereits bekannten Shemata der [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion) kombo. Einen Refresher für die Erstellung ebenjener Diagramme gibt es via den Entsprechenden Links.
+
+## Ranking nach Region {.tabset}
 ### Balkendiagramme {.tabset}
 #### Europa
 
@@ -791,6 +805,9 @@ ordered%>%
          yaxis = ay
          )
 ```
+
+Im vergleich zu den Globalen Verkaufszahlen fällt hier auf das EA (371.27 mio) deutlich dichter hinter Nintendo(418.74) auf dem Zweiten Platz ist. Der Abstand zwischen EA und Activision (215.53) ist dementsprechend auch deutlich größer. Die restlichen werte unterscheiden sich aber kaum.
+
 #### Nord Amerika
 ```{r plot(PublisherRanking_NA1), echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
@@ -842,6 +859,9 @@ ordered%>%
          yaxis = ay
          )
 ```
+
+Auch in Nord Amerika kann EA(595.07) leicht größere Verkaufszahlen im vergleich mit Nintendo (816.87) als noch Global verbuchen. Im gegensatz zu Europa scheint jedoch Activision (429.7) in Amerika deutlich beliebter zu sein. Die weiteren Publisher sind auch weiterhin nicht Relevant.
+
 #### Japan
 ```{r plot(PublisherRanking_JP1), echo = TRUE, message=FALSE, results='markup', }
 grouped <- vgsales  %>% 
@@ -893,6 +913,9 @@ ordered%>%
          yaxis = ay
          )
 ```
+
+Japan Zeigt hier wohl den Deutlichsten unterschied auf. Nintendo (455.42) Dominiert hier die Verkaufszahlen mit der mehr als 6 fachen menge an verkäufen als Sony (74.1) welche sich den 2. Platz sichern. Die anderen Publisher sind alle fast gleich irrelevant in Japan. 
+
 
 ### Kreisdiagramme {.tabset}
 
@@ -2238,6 +2261,12 @@ eine anylse der Coronapandemie veränderungen (geben die daten nicht her)
 
 Platformanalyse: Verkauften Spiele pro Spiel pro platform
 
+Platform im laufe der Jahre genauere anaslyse
+
+Publisher pro platform vergleich (e.g. Nintendospiele auf Nintendo konsolen etc.)
+
+Publisher Anzahl/sales direkter 1 zu 1 vergleich.
+
 # Aufgetretene Probleme {#AufgetreteneProbleme}
 
 Colorbrewer wird nicht in jeder Grafik akzeptiert
@@ -2251,3 +2280,7 @@ oft doppelter code durch verwendung in mehreren Diagrammen mit nur leichten änd
 Platformanalyse nach region Vergleich in anzahl der Spiele nicht möglich da herkunftsland des spiels nicht klar
 
 Regionaler vergleich aufgrund von unterschiedlichen enwohner zahlen nur prozentual nicht absolut möglich
+
+Platform ranking per year filter nach total sales wäre besser zu besseren übersicht.
+
+Publisaher Ranking by Region vermutlich unterschiedlicher ausgang in Japan ohne ANzahl filter
