@@ -19,21 +19,23 @@ output:
 </center>
 ***
 
-### **Angaben zu den Daten**
-Das verwendete Dataset des Projekts: https://www.kaggle.com/datasets/gregorut/videogamesales   
-Dies besteht aus den Daten von https://www.vgchartz.com/ für die Jahre 1980 bis 2016 und umfasst die Folgenden Spalten bzw.Daten.
+### **Angaben**
+Verwendetes Dataset: https://www.kaggle.com/datasets/gregorut/videogamesales   
+Daten von https://www.vgchartz.com/ für die Jahre 1980 bis 2016
 
-* Rank - Die Platzierung des Spiels nach Anzahl der Verkäufen
-* Name - Der Name des Spiels
-* Platform - Die Platform auf der das Spiel veröffentlicht wurde (z.B. PC,PS4, etc.)
-* Year - Das Jahr der Veröffentlichung des Spiels
-* Genre - Das Genre des Spiels (z.B. Sport,Action, Puzzle)
-* Publisher - Der Publisher des Spiels
-* NA_Sales - Die Anzahl der Verkäufe in Nord-Amerika (in millionen)
-* EU_Sales - Die Anzahl der Verkäufe in Europa (in millionen)
-* JP_Sales - Die Anzahl der Verkäufe in Japan (in millionen)
-* Other_Sales - Die Anzahl der Verkäufe im Rest der Welt (in millionen)
-* Global_Sales - Die Anzahl der Verkäufe Weltweit (in millionen)
+Wie folgt dargestellt: 
+
+* Rank - Rangfolge des Spiels nach Zahl der Verkäufe
+* Name - Name des Spiels
+* Platform - Veröffentlichungsplattform des Spiels (z.B. PC,PS4, etc.)
+* Year - Jahr der Veröffentlichung des Spiels
+* Genre - Genre des Spiels (z.B. sport, action, puzzle)
+* Publisher - Publisher des Spiels
+* NA_Sales -  Zahl der Verkäufe in Nord-Amerika (in Millionen)
+* EU_Sales - Zahl der Verkäufe in Europa (in Millionen)
+* JP_Sales - Zahl der Verkäufe in Japan (in Millionen)
+* Other_Sales - Zahl der Verkäufe - Rest der Welt (in Millionen)
+* Global_Sales - Weltweite Verkäufe (in Millionen)
 
 ***
 
@@ -48,7 +50,7 @@ Dies besteht aus den Daten von https://www.vgchartz.com/ für die Jahre 1980 bis
 2. Platformanalyse
     + [Global](#Platformanalyse)
     + [nach Region](#PlatformRankingByRegion)
-    + [Verkaufszhlentwicklung im laufe der Jahre](#SalesPerPlatform)
+    + [Verkaufszahlentwicklung im Laufe der Jahre](#SalesPerPlatform)
     
 3. Publisheranalyse 
     + [Global](#PublisherReleases)
@@ -77,34 +79,34 @@ Dies besteht aus den Daten von https://www.vgchartz.com/ für die Jahre 1980 bis
 ***
 ### Thesen
 
-Bevor wir mit der Analyse der Daten beginnen können Stellen wir erstmal ein paar Thesen bzw. Fragestellungen auf die wir im laufe des Projekts hinterfragen bzw beantworten wollen.  
+Folgende Thesen bzw. Fragestellungen werden analysiert:  
 
-* Welche Jahre sind die besten in der Anzahl der releasten Games und Sales?  [Antwort](#VideoGameReleases)
-* Werden heutzutage mehr Spiele Releast und Verkauft als noch 1980? [Antwort](#VideoGameReleases)
-* Welche Jahre sind die besten in Anzahl Sales pro Game? Werden neuere Spiele automatisch mehr Gekauft? [Antwort](#VideoGameReleases)
+* In welchen Jahren wurden die meisten Spiele veröffentlicht und verkauft?  [Antwort](#VideoGameReleases)
+* Wie unterscheiden sich die Veröffentlichungs- und Verkaufszahlen zwischen 1980 und heute? [Antwort](#VideoGameReleases)
+* Welches waren die besten Verkaufsjahre bezogen auf die Zahl der Verkäufe pro Spiel? Werden die jeweils neueren Spiele dabei häufiger gekauft? [Antwort](#VideoGameReleases)
 
-* Welche Plattform ist die beste in Anzahl verkäufen? Welche in Anzahl der Game Releases? [Antwort](#Platformanalyse)
-* Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe? [Antwort](#PlatformRankingGlobal_End)
-* Favorisieren verschiedene Regionen verschiedene Platformen? Verkaufen die Regionenheimischen Platformen automatisch auch die meisten Spiele? [Antwort](#PlatformRankingByRegion)
-* Wie Entwickeln sich die Verkäufe pro Platform im laufe der Jahre? Haben Platformen kurz nach Release den größten "Hype"? [Antwort](#SalesPerPlatform)
+* Welche Plattform hat die besten Verkaufszahlen? Welche die meisten Releases? [Antwort](#Platformanalyse)
+* Haben etablierte, ältere Plattformen ein größeres Spielangebot und mehr Verkäufe als Plattformen, die neu auf den Markt kommen? [Antwort](#PlatformRankingGlobal_End)
+* Gibt es regionale Unterschiede im Nutzerverhalten bei Plattformen? Verkaufen die regionalen Plattformen regelmäßig auch mehr Spiele? [Antwort](#PlatformRankingByRegion)
+* Wie Entwickeln sich die Verkäufe pro Platform im laufe der Jahre? Entsteht bei Verkäufen kurz nach dem Release jeweils der größte “Hype” mit den höchsten Verkaufszahlen? [Antwort](#SalesPerPlatform)
 
-* Bestimmte Publisher häufen sich in Anzahl der Spiele und der Verkäufen (z.B. Nintendo, EA, Activision Blizzard) [Antwort](#PublisherReleases)  
-* Gibt es regionale Unterschiede in den Publishern? Werden Regioneninterne Publisher Favoritisiert? [Antwort](#PublisherRankingbyRegion)
+* Gibt es Häufungen bei Zahl der Spiele und der Verkäufe bei bestimmten Publisher (z.B. Nintendo, EA, Activision Blizzard)? [Antwort](#PublisherReleases)  
+* Gibt es regionale Unterschiede im Nutzerverhalten bei Publishern? Werden regionale Publisher favoritisiert? [Antwort](#PublisherRankingbyRegion)
 
-* Wie sind die Genres der Spiele verteilt? Häufen sich bestimmte Genres bei Anzahl und Verkaufszahlen? Gibt es Genres die besser/schlechter Performen als sie sollten? [Antwort](#GenreAmountGlobal)   
-* Gibt es regionale Unterschiede in den Genres? (Gibt es Regionen die Spezifische Genres Favorisieren welche in anderen Regionen nur eine geringe Rolle spielt?) [Antwort](#GenreAmountByRegion)
+* Wie ist die Verteilung der Genres der Spiele? Gibt es Häufungen bestimmter Genres bei Zahl und Verkaufszahlen? Welche Genres haben die besten/schlechtesten Verkaufszahlen? [Antwort](#GenreAmountGlobal)   
+* Gibt es regionale Unterschiede bei den Genres? (Gibt es regionale Unterschiede im Nutzer- oder Konsumverhalten bei spezifischen Genres?) [Antwort](#GenreAmountByRegion)
 
 * Wie haben sich die Genres über die Jahre entwickelt? [Antwort](#GenreAmountPerYear)
-* Gibt es Genres die mal großen Einfluss hatten und nun Bedeutungslos sind? [Antwort](#GenreSalesPerGamePerYear)
+* Gibt es Genres, die nach großem Interesse nun bedeutungslos sind? [Antwort](#GenreSalesPerGamePerYear)
 
-* Gibt es Publisher die bestimmte Genres bevorzugen bzw. Publisher deren Games eines bestimmten Genres sich besonders gut Verkaufen? [Antwort](#GenreByPublisherGlobal)
+* Gibt es Publisher, die bestimmte Genres bevorzugt anbieten, und/oder Publisher, die hohe Verkaufszahlen von Games eines bestimmten Genres verzeichnen? [Antwort](#GenreByPublisherGlobal)
 
 
 ***
 
 ### Daten und Librarys
-Nach dem Vorstellen der Daten und dem aufstellen der initialen Thesen können wir nun mit dem einlesen der Daten beginnen.  
-Zusätzlich erstellen wir noch eine Farbpalette und importieren die Librarys
+Nach dem Vorstellen der Daten und dem Aufstellen der initialen Thesen werden die Daten eingelesen.
+Zusätzlich wird eine Farbpalette erstellt und die Librarys importiert.
 
 ```{r setup, include=TRUE, echo=TRUE, message=FALSE}
 library(readr)
@@ -125,13 +127,19 @@ vgsales <- read_csv("vgsales.csv")
 ***
 
 
-# Videospiel releases {#VideoGameReleases}
+# Veröffentlichungen/Releases - Videospiele {#VideoGameReleases}
 
 
-## Videospiel releases im laufe der Jahre {.tabset}
+## im Lauf der Jahre 1980 bis heute {.tabset}
 ### Releases nach Anzahl {#VideoGameReleasesAmount}
 
-Unsere erste These war “Welche Jahre sind die besten in der Anzahl der releasten Games und Sales?” Um dieser Fragestellung auf den Grund zu gehen müssen wir zuerst einmal die Daten der Tabelle vgsales mithilfe der Funktion *group_by(Year)* anhand der Jahre Zusammenfassen. Nun erhalten wir eine nach den Jahren zusammengefasste Tabelle deren Einträge wir mit der Funktion *dplyr::summarize(Anzahl =n())* abzählen und als Wert Anzahl abspeichern. Aufgrund der für diese analyse Fehlerhaften Daten verwenden wir noch die Funktion *filter()* um alle fehlenden Jahreseinträge sowie die Jahre 2020 und 2017 herauszufiltern. Letztere Jahre sind daher fehlerhaft, da der Datensatz 2016 erstellt wurde. Diese Daten speichern wir als *data.frame* in der Variable *grouped* ab. Im Folgenden verwenden wir ebenjenes data.frame um nur die Einträge Jahr und Anzahl zu selektieren und in der Variable *filtered* abzuspeichern. Die erhaltene Tabelle hat nun zwei Spalten: Jahr und Anzahl. Des Weiteren erstellen wir zwei weitere Variablen *ax* und *ay*welche beide eine Liste mit nur einem Attribut sind: “Title”. Nun verwenden wir *plot_ly()* um mithilfe der *type = 'scatter'* und *mode = 'lines'* Parameter ein Liniendiagramm zu erstellen. Außerdem nutzen wir die *layout()* funktion um einen Titel zu erstellen, sowie mithilfe unsere beiden Variablen ax und ay die Achsen zu beschriften.
+Um der Fragestellung „In welchen Jahren wurden releaste Games am meisten verkauft“ auf den Grund zu gehen, wurden die Daten der Tabelle *vgsales* mit Hilfe der Funktion *group_by(Year)* pro Jahr zusammengefasst. So entsteht eine nach Jahren zusammengefasste Tabelle, deren Einträge mit der Funktion *dplyr::summarize(Anzahl =n())*gezählt und als Wert Anzahl abgespeichert wurde. Zur Vermeidung von fehlerhaften Daten wird die Funktion *filter()* angewendet, um alle fehlenden Jahreseinträge sowie die Jahre 2020 und 2017 herauszufiltern. Letztgenannte Jahre ist fehlerhaft, da der Datensatz 2016 erstellt wurde. 
+
+Die so gewonnenen Daten wurden als *data.frame* in der Variable *grouped* abgespeichert. Dieses *data.frame* wird nachfolgend nur verwendet, um die Einträge *Jahr und Anzahl* zu selektieren und  jeweils in der Variable *filtered* abzuspeichern. 
+
+Die erzeugte Tabelle hat zwei Spalten: Jahr und Anzahl.
+
+Weiter wurden mit zwei weiteren Variablen *ax* und *ay* eine weitere Liste mit nur einem Attribut *Title* erstellt. Mittels *plot_ly()* sowie *type = 'scatter'* und *mode = 'lines'* wurde ein Liniendiagramm generiert. Mit der *layout()*  funktion wurde ein Titel erzeugt sowie mit Hilfe unsere beiden Variablen ax und ay die Achsen beschriftet.
 
 ```{r plot(AmountByYear), echo = TRUE, message=FALSE, results='markup', }
 
@@ -161,14 +169,24 @@ plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'lines', fill = 'tozero
 
 ```
 
-Betrachten wir einmal das entstandene Diagramm. Zwischen 1980 und 1993 sind hier kaum Unterschiede festzustellen und die Schwankungen können aufgrund der geringen Zahl der Veröffentlichungen (zwischen 14 und 49) vernachlässigt werden. Ab 1993 können wir dann ein stetiges Wachstum feststellen welches 1998 vorerst den Höchstwert erreicht. In den Jahren 1999 und 2000 geht die Anzahl erst einmal leicht zurück bevor sich der Wert bis 2002 von 349 auf 829 mehr als verdoppelt. Bis 2004 ist wiederum ein leichter Rückgang festzustellen auf welchem ein Stetiges Wachstum zum Höchstwert von 1428 (2008) sowie 1431 (2009) folgt. Danach folgt ein extremer und mit Unterbrechung von 2014 (582) und 2015 (614) stetiger Rückgang in den Release Zahlen auf einen Stand von 344 im Jahr 2016.
+Auswertung:
 
-Sehen wir uns diese Zahlen einmal genauer an kommt die Frage auf Woran diese Extremen Zahlen in den Veröffentlichungen zurückzuführen sind? An diesem Punkt der Analyse können wir nur spekulieren die Spitzen könnten allerdings an den Veröffentlichungen großer, den Markt bestimmenden Plattformen wie der PS2/3, der Xbox und den Plattformen von Nintendo wie Gamecube oder Wii zurückzuführen sein. Hierzu aber später [mehr](#SalesPerPlatform).
+**Zwischen 1980 und 1993** sind kaum Unterschiede festzustellen. Die Schwankungen können aufgrund der geringen Zahl der Veröffentlichungen (zwischen 14 und 49) vernachlässigt werden. 
+**Ab 1993** können wir dann ein stetiges Wachstum feststellen welches 1998 vorerst den Höchstwert erreicht. 
+**In den Jahren 1999 und 2000** geht Zahl der Veröffentlichungen zunächst leicht zurück, bevor sich der Wert bis 2002 von 349 auf 829 mehr als verdoppelt.
+**Bis 2004** ist wiederum ein leichter Rückgang festzustellen. 
+**Nach 2005** folgt ein stetiges Wachstum bis zu den Höchstwerten von 1428 in 2008 sowie 1431 in 2009. 
+Danach folgt ein extremer und - mit kurzen Unterbrechungen in den Jahren 2014 (582) und 2015 (614) - stetiger Rückgang der Release-Zahlen auf 344 im Jahr 2016.
+
+Auch wenn die Analyse dieser Zahlen zur Frage führt, worauf diese extremen Veränderungen der Zahl der Veröffentlichungen zurückzuführen sind, kann an diesem Punkt der Analyse nur spekuliert werden, dass die Spitzenwerte auf die Veröffentlichungen großer, den Markt bestimmenden Plattformen, wie der PS2/3, der Xbox und den Plattformen von Nintendo wie Gamecube oder Wii, zurückzuführen sein könnten. Hierzu aber später [mehr](#SalesPerPlatform).
 
 
 ### Releases nach Verkaufszahlen {#VideoGameReleasesSales}
 
-Um dem zweiten Teil der Fragestellung auf den Grund gehen zu können müssen wir erneut die Daten der Tabelle vgsales mithilfe der Funktion *group_by(Year)* anhand der Jahre Zusammenfassen. Nun erhalten wir wieder die nach den Jahren zusammengefasste Tabelle deren Einträge wir mit der Funktion  *dplyr::summarize(gr_sum = sum(Global_Sales))* zusammenfassen. Dem Aufmerksamen Leser wird auffallen das hier ein kleiner aber feiner Unterschied zum vorherigen Aufruf besteht. Statt *Anzahl =n()* nutzen wir hier *gr_sum = sum(Global_Sales)*. Diese Funktion summiert alle Werte der Spalte Global_Sales auf und speichert den den Wert in die Spalte *gr_sum*. Aufgrund der für diese analyse weiterhin Fehlerhaften Daten verwenden wir erneut die Funktion *filter()* um alle fehlenden Jahreseinträge sowie die Jahre 2020 und 2017 herauszufiltern.  Diese Daten speichern wir wieder als *data.frame* in der Variable *grouped* ab. Im folgenden verwenden wir ebenjenes data.frame um nur die Einträge Jahr und *gr_sum* zu selektieren und in der Variable *filtered* abzuspeichern. Die erhaltene Tabelle hat nun zwei Spalten: Jahr und *gr_sum*. Desweiteren erstellen wir erneut die Variablen *ax* und *ay*. Nun verwenden wir *plot_ly()* um mithilfe der *type = 'scatter'* und *mode = 'lines'* Parameter ein Liniendiagramm zu erstellen. Außerdem nutzen wir die *layout()* funktion um einen titel zu erstellen, sowie mithilfe unsere beiden Variablen ax und ay die Achsen zu beschriften.
+Für den zweiten Teil der Fragestellung wurden die Daten der Tabelle vgsales mithilfe der Funktion *group_by(Year)* anhand der Jahre gruppiert. Dies ergab eine nach den Jahren geordnete Tabelle, deren Einträge mit der Funktion  *dplyr::summarize(gr_sum = sum(Global_Sales))* zusammengefasst wurde. Auffallend ist hier eine Abweichung zum vorherigen Aufruf: Statt *Anzahl =n()* nutzen wir hier *gr_sum = sum(Global_Sales)*. Diese Funktion summiert alle Werte der Spalte Global_Sales auf und speichert den Wert in die Spalte *gr_sum*. Zur Beseitigung fehlerhafter Daten wurde mit der Funktion *filter()* alle fehlenden Jahreseinträge sowie die Jahre 2020 und 2017 herausgefiltert. Diese Daten wurden als *data.frame* in der Variable *grouped* abgespeichert. Im folgenden wurde das data.frame nur genutzt, um die Einträge Jahr und *gr_sum* zu selektieren und unter der Variablen *filtered* abzuspeichern. 
+Die erhaltene Tabelle hat nun zwei Spalten: Jahr und *gr_sum*.
+Weiter wurde erneut die Variablen *ax* und *ay* genutzt und mittels *plot_ly()* und *type = 'scatter'* und *mode = 'lines'* mit den Parametern ein Liniendiagramm erstellt. Außerdem wurde die *layout()* Funktion eingesetzt, um einen Titel zu erstellen, sowie mithilfe der beiden Variablen ax und ay die Achsen zu beschriften.
+
 
 ```{r plot(GameSalesByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
 
@@ -198,12 +216,14 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'lines', fill = 'tozero
 
 ```
 
-Betrachten wir nun das entstandene Diagramm fällt uns zuerst auf, dass es dem vorherigen recht ähnlich sieht. Dies ist kaum verwunderlich und stellt keinen nennenswerten Wissensgewinn da. Der wohl Nenneswerteste unterschied ist das Fehlen des Anstiegs, welcher in der Anzahl der Gamereleases zum Jahr 2015 festzustellen war. Durch den direkten Vergleich ist dies allerdings ein guter Zeitpunkt um uns mit unserer Zweiten These auseinanderzusetzen. *"Werden heutzutage mehr Spiele Releast und Verkauft als noch 1980?"*. Diese sehen wir aufjedenfall bestätigt obwohl Festzustellen ist, dass die besten Jahre sowohl in verkäufen als auch in der Anzahl die Jahre 2008 und 2009 waren. Dies Wirft natürlich die Frage auf was der Grund für diesen Verlauf ist und wäre ein Interessanter ansatz für eine [weitere Arbeit](#AusblickInDieZukunft).
+Bei der Betrachtung des so erstellten Diagramms fällt uns zuerst auf, dass es dem vorherigen recht ähnlich sieht. Der wohl deutlichste Unterschied ist das Fehlen des Anstiegs der Anzahl der Gamereleases zum Jahr 2015.
+Nach dem direkten Vergleich bietet es sich an, sich mit der zweiten These "Werden heutzutage mehr Spiele releast und verkauft als noch 1980?" auseinanderzusetzen. Obwohl festzustellen ist, dass die besten Verkaufsjahre - sowohl in Verkäufen/Sales, als auch in der Anzahl - die Jahre 2008 und 2009 waren, bestätigt sich die These. Doch auch wenn die Frage nach dem Grund für diesen beständige Entwicklung ein interessanter Ansatz wäre, kann dies hier nicht beantwortet werden.[Siehe auch](#AusblickInDieZukunft).
 
 ### Verkaufszahlen pro Spiel 
 
-Die Frage die Wir allerdings beantworten können ist *"Werden neuere Spiele automatisch mehr Gekauft?"*. Dafür kombinieren wir die beiden bereits Verwendeten ansätze. 
-Wir fassen wieder die daten mithilfe von *group_by(Year)* anhand der Jahre Zusammen. Die erhaltene Tabelle fassen wir wieder mit  *dplyr::summarize(gr_sum = sum(Global_Sales))* zusammen. Diesmal nutzen wir jedoch eine kombination aus *sum(Global_Sales)* und *n()*. Wir addieren die Spalte *Global_Sales*, teilen dies durch die Anzahl der Einträge und speichern den Wert in die Spalte *gamesales* (*gamesales = sum(Global_Sales)/n()*). Danach filtern wir die Daten erneut und speichern sie als *data.frame* in grouped ab. Diesmal selektieren wie die Einträge der Spalte Jahr sowie *gamesales* und speichern sie in der Variable *filtered* ab. Zuletzt erstellen wir erneut die Variablen *ax* und *ay* und verwenden *plot_ly()* um mithilfe der *type = 'scatter'* und *mode = 'lines'* Parameter ein Liniendiagramm zu erstellen sowie die *layout()* funktion um einen titel zu erstellen und mithilfe unsere beiden Variablen ax und ay die Achsen zu beschriften.
+Zur Beantwortung der Frage, ob neuere Spiele automatisch häufiger gekauft werden, werden die beiden bereits dargestellten Ansätze erneut angewendet:
+Dafür werden die Daten mithilfe von *group_by(Year)* anhand der Jahre und die so entstandene Tabelle mit *dplyr::summarize(gr_sum = sum(Global_Sales))* zusammengefasst, in dem die Befehle *sum(Global_Sales)* und *n()* kombiniert werden. Das durch Addition der Spalte *Global_Sales* und Division der Summe durch die Anzahl der Einträge entstehende Ergebnis wird in die Spalte *gamesales* (*gamesales = sum(Global_Sales)/n()*) gespeichert. Die Daten werden erneut gefiltert und als *data.frame* in grouped abgespeichert.
+Die Einträge der Spalten Jahr sowie *gamesales* werden danach selektiert und in der Variablen *filtered* gesichert. Mit den Variablen *ax* und *ay* und *plot_ly()* sowie der *type = 'scatter'* und *mode = 'lines'* Parameter wird ein Liniendiagramm erstellt. Mit der *layout()* Funktion wird sodann ein Titel erzeugt und der beiden Variablen ax und ay genutzt, um die Achsen zu beschriften.
 
 ```{r plot(SalesbyGameByYear), include=TRUE, echo = TRUE, message=FALSE, results='markup', }
 
@@ -232,13 +252,15 @@ plot_ly(x = ~Year, y = ~gamesales, type = 'scatter', mode = 'lines', fill = 'toz
          )
 
 ```
-Sahen sich die beiden Diagramme für Anzahl und Verkaufszahlen noch recht ähnlich stellt sich hier ein deutlich unterschiedlicher Verlauf da. Ist der Wert zwischen 1980 (1.26) und 1983 (0.98) noch relativ gering steigt dieser Massiv für die Jahre 1984(3.59) und 1985(3.85) bevor er 1986(1.76) und 1987(1.35) wieder absinkt. Genauso schnell wie der wert abgesunken ist steigt er allerdings auch wieder auf 3.14(1988) bevor er 1989 den Höchststand mit 4.32 erreicht. Danach sinkt der wieder ab um sich nach einem kurzen ausschlag 1992 in den Jahren bis 2014 auf einen relativ stetigen Wert Zwischen 0.5 und 0.7 einzupendeln erst 2015 und 2016 sinkt dieser unter 0.5. Diese Extremen ausschläge in den Früheren Jahren lassen sich mit der Geringen anzahl der Spiele erklären. Einzelne gute laufende Spiele machen hier noch einen Großteil des Markts aus wohingegen sich neuere spiele, sowohl gegen eine Großzahl von bereits etablierten Spiele als auch eine große Anzahl neuer Releases, durchsetzen müssen.
+Sahen sich die beiden Diagramme für Anzahl und Verkaufszahlen noch recht ähnlich, zeigt sich hier ein deutlich unterschiedlicher Verlauf:
+Ist der Wert zwischen 1980 (1,26) und 1983 (0,98) noch relativ gering, steigt dieser für die Jahre 1984 (3,59) und 1985 (3,85) deutlich an, bevor er 1986 (1,76) und 1987 (1,35) wieder absinkt. Nach dieser fast Halbierung des Wertes, steigt er allerdings in den beiden nachfolgenden Jahren in 1988 (3,14) in 1989 auf einen Höchststand von 4,32. Danach sinkt der Wert wieder ab, um sich nach einem kurzen Ausschlag in 1992 in den Jahren bis 2014 auf einen relativ beständigen Wert zwischen 0,5 und 0,7 einzupendeln. Erst in den Jahren 2015 und 2016 sinkt der Wert unter 0,5.
+Einschränkend muss man davon ausgehen, dass die Extremwerte der Jahre vor 1993 mit der geringen Anzahl der Spiele zu erklären ist. Einzelne, sich gut verkaufende Spiele machen hier noch einen Großteil des Markts aus, wohingegen sich in den Jahren danach neuere Spiele jeweils, sowohl gegen eine Großzahl von bereits etablierten Spielen, als auch eine große Anzahl neuer Releases, durchsetzen mussten.
 
 ## {-}
 
 ***
 
-# Platform Analyse {#Platformanalyse}
+# Analyse der Plattformen {#Platformanalyse}
 
 ```{r noplot, echo = FALSE, message=FALSE, results='markup', include =FALSE,}
 vgsales %>% 
@@ -268,14 +290,21 @@ vgsales %>%
 
 ```
 
-Viedeospiele gibt es in den Unterschiedlichsten Farben und Formen. Was Sie jedoch alle gemeinsam haben ist, dass sie auf einem medium Gespielt werden. Sei es Sonys Playstation, Microsofts xBox, Nintendos Spielekonsolen wie die Wii oder der einfache desktop PC. Die Frage die Sich jeder Fan jedoch schonmal gestellt hat und über die häufig diskutiert wird ist welche ist die Beste? Da dies immer im Auge des Betrachters liegt versuchen wir zumindestens zu klären *Welche Platform ist die beste in Anzahl verkäufen? Welche in Anzahl der Game Releases?*. Zum beantworten dieser Frage ist der Vorhandene Datensatz nicht ganz optimal aber hierzu weiteres im [Fazit](#AufgetreteneProbleme).
+Videospiele gibt es in den unterschiedlichsten Varianten. Was sie jedoch alle gemeinsam haben,  ist die Nutzung eines Mediums, wie Sonys Playstation, Microsofts xBox, Nintendos Spielekonsolen, die Wii oder der einfache Desktop-PC. 
+
+Hierbei wird unter Fans eifrig diskutiert, welches davon das beste Medium ist? Da dies auch eine subjektive, immer im Auge des Betrachters liegende Entscheidung darstellt, soll vorliegend die Frage anhand objektiver Kriterien (Zahl der Verkäufe pro Plattform, Zahl der Game-Releases) beantwortet werden. Welche Probleme hierbei durch den vorhandenen Datensatz auftraten, Genaueres im [Fazit](#AufgetreteneProbleme).
 
 
-## Platformanalyse Global {.tabset}
+## Platformanalyse - global {.tabset}
 
 ### nach Anzahl
 
-Um sich einen guten Überblick über die Rankings der Plattformen zu verschaffen nutzen wir hier ein Paretodiagramm. Dies sind nach der Größe der Werte sortierte Säulendiagramme. Zum Erstellen des Diagramms brauchen wir zuerst einmal wieder unseren Datensatz den wir diesmal mithilfe des *group_by* Befehls anhand der *Platform* gruppieren. Danach nutzen wir erneut *summarize(Anzahl =n()* um die Einträge abzuzählen und den wert als Anzahl abzuspeichern. Um die Einträge der Anzahl nach zu sortieren nutzen wir zuerst den Befehl *grouped[order(grouped\$Anzahl),decreasing = FALSE]* und weisen das Ergebnis der neuen Tabelle *Ordered* zu. Dieser Befehl sieht relativ komplex aus lässt sich jedoch recht einfach aufdröseln. Order sortiert die Tabelle nach der gegebenen Spalte und der Parameter *decreasing =* gibt an ob der größte Wert am Anfang oder Ende stehen soll. Das Dollar Zeichen selektiert hierbei die Spalte mit dem dahinterstehenden Name aus der vorher stehenden Tabelle getreu nach dem Schema *Tabelle\$Spalte*. Danach müssen wir noch die Spalte *Platform* als faktor einlesen welches wir mit dem Befehl *as_factor(ordered\$Platform)* tun. Danach erstellen wir unsere beiden Variablen ax und ay zur Achsenbeschriftung. Nun kommen wir zur eigentlichen Diagrammerstellung. Wir geben die Tabelle *ordered* weiter an *plot_ly()* und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Der unterschied zwischen Balken und Paretodiagramm liegt hierbei in der Parameterübergabe. Schauen wir uns die relevanten Teile einmal genauer an. Der interessante Teil passiert hierbei bei der zuweisung der X-Achse und hier sehen wir auch den Grund für unsere vorherige umwandlung der Spalte Platform zu einem faktor. *x=~fct_reorder(Platform,Anzahl, .desc="true"),y=~Anzahl* Wir nutzen den Befehel *fct_reorder()* um die Platformen nach der Anzahl sortiert her anzuordnen. Der erste Parameter ist hierbei die zu sortierende Spalte, der zweite die nach der sortiert werden soll. Der Parameter .desc steht descending und bestimmt wie sortiert werden soll, in unserem fall der größte Wert zuerst. Zu guter letzt geben wir dem Diagramm noch einen Namen, weisen die Farbpalette zu und setzen das Layout mit dem Titel sowie unseren beiden Achsenbeschriftungen.
+Um sich einen guten Überblick über die Rankings der Plattformen zu verschaffen, wird ein Paretodiagramm genutzt, ein nach der Größe der Werte sortiertes Säulendiagramm. 
+
+Zum Erstellen des Diagramms wird der vorhandene Datensatz in diesem Fall mit Hilfe des *group_by* Befehls pro *Platform* gruppiert. Mit *summarize(Anzahl =n()* wurden die Einträge abgezählt und der Wert als Anzahl abgespeichert. Um die Einträge der Anzahl nach zu sortieren wird mit *grouped[order(grouped\$Anzahl),decreasing = FALSE]*  sortiert und das Ergebnis der neuen Tabelle *Ordered*   wenn dieser Befehl komplex aussieht, sortiert „Ordered“ die Tabelle nur nach der gegebenen Spalte, wobei Parameter *decreasing =* bestimmt, ob der größte Wert am Anfang oder Ende stehen soll. Das im Befehl enthaltene Dollarzeichen selektiert hierbei die Spalte mit dem dahinterstehenden Name aus der vorher stehenden Tabelle nach dem Schema *Tabelle\$Spalte*. Danach wurde die Spalte *Platform* mit dem Befehl *as_factor(ordered\$Platform)* als Faktor eingelesen. Mit unsere beiden Variablen ax und ay wurden erneut die Achsen beschriftet.  
+
+Zur eigentlichen Diagrammerstellung wurde die Tabelle *ordered* weiter an *plot_ly()* übergegeben und *add_bars* genutzt, um ein Balkendiagramm zu erstellen. Der Unterschied zwischen der Erstellung eines Balken- oder Paretodiagramm liegt hierbei in der Parameterübergabe. Dies erfolgt durch die Zuweisung der X-Achse. Hieraus erklärt sich die vorherigen Umwandlung der Spalte „Platform“ zu einem „Faktor“ mittels *x=~fct_reorder(Platform,Anzahl, .desc="true"),y=~Anzahl* Mit dem Befehl *fct_reorder()* werden die Plattformen nach der Anzahl sortiert und angeordnet. Der erste Parameter ist hierbei die zu sortierende Spalte, der zweite der, nach dem sortiert werden soll. Der Parameter „.desc“ steht hierbei für „descending“ und bestimmt, wie sortiert werden soll, in unserem Fall die Darstellung des größten Wertes als Ersten. Abschließend erhält das Diagramm einen Namen, die Farbpalette wurde zugewiesen und das Layout mit Titel sowie der beiden Achsenbeschriftungen erzeugt.
+
 
 ```{r plot, echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -295,7 +324,7 @@ ay <- list(
 )
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Platform,Anzahl, .desc="true"),
+  add_bars(x=~fct_reorder(Platform,Anzahl, .desc=TRUE),
            y=~Anzahl,
            name="Spieleanzahl pro Platform" ,colors = myPalette) %>% 
   layout(title="Spieleanzahl pro Platform",
@@ -305,13 +334,22 @@ ordered%>%
          )
 ```
 
-Beim Betrachten des Diagramms erkennen wir das weder ganz alte noch ganz neue Platformen die Nase vorne haben. An den ersten beiden Stellen und weit abgeschlagen vom Rest der Platformen finden sich hier der DS von Nintendo (2163) und die Playstation 2 von Sony (2161). Dies ist weiter nicht Verwunderlich da beide auch die Konsolen sind die sich [Weltweit am besten verkauft haben](https://de.statista.com/statistik/daten/studie/160549/umfrage/anzahl-der-weltweit-verkauften-spielkonsolen-nach-konsolentypen/). Ein weiterer Grund für deren hohe Spieleanzahl ist vermutlich auch deren Stellung als Platzhirsche im Konsolen- bzw. Handheldmarkt. Weiterhin können wir erkennen das es meist die ältere Generationen einer Konsole sind die mehr Spiele haben. Die Playsatation 2 hat beispielsweise mehr Spiele als PS3 und PS4, die XboX360 mehr als die xBoxOne und der DS mehr als der 3DS. Dies scheint jedoch nicht auf die erste Generation zuzutreffen. Die Playstation hat mehr verkäufe als die PS4 aber weniger als PS3 und PS2. Die Xbox mehr als die XboxOne aber weniger als die Xbox360.
+Haben etablierte, ältere Plattformen ein größeres Spielangebot als Plattformen, die neu auf den Markt kommen?
+
+Dies Auswertung des Diagramms lässt keine Rückschlüsse darauf zu, ob bereits etablierte oder noch ganz neue Plattformen „die Nase vorne haben“. Sowohl auf den ersten beiden Stellen finden sich der DS von Nintendo (2163) und die Playstation 2 von Sony (2161), was nicht weiter verwunderlich ist, da sich beide Konsolen [weltweit am besten verkauft haben](https://de.statista.com/statistik/daten/studie/160549/umfrage/anzahl-der-weltweit-verkauften-spielkonsolen-nach-konsolentypen/). Ein weiterer Grund für deren hohe Zahl von Spielen ist vermutlich auch deren Stellung als Platzhirsche im Konsolen- bzw. Handheldmarkt.
+
+Auffallend ist, dass es meist die ältere Generationen einer Konsole sind, für die mehr Spiele angeboten werden. Für die Playstation 2 (PS2) existieren beispielsweise mehr Spiele, als für die PS3 und die PS4, für die ältere XboX360 mehr, als für die neuere xBoxOne und für den älteren DS mehr, als für den neueren 3DS. Dies scheint jedoch jeweils nicht auf die erste Generationen zuzutreffen. Die erste Playstation hat so mehr Verkäufe, als die wesentlich neuere PS4, jedoch weniger als die PS3 und die PS2. Die älteste Xbox hat zwar mehr Verkäufe als die neueste XboxOne, aber weniger als die zeitlich dazwischen releaste Xbox360.
 
 
 ### nach Verkaufszahlen
 
-Schauen wir uns nun die Verkaufszahlen der Spiele der einzelnen Platformen an. Wir verwenden hier wieder ein Paretodiagramm und gehen ähnlich des vorherigen Diagramms vor. Zuerst nutzen wir wieder die *group_by* Funktion um nach den Platformen zu gruppieren. Da wir nun aber die Verkaufszahlen betrachten wollen nutzen wir *summarize()* auf die *Global_Sales* Spalte. Nun nutzen wir die *rename()* funktion um die so entstandene Spale *sum(Global_Sales)* in *Global_Sales* umzubenennen. Dies hat keinen weiteren Nutzen außer uns im späteren Verlauf die Referenzierung der Spalte einfacher zu machen. Um später nach dieser neu erstellten Spalte sortieren zu können müssen wir diese zuerst in einen Vector umwandeln. Dies tun wir mit dem Befehl *grouped\$Global_Sales<-as_vector(grouped\$Global_Sales)*. Nun können wir die Tabelle sortieren und in der Variable ordered abspeichern 
-*ordered <- grouped[order(grouped\$Global_Sales), decreasing = FALSE]*. Als letzten Schritt bevor es an die erstellung des Diagramms geht wandeln wir noch die Spalte Platform in einen Factor um *ordered$Platform <- as_factor(ordered\$Platform)* und erstellen erneut unsere Achsenbeschriftungen ax und ay. Zur erstellung des Diagramms übergeben wir unsere *ordered* Tabelle an die *plot_ly()* funktion und nutzen *add_bars* um ein Balkendiagramm zu erstellen. Hier verwenden wir wieder die Parameter *x=~fct_reorder(Platform,Global_Sales, .desc="true"), y=~Global_Sales* um den x wert, also die Platformen nach den Global Sales zu sortieren bevor wir den namen und die Farbe des Diagramms setzen. Zu guter Letzt benutzen wir noch die Layout funktion um dem Diagramm einen Titel zu geben und unsere beiden Achsenbeschriftungen zu erstellen.
+Für die Betrachtung der Verkaufszahlen der Spiele der einzelnen Plattformen wird wieder ein Paretodiagramm verwendet und das Vorgehen ist ähnlich dem des vorherigen Diagramms.
+Mit der *group_by* Funktion wird nach den Plattformen gruppiert. Da aber die Verkaufszahlen betrachtet werden sollen, wird der Befehl *summarize()* auf die *Global_Sales* Spalte angewendet. Mit der *rename()* Funktion wird die so entstandene Spale *sum(Global_Sales)* in *Global_Sales* umbenannt. Dies soll später die Referenzierung der Spalte einfacher machen. Um später nach dieser neu erstellten Spalte sortieren zu können, wurde diese in einen Vector umgewandelt; dies mit dem Befehl *grouped\$Global_Sales<-as_vector(grouped\$Global_Sales)*. Damit wird die Tabelle sortiert und in der Variablen "ordered" abgespeichert.
+
+*ordered <- grouped[order(grouped\$Global_Sales), decreasing = FALSE]*.
+
+Als letzten Schritt vor der Erstellung des Diagramms, wird die Spalte "Plattform" in einen Faktor umgewandelt - *ordered$Platform <- as_factor(ordered\$Platform)* - und mit der Achsenbeschriftungen ax und ay ergänzt.
+
 
 ```{r plot(PlatformRanking_Global), echo = TRUE,message=FALSE,results='markup',}
 grouped <- vgsales  %>% 
@@ -337,7 +375,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="Verkaufszahlen nach Platform" ,colors = myPalette) %>% 
   layout(title="Verkaufszahlen nach Platform",
@@ -345,33 +383,35 @@ ordered%>%
          yaxis = ay
          )
 ```
-Schauen wir uns das Entstandene Diagramm einmal auf fallen uns direkt zwei Dinge auf. Zum einen fehlt der Nintendo DS auf dem Spitzenplatz zusammen mit der PS2 und ist nur auf Platz 5, zum anderen ist der Unterschied zwischen den Spitzenplätzen bzw dem Spitzenplatz und dem rest der top 5 deutlich geringer. Waren es bei der Spieleanzahl noch fast 40% unterschied zwischen platz 1/2 und platz 3-4 so sind es hier nur knapp 20%. Die Restlichen plätze der Top 5 sind allerdings größtenteils gleich geblieben. Zusätzlich zum absacken des Nintendo DS von platz 1 auf platz 5 hat nur die XboX360 ihre Position in der Rangliste verändert.
+Spitzenplatz zusammen mit der PS2 und belegt nur Platz 5, zum anderen sind die Unterschiede zwischen den Spitzenplätzen bzw. dem Spitzenplatz und dem Rest der Top 5 deutlich geringer. Waren es bei der Spieleanzahl noch fast 40 % Unterschied zwischen den Plätzen 1 und 2 sowie 3 und 4, sind es in diesem Diagramm nur knapp 20 %. Die restlichen Plätze der Top 5 weisen dagegen keine Abweichungen auf. Außer dem Nintendo DS, der von Platz 1 auf Platz 5 abrutscht, hat nur die XboX360 ihre Position in der Rangliste verändert.
 
 ## {-}
 
-##### *Haben Ältere Platformen Automatisch mehr Spiele und Verkäufe?* {#PlatformRankingGlobal_End}
+##### *Haben etablierte, ältere Plattformen mehr Verkäufe als Plattformen, die neu auf den Markt kommen?* {#PlatformRankingGlobal_End}
 
-Beim Betrachten beider Diagramme oder sogar nur einem der Diagramme erkennt der Aufmerksame Betrachter relativ schnell das hier keine Pauschalantwort auf diese Fragestellung möglich ist. Dies ist aber irgendwie zu erwarten gewesen es gibt so viele Faktoren die den Erfolg einer bestimmten Platform bestimmen und es ist unmöglich dieses an einem Faktor festzulegen. Wwelche Frage wir allerdings beantworten konnten, zumindestens teilweise, ist die Frage nach der "besten Platform. Die **PS2** ist sowohl weit oben in der Spieleanzahl, als auch Spitzenreiter in den Gamverkäufen. Der Nintendo DS ist zwar in der Spieleanzahl sogar knapp vor der PS2 in den verkäufen aber weit abgeschlagen auf Platz 5. Ausschlaggebender als vergleichsargument wäre jedoch die Anzahl der Verkauften Spiele pro Spiel doch weiteres hierzu im [Ausblick in die Zukunft](#AusblickInDieZukunft)
+Beim Betrachten beider Diagramme oder sogar nur einem der Diagramme erkennt der aufmerksam Betrachtende relativ schnell, dass hier keine Pauschalantwort auf diese Fragestellung möglich ist. Dies war allerdings zu erwarten, da es unzählige Faktoren sind, die den Erfolg einer bestimmten Plattform bestimmen, und es ist unmöglich wäre, einen Erfolgs-Faktor festzulegen. Die Frage nach der „besten“ Platform konnte allerdings – zumindest teilweise – belegt werden. Die **PS2** ist sowohl bei der Zahl der Spiele, als auch bei der Zahl der Verkäufe Spitzenreiter. Obwohl der **Nintendo DS** bei der Zahl der Spiele knapp vor der PS2 liegt, ist der NIntendeo DS bei der Zahl der Verkäufe weit abgeschlagen auf Platz 5. Da zur Beantwortung der Ausgangsfrage wohl ausschlaggebender zum Vergleich die Anzahl der verkauften Spiele pro Medium wäre, hierzu Weiteres im [Ausblick in die Zukunft](#AusblickInDieZukunft)
 
-Offensichtlich ist ein Datensatz zu Anzahl der Spieleverkäufe vorallem ein so lückenhafter nicht optimal aber dazu weiteres im [Fazit](#AufgetreteneProbleme).
+Auch hier kritische Anmerkungen zur Verwendbarkeit des Datensatzes. Weiteres im [Fazit](#AufgetreteneProbleme).
 
 ***
 
-# Regionale Unterschiede in den Verkaufszahlen der Platformen {#PlatformRankingByRegion}
+# Regionale Unterschiede der Verkaufszahlen der Plattformen {#PlatformRankingByRegion}
 
-Da wir nun geklärt haben welche Platformen die Nase vorne haben wäre es doch Interessant herauszufinden ob es Regionale unterschiede gibt.
-*Favorisieren verschiedene Regionen verschiedene Platformen? Verkaufen die Regionenheimischen Platformen automatisch auch die meisten Spiele?*
+Nun soll die Fragen geklärt werden, ob es regionale Unterschiede der Verkausfzahlen gibt. 
++ Gibt es regionale Unterschiede im Nutzerverhalten bei Plattformen? 
++ Verkaufen die regionalen Plattformen regelmäßig auch mehr Spiele? 
 
-Hierbei können wir natürlich nur die Verkaufszahlen heranziehen. Theoretisch wäre auch ein Vergleich in anzahl der Spiele möglich würde aber diese Arbeit Sprengen da der Datensatz diese Informationen nicht ohne weiteres [hergibt](#AufgetreteneProbleme).
-Zum Beantworten dieser Frage benutzen wir erneut Paretodiagramme und um sich einen Groben überblick zu schaffen Kreisdiagramme. Diese haben ihre eigenen [Probleme](#AufgetreteneProbleme) bieten uns aber ein gutes Tool zur groben übersicht über die Prozentualverteilung der Konsolen und bringt etwas Abwechslung in diese bisher sehr Balkendiagramm lastige ausarbeitung.
+Hierbei werden die Verkaufszahlen herangezogen, Theoretisch wäre auch ein Vergleich der Anzahl der Spiele denkbar. Würde den Umfang dieser Arbeit aber sprengen, da der Datensatz diese Informationen nicht ohne weiteres [hergibt](#AufgetreteneProbleme).
 
-[Einzuwenden hierbei ist](#AufgetreteneProbleme), dass die Regionen natürlich unterschiedlich viele Einwohner haben.Ein vergleich der absoluten Saleswerte ist hierbei natürlich nur wenig ausschlaggebend zeigt aber einen generellen beliebtheitstrend der Konsolen in den einzelnen Regionen auf.
+Auch zum Beantworten dieser Frage werden Paretodiagramme genutzt und um sich einen ersten Überblick zu verschaffen Kreisdiagramme. Letztere haben ihre eigenen [Probleme](#AufgetreteneProbleme), bieten aber ein gutes Tool zur groben Übersicht über die Prozentualverteilung der Konsolen und bietet Abwechslung in diese bisher sehr balkendiagrammlastige Ausarbeitung.
 
-## Platformvergleich {.tabset}
+[Einzuwenden ist](#AufgetreteneProbleme) hierbei, dass die Regionen natürlich unterschiedlich viele Einwohnerinnen und Einwohner haben. Ein Vergleich der absoluten Verkaufswerte ohne Berücksichtigung der Einwohnerzahl ist daher nur bedingt aussagekräftig, zeigt aber einen groben Beliebtheitstrend der Konsolen in den einzelnen Regionen.
+
+## Plattformvergleich {.tabset}
 
 ### Balkendiagramme {.tabset}
 
-Die Erstellung der Paretodiagramme werde ich an dieser Stelle nicht mehr genauer erläutern, da das Grundprinzip weiterhin das gleiche bleibt einziger unterschied zwischen den verschiedenen Diagrammen ist hierbei der wert in der summarize Funktion *summarize(sum(EU_Sales))* EU_Sales für EU NA_SALES für US und JP_SALES für Japan sowie der Titel und die Achsenbeschriftungen. Eine genauere Erläuterung zur Erstellung von Paretodiagrammen gibt es [hier](#Platformanalyse).
+Auf die Erstellung der Paretodiagramme wird an dieser Stelle nicht mehr genauer eingegangen, da das Grundprinzip weiterhin das gleiche bleibt.Einziger Unterschied zwischen den verschiedenen Diagrammen ist hierbei der Wert in der „summarize“-Funktion *summarize(sum(EU_Sales))*  EU_Sales für EU NA_SALES für US und JP_SALES“ für Japan sowie der Titel und die Achsenbeschriftungen. Eine genaue Erläuterung zur Erstellung von Paretodiagrammen findet sich [hier](#Platformanalyse).
 
 #### Europa
 ```{r plot(PlatformRanking_EU1), echo = TRUE,message=FALSE,results='markup',}
@@ -398,7 +438,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="EU Verkaufszahlen pro Platform" ,colors = myPalette) %>% 
   layout(title="EU Verkaufszahlen pro Platform",
@@ -406,7 +446,9 @@ ordered%>%
          yaxis = ay
          )
 ```
-Hatte im Globalen durchschnitt die PS2 noch deutlich die Nase vorne ist in EU die PS3 (343.71) noch vor der PS2 (339.29) und diese haben beide noch einen Recht weiten Vorsprung auf Platz 3 (280.58) und 4 (268.38) welche respektive von der Xbox360 und der Wii belegt werden. Die Playstation 1 (213.6) sichert sich in Europa einen platz in den top 5 und auch die PS4 (123.7) rückt einen Platz nach Vorne. Den wohl größten Sprung legt allerdings der PC (139.68) hin. Ist dieser Global noch auf Platz 10 so belegt er in Europa platz 7. Auch außerhalb der Top 10 gibt es einige verschiebungen aufgrund des eher Geringeren Marketshares sehen wir hier allerdings von einer genaueren Analyse ab. Zusammenfassend können wir also sagen das Europa Sony konsolen sowie den Pc überdurchschnittlich gerne Nutzen.
+Die Auswertung zeigt, dass - während die PS2 im globalen Durchschnitt noch deutlich die Nase vorne hatte - in Europa (EU) die PS3 (343.71), noch vor der PS2 (339.29) liegt. Beide liegen mit einem recht weiten Vorsprung vor den Plätzen 3 (280.58) und 4 (268.38), die von der Xbox360 und der Wii belegt werden. Die erste Playstation (213.6) sichert sich in Europa immerhin einen Platz in den Top 5 und auch die PS4 (123.7) rückt gegenüber dem globalen Ranking einen Platz nach vorn. Den wohl größten Unterschied  weist in Europa allerdings der PC (139.68) auf. Ist dieser global auf Platz 10, belegt er in Europa Platz 7. Auch außerhalb der Top 10 gibt es Unterschiede im Ranking. Aufgrund des eher geringeren Marketshares wird allerdings von einer genaueren Analyse abgesehen. 
+
+Zusammenfassend kann festgestellt werden, dass in Europa Sony-Konsolen sowie der PC überdurchschnittlich gerne genutzt werden.
 
 #### Nord-Amerika
 ```{r plot(PlatformRanking_NA1), echo = TRUE,message=FALSE,results='markup',}
@@ -433,7 +475,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="NA Verkaufszahlen pro Platform" ,colors = myPalette) %>% 
   layout(title="NA Verkaufszahlen pro Platform",
@@ -441,7 +483,7 @@ ordered%>%
          yaxis = ay
          )
 ```
-Im direkten Vergleich mit EU fällt hier sofort ins Auge, dass die Playstation 2 (583.84) zwar weiterhin von dem ersten Platz verdrängt wurde, Microsofts Xbox360 (601.05) hier Sonys Playstation 3 (392.26) allerdings auf dem ersten Platz ablöst. Auch die Wii (507.71) hat erkennbar mehr Verkäufe als noch in Europa. PS4 (96.8) und PC (93.28) spiele verkaufen sich in Nord-Amerika deutlich weniger als in Europa wohingegen die Restlichen Platformen größtenteils Ähnlich verteilt bleiben.
+Im direkten Vergleich mit den EU-Daten fällt hier ins Auge, dass die Playstation 2 (583,84) auch hier vom ersten Platz verdrängt wurde, allerdings Microsofts Xbox360 (601.05) hier Sonys Playstation 3 (392,26) auf dem ersten Platz ablöst. Auch die Wii (507,71) weist erkennbar mehr Verkäufe auf, als in Europa. PS4 (96,8) und PC-Spiele (93,28) verkauften sich in Nord-Amerika deutlich schlechter als in Europa. Die restlichen Plattformen wiesen in ihrer Verteilung keine Unterschiede auf.
 
 #### Japan
 ```{r plot(PlatformRanking_JP1), echo = TRUE,message=FALSE,results='markup',}
@@ -468,7 +510,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Platform,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="JP Verkaufszahlen pro Platform" ,colors = myPalette) %>% 
   layout(title="JP Verkaufszahlen pro Platform",
@@ -476,7 +518,7 @@ ordered%>%
          yaxis = ay
          )
 ```
-Japan ist wohl der größte Ausreißer der drei Regionen. Hier führt der Nintendo DS (175.57) die Liste an. Auch der Abstand auf Platz 2 ist hier größer als in den anderen Regionen welcher nicht von der Playstation 2 (Platz 3) sondern der Playstation 1 belegt wird. Weit abgeschlagen ist die PS2 (139.2 mio) von der PS1(139.82) jedoch nicht. Sonys beide Konsolen sind auch die einzigen nicht Nintendo konsolen in den Top 7. Allegemein ist hier ein großer Fokus auf Japanische unternehmen zu erkennen wenn man bedenkt das die erste, nicht japanische konsole, die Xbox 360 (12.43) auf Platz 17 ist. Japanische hersteller sind in der Spieleindustrie weit verbreitet ein so extremes Verhältnis ist Global jedoch nicht die Norm. Schauen wir uns das ganze einmal genauer als Kreisdiagramme an um die Verhältnise etwas deutlicher zu machen.
+Japan ist wohl der größte Ausreißer der drei Regionen: Hier führt der Nintendo DS (175,57) die Liste an. Auch der Abstand auf Platz 2 ist hier größer als in den anderen Regionen und wird nicht von der Playstation 2 (Platz 3), sondern von der Playstation 1 belegt. Groß ist der Abstand zwischen PS2 (139,2) und PS1 (139,82) jedoch nicht. Sonys beide Konsolen sind hier auch die einzigen Nicht-Nintendo-Konsolen in den Top 7. Allgemein liegt hier ein großer Fokus auf japanische Unternehmen: Die erste, nicht japanische Konsole, die Xbox 360 (12,43), ist auf Platz 17. Japanische Unternehmen sind auf dem Spielemarkt weltweit verbreitet. Doch ein so extremes Verhältnis zwischen japanischen und nicht japanischen Plattformen ist global nicht die Norm. Hier kann ein Kreisdiagramm die Verhältnisse deutlicher machen.
 
 ### Kreisdiagramme {.tabset}
 
@@ -597,12 +639,11 @@ In Japan machen die Top 4 44.23% aus bestehen aber bis auf die PS2 aus gänzlich
 
 ***
 
-# Platform Verkaufszahlen im laufe der Jahre {#SalesPerPlatform}
+# Verkaufszahlen der Plattformen im Laufe der Jahre {#SalesPerPlatform}
 
-Nachdem wir uns die Platform verteilung angeschaut haben stellt sich die Frage ob es im laufe der Jahre unterschiede in den Verkäufen gibt.
+Nachdem wir uns die regionale Verteilung der Plattformen angeschaut haben, wird nun die Frage bearbeitet, ob es im Laufe der Jahre Unterschiede in der Zahl der Verkäufe gibt.
 
-
-Um uns dies anzuschaun verwenden wir eine neue art der Grafik die wir bisher noch nicht verwendet haben. Zum erstellen der Grafik gruppieren wir zuerst wieder unsere Daten und addieren die werte der Sales pro Jahr und Platform auf. ZUsätzlich zum Filter der ungültigen Jahre filter wir allerdings alle Summen mit weniger als 60 mio in Sales. Dies ist um eine Überladung des Diagramms zu verhindern führt aber zu anderen [Problemen](#AufgetreteneProbleme). Neu in der erstellung dieses Diagramms sind auch die befehle *arrange()* und *slice()*. Arrange sortiert die Tabelle anhand der gegebenen Spalte in unserem fall ist das die Summe der Globalen verkäufe. Slice entfernt alle Spalten bis auf jene, welche wir verwenden wollen. Neu bei der Diagamm erstellung sind hier die Parameter *mode = 'none'* sowie *stackgroup = 'one'* welche die hier zu sehende Grafik erzeugen.
+Hierzu wird eine bisher noch nicht verwendete Art der Grafik genutzt. Zum Erstellen der Grafik werden zuerst wieder die Daten gruppiert und die Zahl der Verkäufe/Sales pro Jahr addiert. Zusätzlich zum Filter für ungültige Jahre werden hierbei auch alle Summen mit weniger als 60 Millionen Verkäufe/Sales herausgefiltert, um eine Überladung des Diagramms zu verhindern. Dies führt aber zu anderen [Problemen](#AufgetreteneProbleme). Neu bei der Erstellung dieses Diagramms sind die Befehle *arrange()* und *slice()*. „Arrange“ sortiert dabei die Tabelle anhand der gegebenen Spalte, im vorliegenden Fall die Summe der globalen Verkäufe. „Slice“ entfernt Spalten, die nicht verwendet werden sollen. Ebenfalls neu sind hier die Parameter *mode = 'none'* sowie *stackgroup = 'one'* welche die hier dargestellte Grafik erzeugen:
 ```{r plot(SalesPerPlatformbyYear), echo = TRUE, message=FALSE, results='markup', }
 
 grouped <- vgsales  %>%                                 
@@ -632,18 +673,27 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          )
 
 ```
-Im ersten Moment ist die Grafik sehr verwirrend aber dröseln wir das ganze einmal genauer auf. Zuerst einmal fällt auf, dass die Jahre 1980-1988 sowie 1990-1005 und 2016 fehlen. Dies liegt an den oben gewählten Filtern und den in den Jahren pro Plattform gemessen zu geringen Verkaufszahlen. Zwischen den Jahren 1996 und 2000 ist hier nur die Playstation, welche 1994 veröffentlicht wurde zu erkennen. Im Jahre 2000 wird diese dann von der Playstation 2, welche am 04.03.2000 releast wurde abgelöst. Auch der Gameboy Advanced hier in den Jahren 2000-2003 sowie 2004 zu erkennen, obwohl dieser Global erst Mitte des Jahres 2001 releast wurde.2004 wird die Playstation 2 dann von der Xbox, welche am 22.02.2002 erstmals veröffentlich wurde, kurzzeitig abgelöst bevor die Wii(02.12.2006) mit nur einem Verkaufsmonat des Jahres 2006 die Führung übernimmt. Auch die Verkaufszahlen des Nintendo DS (02.12.2004) sind in den Jahren 2005-2010 gut erkennbar. Die XboX360 (10.12.2005) übernimmt ab 2007 den ersten Platz der Rangliste und wird erst 2014 von der PS4(15.11.2013) abgelöst. 
+Auch wenn die Grafik im ersten Moment verwirrend wirkt, ist auffallend, dass 
+die Jahre 1980-1988 sowie 1990-2005 und 2016 fehlen. Dies liegt an den oben dargestellten Filtern und den in diesen Jahren pro Plattform zu geringen Verkaufszahlen. 
+
+Zwischen den Jahren 1996 und 2000 erscheint nur die erste Playstation, welche 1994 veröffentlicht wurde. 
+Im Jahre 2000 wird diese dann von der Playstation 2, welche am 04.03.2000 releast wurde, abgelöst. 
+Der Faktor „Release-Datum“ wird auch beim Gameboy Advanced  - hier in den Jahren 2000-2003 sowie 2004 - erkennbar, obwohl dieser weltweit erst Mitte des Jahres 2001 releast wurde. 
+2004 wird die Playstation 2 dann von der Xbox, welche am 22.02.2002 erstmals veröffentlich wurde, kurzzeitig abgelöst. 
+Bevor die Wii (Release: 02.12.2006) mit nur einem Verkaufsmonat des Jahres 2006 die Führung übernimmt. 
+Auch die guten Verkaufszahlen des Nintendo DS (Release: 02.12.2004) sind in den Jahren 2005-2010 erkennbar. 
+Die XboX360 (Release: 10.12.2005) übernimmt ab 2007 den ersten Platz der Rangliste und wird erst 2014 von der PS4 (Release: 15.11.2013) abgelöst.
 
 
-Allgemein ist hier ein Trend erkennbar. Meist verkaufen Platformen wie zu erwarten einige Zeit nach Release die meisten Spiele. Erstaunlicherweise ist dies jedoch nicht kurz nach Release sondern z.T. erst einige Jahre später. Interessant währe hier eine detailliertere analyse aber weiteres dazu [hier](#AusblickInDieZukunft).
+Allgemein ist hier ein deutlicher Trend erkennbar: Die am häufigsten verkauften Plattformen verkaufen nach ihrem Release die meisten Spiele. Erstaunlicherweise ist dies jedoch nicht kurz nach Release, sondern zeitversetzt - z.T. erst einige Jahre später- der Fall. Interessant wäre hier eine detaillierte Analyse, weiteres dazu [hier](#AusblickInDieZukunft).
 
 
 
 ***
 
-# Publisher Vergleich {#PublisherReleases}
+# Publisher-Vergleich {#PublisherReleases}
 
-Nachdem wir uns nun eine Übersicht über die Platformen gemacht haben wäre es doch interessant zu wissen ob sich neben bestimmten Platformen auch bestimmte Entwickler/Publisher häufen. Anzunehmen ist hierbei das Namenhafte Publisher wie EA und Nintendo die Liste anführen. Hierzu verwenden wir wiederum Paretodiagramme. Eine genauere erklärung zur erstellung ebenjener gibt es [hier](#Platformanalyse). Einzige neuerung in diesem abschnitt ist das Kürzen der Namen um die Begriffe "Entertainment", "Interactive", "Game", "Games" und "Studios" da dies die Namen nur unnötig verlängert. Um dies zu erreichen mutzen wir die Funktion *str_remove_all()* auf die Spalte Publisher. 
+Nach der Übersicht über die Plattformen, wird nun ein Vergleich der Entwickler/Publisher vorgenommen. Anzunehmen wäre, dass namenhafte Publisher - wie EA und Nintendo - die Liste anführen. Auch hier werden Paretodiagramme verwendet. Genaueres zur Erstellung findet sich [hier](#Platformanalyse). Die Begriffe “Entertainment”, “Interactive”, “Game”, “Games” und “Studios” sind vorliegend jeweils gekürzt, da dies die Namen nur unnötig verlängern würde. Hierzu genutzt wird die Funktion *str_remove_all()* auf die Spalte „Publisher“.
 
 ## Publisher {.tabset}
 
@@ -687,7 +737,7 @@ ay <- list(
 )
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Publisher,Anzahl, .desc="true"),
+  add_bars(x=~fct_reorder(Publisher,Anzahl, .desc=TRUE),
            y=~Anzahl,
            name="Spiele Anzahl pro Publisher"
            ,colors = myPalette) %>% 
@@ -698,7 +748,10 @@ ordered%>%
          )
 ```
 
-Betrachten wir zuerst einmal die Anzahl der Spielereleases. Wenig überaschend ist hier EA (1351), mit jährlich veröffentlichenden namenhaften Spielen wie FIFA und Madden NFL sowie anderen bekannten Reihen wie Need for Speed, Battlefield oder Sims, anführer der Liste. An zweiter stelle befindet sich Activision (975) die unter anderem Spiele wie World of Warcraft, die Diablo reihe sowie Candy Crush entwickelten. Zum Zeitpunkt der Erstellung dieser Arbeit sind diese noch ein eigener Konzern werden allerdings vorausichtlich 2023 Teil von Microsoft. Darauf folgen in kurzen abständen Ubisoft (921), welche für Assasins Creed, Rainbox six oder Anno bekannt sind, sowie THQ  mit 715 (Gothic, Darksiders, TitanQuest). Auch Nintendo (703) mit Mario, Pokemon und Zelda sowie Sony (638), bekannt durch die Gran Tourismo und Uncharted Reihe sowie The last of Us, sind nicht weit abgeschlagen. Den letzten platz der Top Publisher belegt Take Two, welche für GTA, Borderlands und Civilization bekannt sind, mit 413.
+Wenig überraschend ist die Anzahl der Spiele Releases bei EA (1351) mit jährlich veröffentlichten namenhaften Spielen, wie FIFA und Madden NFL sowie anderen bekannten Reihen wie Need for Speed, Battlefield oder Sims, Anführer im Ranking. 
+An zweiter Stelle findet sich Activision-Blizzard (975), die unter anderem Spiele wie World of Warcraft, die Diablo-Reihe sowie Candy Crush entwickelt haben. Zum Zeitpunkt der Erstellung dieser Arbeit ist Activision noch eigenständig, wird allerdings voraussichtlich 2023 Teil von Microsoft. 
+Im Ranking folgen in kurzen Abständen Ubisoft (921), welche für Assassin's Creed, Rainbow six oder Anno bekannt sind, sowie THQ (715), mit ihren Produkten Gothic, Darksiders und TitanQuest. Auch Nintendo (703) mit Mario, Pokemon und Zelda sowie Sony (638), bekannt durch die „Gran Tourismo“- und Uncharted-Reihe sowie The Last of Us, sind nicht weit abgeschlagen. Den letzten Platz der Top-Publisher belegt Take-Two (413), die für GTA, Borderlands und Civilization bekannt sind.
+
 
 ### nach Verkaufszahlen
 ```{r plot(PublisherRanking_Global), echo = TRUE, message=FALSE, results='markup', }
@@ -742,7 +795,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="Verkaufszahlen pro Publisher"
            ,colors = myPalette) %>% 
@@ -759,9 +812,9 @@ Beim Betrachten der Verkaufszahlen fällt hier direkt die diskrepanz zwischen An
 
 ***
 
-# Publisher Ranking nach Region {#PublisherRankingbyRegion}
+# Publisher-Ranking nach Region{#PublisherRankingbyRegion}
 
-Nachdem wir uns einen Allgemeinen Überblick über die Publisher gemacht haben betrachten wir die Regionalen unterschiede in den Verkaufszahlen. Hierzu verwenden wir erneut die Bereits bekannten Shemata der [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion) kombo. Einen Refresher für die Erstellung ebenjener Diagramme gibt es via den Entsprechenden Links.
+Nach dem allgemeinen Überblick über die Publisher werden auch hier regionale Unterschiede in den Verkaufszahlen untersucht. Verwendet hierzu die bereits bekannten Schemata der [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion) kombo. Einen Refresher für die Erstellung dieser Diagramme über die Links.
 
 ## Ranking nach Region {.tabset}
 ### Balkendiagramme {.tabset}
@@ -809,7 +862,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="EU Verkaufszahlen pro Publisher"
            ,colors = myPalette) %>% 
@@ -819,7 +872,7 @@ ordered%>%
          )
 ```
 
-Im vergleich zu den Globalen Verkaufszahlen fällt hier auf das EA (371.27 mio) deutlich dichter hinter Nintendo(418.74) auf dem Zweiten Platz ist. Der Abstand zwischen EA und Activision (215.53) ist dementsprechend auch deutlich größer. Die restlichen werte unterscheiden sich aber kaum.
+Im Vergleich zu den globalen Verkaufszahlen fällt hier auf, dass EA (371.27 Mio.) hierbei deutlich dichter hinter Nintendo (418.74 Millionen.) auf dem zweiten Platz ist. Der Abstand zwischen EA und Activision (215.53) ist dementsprechend auch deutlich größer. Die restlichen Werte dagegen unterscheiden sich kaum.
 
 #### Nord Amerika
 ```{r plot(PublisherRanking_NA1), echo = TRUE, message=FALSE, results='markup', }
@@ -863,7 +916,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="NA Verkaufszahlen pro Publisher"
            ,colors = myPalette) %>% 
@@ -917,7 +970,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Publisher,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="JP Verkaufszahlen pro Publisher"
            ,colors = myPalette) %>% 
@@ -1096,13 +1149,17 @@ Japan Zeigt hier wohl den Deutlichsten unterschied auf. Nintendo (80.1%) Dominie
 
 ## {-}
 
-Zwischen EU und US lassen sich hier kaum Unterschiede feststellen in Japan hingegen ist eine deutliche verschiebung zu erkennen. Japanische Publisher führen hierbei die Liste an und drängen andere große unternehmen von den Top spots. Dementsprechend können wir schlussfolgern das manche Regionen, vorallem Japan welches die kleinste Region ist, deutliche vorlieben in spielen bestimmter Publisher haben, welche von der Globalen norm Abweichen. Eine Genauere Analyse von Europa und Nord Amerika durch unterteilung in Länder/Staaten währe hier vermutlich deutlich interessanter wird von den Daten jedoch leider nicht angeboten.
+Zwischen den EU- und US-Werten lassen sich hier kaum Unterschiede feststellen, während in Japan eine deutliche Verschiebung zu erkennen ist. Hier führen japanische Publisher das Ranking an und verdrängen andere, große Unternehmen von den Top-Rängen. 
+
+Hieraus ist zu folgern, dass manche Regionen - hier vor allem Japan, welches jedoch im Vergleich die kleinste Region ist - abweichend von der globalen Präferenz deutliche Vorlieben für Spiele bestimmter Publisher haben. Eine genauere Analyse von Europa und Nordamerika durch eine weitere Unterteilung in Länder/Staaten liefert vermutlich weitere, interessante Einblicke, die Daten hierzu liegen jedoch leider nicht vor.
 
 ***
 
 # Genreverteilung der Videospiele nach Anzahl {#GenreAmountGlobal}
 
-Da wir uns nu klar geworden sind, dass es bestimmte Publisher gibt, die beliebter sind als andere wäre es interessant herauszufinden ob bestimmte Spiele Genres beliebter sind als andere. Hierzu vergleichen wir zuerst einmal die Genres nach anzahl der Spielereleases und verwenden erneut ein [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion). Anzumerken ist hierbei jedoch das Spiele meist mehr als einem Genre angehören in diesem Datensatz ist jedoch immer nur eins angegeben.
+Da belegbar bestimmte Publisher beliebter sind als andere, wird nun überprüft, ob bestimmte Spiele-Genres beliebter sind als andere. Hierzu zunächst ein Vergleich der Genres nach Anzahl der Spielereleases. Hierzu wird ein [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion) verwendet. 
+Anmerkung: Auch wenn Spiele meist mehr als einem Genre angehören, ist hier jeweils nur das Haupt-Genre angegeben.
+
 
 ## Genre nach Anzahl {.tabset}
 
@@ -1129,7 +1186,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Genre,Anzahl, .desc="true"),
+  add_bars(x=~fct_reorder(Genre,Anzahl, .desc=TRUE),
            y=~Anzahl,
            name="Videospielanzahl nach Genre"
            ,colors = myPalette) %>% 
@@ -1140,7 +1197,13 @@ ordered%>%
 
 ```
 
-Der Anführer der Liste ist mit deutlichem Abstand Action (GTA,Bloodborne) mit 3316. Auf dem Zweiten platz findet sich Sports (2346) mit reihen wie FIFA und NBA2k. Den dritten Platz belegt ein Genre das aus vielen verschiedenen Genren besteht die in dieser Liste nicht aufgeführt werden mit 1739. Misc beinhaltet spiele wie Just Dance (Musik/Rhythmus) oder Minecraft ein Sandbox Survival game. Danach kommen mit geringerem Abstand der Reihe nach Role-Playing (Witcher, The Elder Scrolls) mit 1488, Shooter (Call of Duty, Doom) mit 1310, Adventure (God of War, Life is Strange) mit 1286 und Racing (Gran Tourismo, Forza) mit 1249. Danach folgen mit einem größeren Abstand Platform (Super Mario, LittleBigPlanet) mit 886, Simulation (Sims, Microsoft Flight Simulator) mit 867 sowie Fighting (Tekken, Super Smash Bros) mit 884. Zu guter letzt fehlen noch Strategy (Age of Empires, Civilisation) mit 681 sowie Puzzle (Portal,Tetris) mit 582.
+Der Anführer des Ranking ist mit deutlichem Abstand Action (GTA, Bloodborne) mit 3316. 
+Auf dem zweiten Platz findet sich Sports (2346) mit Reihen wie FIFA und NBA2k. 
+Den dritten Platz belegt ein Genre, das aus vielen verschiedenen Genres besteht, die in dieser Liste nicht aufgeführt werden, mit 1739. 
+Misc beinhaltet Spiele wie Just Dance (Musik/Rhythmus) oder Minecraft ein Sandbox Survival game. 
+Danach kommen mit geringerem Abstand in der Reihenfolge des Ranking Role-Playing (Witcher, The Elder Scrolls) mit 1488, Shooter (Call of Duty, Doom) mit 1310, Adventure (God of War, Life is Strange) mit 1286 und Racing (Gran Tourismo, Forza) mit 1249. 
+Mit größeren Abstand folgen Platform (Super Mario, LittleBigPlanet) mit 886, Simulation (Sims, Microsoft Flight Simulator) mit 867 sowie Fighting (Tekken, Super Smash Bros) mit 884. 
+Als Letzte im Ranking erscheinen Strategy (Age of Empires, Civilisation) mit 681 sowie Puzzle (Portal,Tetris) mit 582.
 
 ### Kreisdiagramm
 
@@ -1174,17 +1237,25 @@ ordered%>%
          )
 ```
 
-Der Anführer der Liste ist mit deutlichem Abstand Action (GTA,Bloodborne) mit 20%. Auf dem Zweiten platz findet sich Sports (14.1%) mit reihen wie FIFA und NBA2k. Den dritten Platz belegt ein Genre das aus vielen verschiedenen Genren besteht die in dieser Liste nicht aufgeführt werden mit 10.5%. Misc beinhaltet spiele wie Just Dance (Musik/Rhythmus) oder Minecraft ein Sandbox Survival game. Danach kommen mit geringerem Abstand der Reihe nach Role-Playing (Witcher, The Elder Scrolls) mit 8.96%, Shooter (Call of Duty, Doom) mit 7.89%, Adventure (God of War, Life is Strange) mit 7.75% und Racing (Gran Tourismo, Forza) mit 7.53%. Danach folgen mit einem größeren Abstand Platform (Super Mario, LittleBigPlanet) mit 5.34%, Simulation (Sims, Microsoft Flight Simulator) mit 5.22% sowie Fighting (Tekken, Super Smash Bros) mit 5.11%. Zu guter letzt fehlen noch Strategy (Age of Empires, Civilisation) mit 4.1% sowie Puzzle (Portal,Tetris) mit 3.51%.
+
+Der Anführer des Ranking ist mit deutlichem Abstand Action (GTA, Bloodborne) mit 20%. 
+Auf dem zweiten Platz findet sich Sports (14.1%) mit Reihen wie FIFA und NBA2k. 
+Den dritten Platz belegt ein Genre, das aus vielen verschiedenen Genres besteht, die in dieser Liste nicht aufgeführt werden, mit 10.5%. 
+Misc beinhaltet Spiele wie Just Dance (Musik/Rhythmus) oder Minecraft ein Sandbox Survival game. 
+Danach kommen mit geringerem Abstand in der Reihenfolge des Ranking Role-Playing (Witcher, The Elder Scrolls) mit 8.96%, Shooter (Call of Duty, Doom) mit 7.89%, Adventure (God of War, Life is Strange) mit 7.75% und Racing (Gran Tourismo, Forza) mit 7.53%. 
+Mit größeren Abstand folgen Platform (Super Mario, LittleBigPlanet) mit 5.43%, Simulation (Sims, Microsoft Flight Simulator) mit 5.22% sowie Fighting (Tekken, Super Smash Bros) mit 5.11%. 
+Als Letzte im Ranking erscheinen Strategy (Age of Empires, Civilisation) mit 4.1% sowie Puzzle (Portal,Tetris) mit 3.52%.
+
 
 ## {-}
 
-Auffällig hierbei ist das die Größten vier Genres 53.56% der Spielereleases ausmachen. Dies ist ansich nicht weiter Verwunderlich. In der Spieleindustrie bzw allgemein, ist es ein gerne genutztes konzept Funktionierende dinge zu übernehmen. Dies ist vorallem auffällig bei Spielen, welche ganze Genres prägen. Sei es Minecraft für die Survival Games (DayZ, Rust), World of Warcraft für die MMORPG's (Final Fantasy 14, Guild Wars 2) oder die Warcraft 3 mod Dota welche das MOBA genre (League of Legends, Dota 2) nach sich gezogen hat.
+Zusammenfassend auffällig ist,  dass die größten vier Genres über die Hälfte (53.56 %) der Spielereleases ausmachen. Dies ist eigentlich nicht weiter verwunderlich, da auch in der Spieleindustrie das Konzept Funktionierendes weiterzumachen („Never change a winning team“) genutzt werden wird. Dies ist vor allem auffällig bei Spielen, die ganze Genres prägen. Sei es Minecraft für die Survival-Games (DayZ, Rust), World of Warcraft für die MMORPG’s (Final Fantasy 14, Guild Wars 2) oder die Warcraft 3 mod Dota welche das MOBA genre (League of Legends, Dota 2) nach sich gezogen hat.
 
 ***
 
 # Genreverteilung der Videospiele nach Verkaufszahlen {#GenreSalesGlobal}
 
-Schauen wir uns nun jedoch an ob die Verkaufszahlen die gleichen häufungen aufzeigen und verwenden wieder ein [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion). Es gilt weiterhin die obengenannte Problematik der Genrenotation des Datensatzes.
+Um der Frage nachzugehen, ob die Verkaufszahlen der Videospiele die gleichen oder andere Korrelationen aufzeigen wie die Genreverteilungen wird wieder ein [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion) genutzt. Auch hier gelten die Erläuterungen zur Problematik der Genrenotation des Datensatzes.
 
 ## Verkaufszahlen {.tabset}
 
@@ -1212,7 +1283,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="Verkaufszahlen nach Genre"
            ,colors = myPalette) %>% 
@@ -1223,7 +1294,11 @@ ordered%>%
 
 ```
 
-Auf Platz 1 und 2 der Liste befinden sich weiterhin Action (1.751 mrd) und Spots (1.33 mrd). Platz 3 belegt hier jedoch nicht Misc welches mit 809.96 mio auf platz 6 abgerutscht ist sondern Shooter (1.037 mrd). Platz 4 wird weiterhin von Role-Playing (927.37 mio) belegt. Auch Platform (831.37) verkaufen sich deutlich besser und sichern sich Platz 5. Die restlichen Genres unterscheiden sich Kaum in Anzahl und Verkaufszahlen.
+Auf Platz 1 und 2 des Rankings befinden sich auch unter diesem Gesichtspunkt Action (1.751 Mrd.) und Sports (1.33 Mrd.). 
+Platz 3 belegt hier jedoch nicht Misc, welches mit nur 809.96 Mio. Verkäufen auf Platz 6 abrutscht, sondern Shooter (1.037 Mrd.). 
+Platz 4 hält weiterhin Role-Playing (927.37 Mio.). 
+Doch auch Platformer (831.37) verkaufen sich hier deutlich besser und sichern sich Platz 5. 
+Die restlichen Genres unterscheiden sich nur geringfügig in Anzahl und Verkaufszahlen.
 
 
 ### Kreisdiagramm
@@ -1261,15 +1336,24 @@ ordered%>%
 
 Auf Platz 1 und 2 der Liste befinden sich weiterhin Action (19.6%) und Spots (14.9%). Platz 3 belegt hier jedoch nicht Misc welches mit 9.08% auf platz 6 abgerutscht ist sondern Shooter (11.6%). Platz 4 wird weiterhin von Role-Playing (10.4%) belegt. Auch Platform (9.32%) verkaufen sich deutlich besser und sichern sich Platz 5. Die restlichen Genres unterscheiden sich Kaum in Anzahl und Verkaufszahlen.
 
+Auf Platz 1 und 2 des Rankings befinden sich auch unter diesem Gesichtspunkt Action (19.6%) und Sports (14.9%). 
+Platz 3 belegt hier jedoch nicht Misc, welches mit nur 9.08% der Verkäufe auf Platz 6 abrutscht, sondern Shooter (11.6%). 
+Platz 4 hält weiterhin Role-Playing (10.4%). 
+Doch auch Platformer (9.32%) verkaufen sich hier deutlich besser und sichern sich Platz 5. 
+Die restlichen Genres unterscheiden sich nur geringfügig in Anzahl und Verkaufszahlen.
+
+
 ## {-}
 
-Beim Betrachten fällt hier auf, dass sich einige Genres deutlich besser verkaufen als andere. Vorallem Shooter und Platform spiele sind hier die Kassenschlager wenn man die Verkaufszahlen mit Anzahl der Spiele vergleicht. Die großen Genres Action und Sports sind jedoch sowohl in verkaufszahlen als auch Anzahl der Spiele unangefochten auf platz 1 und 2.
+Beim Betrachten fällt hier auf, dass sich einige Genres deutlich besser verkaufen als andere. 
+Auffallend ist allerdings: Vor allem Shooter und Platform-Spiele sind hier die Kassenschlager,  wenn man die Verkaufszahlen mit der Anzahl der Spiele vergleicht. Allerdings sind die großen Genres „Action“ und „Sports“ sowohl in den Verkaufszahlen, als auch bei der Anzahl der Spiele unangefochten auf den Plätzen 1 und 2.
+
 
 ***
 
-# Regionale Unterschiede der Genres {#GenreAmountByRegion}
+# Genres - regionale Unterschiede  {#GenreAmountByRegion}
 
-Nachdem wir vorhin bei den [Platformen](#PlatformRankingByRegion) deutliche Regionale Unterschiede feststellen konnten stellt sich bei den Genres die gleiche Frage und dementsprechend auch wieder der gleiche Lösungsansatz mit [Pareto-](#Platformanalyse) und [Kreisdiagrammen](#PlatformRankingByRegion).
+Nachdem bei den [Platformen](#PlatformRankingByRegion) deutliche regionale Unterschiede festgestellt werden konnten, wird dies auch bei den Genres untersucht; entsprechend auch wieder der gleiche Lösungsansatz mit [Pareto-](#Platformanalyse) und [Kreisdiagrammen](#PlatformRankingByRegion).
 
 ## Verkäufe pro Genre {.tabset}
 
@@ -1299,7 +1383,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="Verkaufszahlen nach Genre (EU)"
            ,colors = myPalette) %>% 
@@ -1308,7 +1392,12 @@ ordered%>%
          yaxis = ay
          )
 ```
-Europa sieht wie bereits in der [Platformanalyse](#PlatformRankingByRegion) festgestellt dem Globalen Genrevergleich recht ähnlich. Action (525 mio) führt weiterhin vor Sports(376.85 mio) und Shootern (313.27 mio). Auf platz 4 ist dann der erste Unterschied feststellbar. Anstatt Role-Playing (188.06 mio) welches auf Platz 7 abgerutscht ist befindet sich hier Racing (238.39) welche den Platz tauschen. Auch Platz 5 Misc (215.98 mio) und Platz 6 Platform (201.63 mio) sind in Europa vertauscht. Allgemein scheint hier auf den hinteren Genreplätzen eine verschiebung feststellbar zu sein denn obwohl das verhältnis der Genres gleich bleibt sind zusätzlich sowohl Simulation (113.38 mio) und Fighting (101.32 mio) als auch Adventure (63.13 mio) und Puzzle (50.78 mio) vertauscht. Von den hinteren Plätzen bleibt somit einzig Strategy (45.34 mio) auf seinem vorherigen letzten platz.
+Im Vergleich erscheint Europa wie bereits in der [Platformanalyse](#PlatformRankingByRegion) festgestellt dem globalen Genrevergleich recht ähnlich:
+
+Action (525 Mio.) führt weiterhin vor Sports (376.85 Mio.) und Shootern (313.27 Mio.).
+Auf Platz 4 ist jedoch der erste Unterschied feststellbar: Statt Role-Playing (188.06 Mio.), welches auf Platz 7 abgerutscht ist, findet sich hier Racing (238.39), so dass beide hier die Plätze tauschen. 
+Auch Platz 5 Misc (215.98 Mio.) und Platz 6 Platform (201.63 Mio.) sind in Europa vertauscht. Allgemein scheint hier auch auf den hinteren Genreplätzen eine Verschiebung feststellbar, da bei gleichbleibendem Verhältnis der Genres zusätzlich sowohl Simulation (113.38 Mio.) und Fighting (101.32 Mio.) als auch Adventure (63.13 Mio.) und Puzzle (50.78 Mio.) ihre Plätze tauschen. In den hinteren Rängen bleibt somit einzig Strategy (45.34 Mio.) auf seinem vorherigen letzten Platz.
+
 
 #### Nord-Amerika
 ```{r plot(SalesByGenre_NA1), echo = TRUE, message=FALSE, results='markup', }
@@ -1333,7 +1422,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc=TRUE),
            y=~Global_Sales,
            name="Verkaufszahlen nach Genre (NA)"
            ,colors = myPalette) %>% 
@@ -1342,7 +1431,7 @@ ordered%>%
          yaxis = ay
          )
 ```
-Auch in Nord-Amerika ist eine Verschiebung der Genres festzustellen. Die Top 3 sind weiterhin von Action (877.83 mio), Sports (683.35 mio) und Shooter (582.6 mio) belegt. Im gegensatz zu Europa sind hier allerdings nur Platz 4 Platform (447.05 mio), Platz 5 Misc (410.24 mio) sowie Platz 6 Racing (359.42) und Platz 7 Role-Playing (327.28 mio) vertauscht. Platz 8 bis 12 sind wie die globalen Referenzwerte angeordnet der einzige Unterschied zwische Global und Nord-Amerika ist somit die verschiebung von Role-Playing auf Platz 7.
+In Nord-Amerika ist eine Verschiebung der Genres festzustellen: Die Top 3 belegen auch hier Action (877,83 Millionen), Sports (683,35 Millionen) und Shooter (582,6 Millionen). Im Gegensatz zu Europa sind hier allerdings die Plätze 4 und 7 vertauscht: Platform (447,05 Millionen Platz 4), Misc (410,24 Millionen Platz 5 ), Racing (359,42 Millionen Platz 6 ) und Role-Playing (327,28 Millionen Platz 7). Plätze 8 bis 12 verteilen sich wie die globalen Referenzwerte. Der einzige Unterschied zwischen Global und Nord-Amerika ist somit die Verschiebung von Role-Playing auf Platz 7.
 
 #### Japan
 
@@ -1368,7 +1457,7 @@ ay <- list(
 
 ordered%>%
   plot_ly() %>% 
-  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc="true"),
+  add_bars(x=~fct_reorder(Genre,Global_Sales, .desc= TRUE),
            y=~Global_Sales,
            name="Verkaufszahlen nach Genre (JP)" ,colors = myPalette) %>% 
   layout(title="Verkaufszahlen nach Genre (JP)",
@@ -1377,7 +1466,7 @@ ordered%>%
          )
 
 ```
-In Japan befindet sich Role-Playing (352.31 mio) mit großem Abstand auf Platz 1 noch vor de sonstigen Platzhirschen Action (159.95 mio) und Sports (135.37 mio). Die ehemalige top 3 Shooter (38.28 mio) fällt in Japan auf den letzten platz ab und wird von Platform (130.77 mio) ersetzt. Misc (107.76 mio) kann sich weiterhin im mittelfeld halten wohingegen Fighting (87.35 mio) und Simulation (63.7 mio) einige Plätze gut machen können und nun auf Platz 6 und 7 vorrücken. Auch Puzzle Games (57.31 mio) erfreuen sich einer höheren beliebtheit als noch Global wohingegen Racing (56.69 mio) einen deutlichen Verlust hinnehmen muss. Adventure (52.07 mio) und Strategy (49.46 mio) bleiben jedoch weiterhin eine der Unbeliebtesten Genres.
+In Japan befindet sich dagegen Role-Playing (352,31 Millionen) mit großem Abstand auf Platz 1, noch vor den sonstigen Platzhirschen - Action (159,95 Millionen) und Sports (135,37 Millionen). Der weltweite Top 3 Shooter (38,28 Millionen) fällt in Japan auf den letzten Platz und wird von Platform (130,77 Millionen) ersetzt. Misc (107,76 Millionen) kann sich weiterhin im Mittelfeld halten. Fighting (87,35 Millionen) und Simulation (63,7 Millionen) können einige Plätze gut machen und rücken auf die Plätze 6 und 7 vor. Auch Puzzle Games (57,31 Millionen) erfreuen sich einer höheren Beliebtheit als global, wohingegen Racing (56,69 Millionen) einen deutlichen Verlust hinnehmen muss. Adventure (52,07 Millionen) und Strategy (49,46 Millionen) bleiben auch in Japan auf den letzten Rängen der Genres.
 
 ### Kreisdiagramme {.tabset}
 
@@ -1413,7 +1502,11 @@ ordered%>%
         )
 ```
 
-Europa sieht wie bereits in der [Platformanalyse](#PlatformRankingByRegion) festgestellt dem Globalen Genrevergleich recht ähnlich. Action (21.6%) führt weiterhin vor Sports(15.5%) und Shootern (12.9%). Auf platz 4 ist dann der erste Unterschied feststellbar. Anstatt Role-Playing (7.73%) welches auf Platz 7 abgerutscht ist befindet sich hier Racing (9.79%) welche den Platz tauschen. Auch Platz 5 Misc (8.87%) und Platz 6 Platform (8.28%) sind in Europa vertauscht. Allgemein scheint hier auf den hinteren Genreplätzen eine verschiebung feststellbar zu sein denn obwohl das verhältnis der Genres gleich bleibt sind zusätzlich sowohl Simulation (4.66%) und Fighting (4.16%) als auch Adventure (2.63%) und Puzzle (2.09%) vertauscht. Von den hinteren Plätzen bleibt somit einzig Strategy (1.86%) auf seinem vorherigen letzten platz.
+Im Vergleich erscheint Europa wie bereits in der [Platformanalyse](#PlatformRankingByRegion) festgestellt dem globalen Genrevergleich recht ähnlich:
+
+Action (21.6%) führt weiterhin vor Sports (15.5%) und Shootern (12.9%).
+Auf Platz 4 ist jedoch der erste Unterschied feststellbar: Statt Role-Playing (7.73%), welches auf Platz 7 abgerutscht ist, findet sich hier Racing (9.79%), so dass beide hier die Plätze tauschen. 
+Auch Platz 5 Misc (8.87%) und Platz 6 Platform (8.28%) sind in Europa vertauscht. Allgemein scheint hier auch auf den hinteren Genreplätzen eine Verschiebung feststellbar, da bei gleichbleibendem Verhältnis der Genres zusätzlich sowohl Simulation (4.66%) und Fighting (4.16%) als auch Adventure (2.63%) und Puzzle (2.09%) ihre Plätze tauschen. In den hinteren Rängen bleibt somit einzig Strategy (1.86%) auf seinem vorherigen letzten Platz.
 
 
 #### Nord-Amerika
@@ -1448,7 +1541,9 @@ ordered%>%
         )
 ```
 
-Auch in Nord-Amerika ist eine Verschiebung der Genres festzustellen. Die Top 3 sind weiterhin von Action (20%), Sports (15.6%) und Shooter (13.3%) belegt. Im gegensatz zu Europa sind hier allerdings nur Platz 4 Platform (10.2%), Platz 5 Misc (9.34%) sowie Platz 6 Racing (8.18%) und Platz 7 Role-Playing (7.45%) vertauscht. Platz 8 bis 12 sind wie die globalen Referenzwerte angeordnet der einzige Unterschied zwische Global und Nord-Amerika ist somit die verschiebung von Role-Playing auf Platz 7.
+
+In Nord-Amerika ist eine Verschiebung der Genres festzustellen: Die Top 3 belegen auch hier Action (20%), Sports (15.6%) und Shooter (13.3%). Im Gegensatz zu Europa sind hier allerdings die Plätze 4 und 7 vertauscht: Platform (10,2% Platz 4), Misc (9.34% Platz 5), Racing (8.18% Platz 6 ) und Role-Playing (7.45% Platz 7). Plätze 8 bis 12 verteilen sich wie die globalen Referenzwerte. Der einzige Unterschied zwischen Global und Nord-Amerika ist somit die Verschiebung von Role-Playing auf Platz 7.
+
 
 #### Japan
 
@@ -1482,23 +1577,26 @@ ordered%>%
         )
 ```
 
-In Japan befindet sich Role-Playing (27.3%) mit großem Abstand auf Platz 1 noch vor de sonstigen Platzhirschen Action (12.4%) und Sports (10.5%). Die ehemalige top 3 Shooter (2.97%) fällt in Japan auf den letzten platz ab und wird von Platform (10.1%) ersetzt. Misc (8.35%) kann sich weiterhin im mittelfeld halten wohingegen Fighting (6.77%) und Simulation (4.93%) einige Plätze gut machen können und nun auf Platz 6 und 7 vorrücken. Auch Puzzle Games (4.44%) erfreuen sich einer höheren beliebtheit als noch Global wohingegen Racing (4.39%) einen deutlichen Verlust hinnehmen muss. Adventure (4.03%) und Strategy (3.83%) bleiben jedoch weiterhin eine der Unbeliebtesten Genres.
+
+In Japan befindet sich dagegen Role-Playing (27,3%) mit großem Abstand auf Platz 1, noch vor den sonstigen Platzhirschen - Action (12.4%) und Sports (10,5%). Der weltweite Top 3 Shooter (2,97%) fällt in Japan auf den letzten Platz und wird von Platform (10.1%) ersetzt. Misc (8,35%) kann sich weiterhin im Mittelfeld halten. Fighting (6,77%) und Simulation (4,93%) können einige Plätze gut machen und rücken auf die Plätze 6 und 7 vor. Auch Puzzle Games (4,44%) erfreuen sich einer höheren Beliebtheit als global, wohingegen Racing (4,39%) einen deutlichen Verlust hinnehmen muss. Adventure (4,03%) und Strategy (3,83%) bleiben auch in Japan auf den letzten Rängen der Genres.
+
 
 ## {-}
 
-Zu erkennen ist hier erneut das Amerika und Euopa recht ähnlich interessen haben und nur auf den mittleren und hinteren plätzen unterschiede aufweisen. Nord-Amerika ist als der größte Markt wie zu erwartend am nächsten an den Globalen Referenzdaten wohingegen Japan ein gänzlich anderes Genreshema erkennen lässt. In Japan dominiert Role-Playing welches sich in Europa und Amerika nur auf platz 7 befindet welches durch die Japanische Kultur geprägt auch sinn ergibt.
+Auch hier ist zu erkennen, dass die Nutzenden in Amerika und Europa recht ähnliche Interessen haben und nur auf den mittleren und hinteren Rängen Unterschiede entstehen. Nord-Amerika,  als der größte Markt, ist - wie zu erwarten - am nächsten an den globalen Referenzdaten. Auch hier ist im japanischen Markt ein gänzlich anderes Genreschema feststellbar. In Japan dominiert Role-Playing, welches sich in Europa und Amerika nur auf Rang 7 befindet. Dies lässt sich durch kulturelle Unterschiede erklären.
 
 ***
 
-# Genreentwicklung im laufe der Jahre nach anzahl {#GenreAmountPerYear}
+# Genre-Entwicklung im Laufe der Jahre nach Anzahl {#GenreAmountPerYear}
 
-Nachdem wir uns nun Über die Genreverteilung Global und in den einzelnen Regionen ein Bild gemacht haben wäre es interessant anzuschauen wie sich die Genres im Laufe der Jahre entwickelt haben und ob sich ein Trend bei Gewissen Genres erkennen lässt. Als erstes Betrachten wir reine Anzahl der Spielereleases und [später](#GenreSalesPerYear) die verkaufszahlen. Hierzu verwenden wir verschiedene Lineplots die sich in der Datenvorbereitung nicht großartig von den [Pareto-](#Platformanalyse) und [Kreisdiagrammen](#PlatformRankingByRegion) unterscheidet. Die unterschiede in der Diagramm erstellung werde ich jedoch im Folgenden aufzeigen.
+Nach der Beschäftigung mit der globalen und regionalen Verteilung  der Genres wird nachfolgend der Frage nachgegangen, wie sich die Zahl der Genres im Laufe der Jahre verändert hat und ob sich Trends erkennen lassen. Zunächst wird die Anzahl der Spiele-Releases, danach die Entwicklung der Verkaufszahlen untersucht. Hierzu werden verschiedene Lineplots, die sich in der Datenvorbereitung zu [Pareto-](#Platformanalyse) und [Kreisdiagrammen](#PlatformRankingByRegion) kaum unterscheiden, genutzt. Unterschiede der Diagrammerstellung werden jeweils aufgezeigt
 
 ## Anzahl der Spiele pro Genre pro Jahr {.tabset}
 
 ### Lines
 
-Die erstellung des Lines Diagrammes ist wohl die simpelste. Wir verwenden unsere vorgefiltertes data.frame *filtered* und übergeben dies an die *plot_ly()* funktion. Danach nutzen wir *add_lines* um ein Liniendiagramm zu erstellen und setzen die Parameter. Der X-Wert ist das *Year*, der Y-Wert die *Anzahl*. Als *color* wählen wir das Genre und unsere Farbtabelle übergeben wir an die funktion via *colors=*.
+Zur Erstellung des Lines Diagrammes wird das vorgefilterte data.frame *filtered* an die *plot_ly()* funktion weitergegeben und mit *add_lines* ein Liniendiagramm erstellt. Nach dem Setzen der Parameter - Der X-Wert ist das *Year*, der Y-Wert die *Anzahl* - wird mit *color* das Genre bestimmt und diese Farbtabelle an die Funktion via *colors=* weitergegeben.
+
 
 ```{r plot(AmountOfGamesByGenrebyYear1), echo = TRUE, message=FALSE, results='markup', }
 
@@ -1528,11 +1626,12 @@ plot_ly() %>%
          )
 
 ```
-Im ersten moment ist dieses Diagramm recht unübersichtlich doch bei genaueren Betrachtung kann ein aufmerksamer Betrachter bereits einige Dinge erkennen. Zum einen sehen wir das zwischen 1993 und 2003 tatsächlich Sports das meist verkaufte Genre war bevor es von Action abgelöst wurde. Misc games erfreuten sich zwischen 2005 und 2011 großer beliebtheit bevor diese wieder in der Versenkung verschwanden. Auch Adventure games waren zwischen 2007 und 2010 am beliebtesten.
+
+Auch wenn im ersten Moment das Diagramm recht unübersichtlich wirkt, lässt es bei genauerer Betrachtung bereits einige Dinge erkennen: So war zwischen 1993 und 2003 tatsächlich Sports das meistverkaufte Genre, bevor es von Action abgelöst wurde. Misc erfreute sich zwischen 2005 und 2011 großer Beliebtheit, bevor es wieder in der Versenkung verschwand. Adventure war zwischen 2007 und 2010 am beliebtesten.
 
 ### Filled Lines
 
-Die Erstellung des Filled Lines Diagrammes unterscheides sich etwas von dem einfach Lines-Plot. Anstatt der *add_Lines* funktion übergeben wir hier direkt die Parameter mit an *plot_ly()*. X ist weiterhin das Jahr, Y die Anzahl, die Farbtablette *colors* und *color=Genre*. Die Unterschiede sind hier der *type* parameter welcher auf scatter gesetz wird, *mode* welches none ist und *fill* welches durch *tozeroy* die füllung bis zur y Achse erzeugt.
+Die Erstellung von Filled Lines Diagrammes unterscheidet sich etwas von dem einfachen Lines-Plot. Statt an die *add_Lines* funktion werden die Parameter an *plot_ly()* übertragen. X ist weiterhin das Jahr, Y die Anzahl und die Farbpaletten bleiben *colors* und *color=Genre*. Unterschiedlich sind allerdings der *type* Parameter, der auf scatter gesetzt wird, *mode*, welches none ist und *fill*, welches durch *tozeroy* die Füllung bis zur y Achse erzeugt.
 
 ```{r plot(AmountOfGamesByGenrebyYear2), echo = TRUE, message=FALSE, results='markup', }
 
@@ -1562,13 +1661,14 @@ plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', fill = 'tozeroy
 
 ```
 
-Einige feinere unterschiede Lassen sich hier deutlich besser erkennen als noch im Lines Diagramm. Man erkennt beispielsweise den großen Wachstum von Strategy games zwischen 1996 und 1998 bevor diese 2000 stark abflachen und nicht mit dem allgemeinen Wachstum der anderen Genres mithalten können. Auch der große Wachstum von Racing games zwischen 200 und 2004 ist gut erkennbar.
+So lassen sich feinere Unterschiede deutlich besser erkennen, als noch im Lines Diagramm. Man erkennt beispielsweise das große Wachstum von Strategy zwischen 1996 und 1998, bevor diese Entwicklung 2000 stark abflacht und nicht mit dem allgemeinen Wachstum der anderen Genres mithalten kann. Auch der Erfolg von Racing zwischen 2000 und 2004 ist gut erkennbar.
+
 
 ### Stacked Lines {.active}
 
-Da stacked Lines sehr übersichtlich und gut darin sind sich einen Groberen überblick über die Daten zu schaffen sind diese hier als erste Ansicht vorausgewählt. Um die hinzugehörende Texte hundertprozentig verstehen zu können ist es aber hilfreich zuerst den Lines und Filled Lines tab zu studieren.
+Als erste Ansicht wurde stacked Lines genutzt, da es sehr übersichtlich ist und sich gut eignet, einen Grobüberblick Daten zu schaffen. Um die zugehörigen Texte zu verstehen, wird empfohlen zunächst den „Lines und Filled Lines tab“ zu studieren.
 
-Die Erstellung des stacked Lines Diagramm ist den Filled Lines sehr ähnlich. Einziger unterschied ist die Abwesenheit des *fill* parameters und stattdessen die verwendung von *stackgroup='one'* welches die stacked Lines erzeugt.
+Hinweis: Die Erstellung des „stacked Lines“-Diagramm ist den „Filled Lines“ sehr ähnlich. Einziger Unterschied ist die Abwesenheit des *fill* parameters. Stattdessen wird *stackgroup='one'* zur Erzeugung der stacked Lines verwendet.
 
 ```{r plot(AmountOfGamesByGenrebyYear3), echo = TRUE, message=FALSE, results='markup', }
 
@@ -1598,7 +1698,8 @@ plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', stackgroup = 'o
 
 ```
 
-Leider sind die Farben aufgrund eines Fehlers hier etwas fehlerhaft mehr dazu im [Fazit](#AufgetreteneProbleme) Beim Betrachten des Stacked Line plots sind jedoch trotzdem einige Dinge direkt sehr gut zu erkennen. Man sieht welche Genres ein größeres Wachstum hinlegen als andere. Sowohl Shooter als auch Puzzle und Platform Games bleiben in den 2010er jahren relativ gleichbleibend. Action, Strategz, Misc und Sports Games können jedoch ein deutliches Wachstum aufzeigen.
+Bedauerlicherweise ist die Darstellung der Farben fehlerhaft; mehr dazu im[Fazit](#AufgetreteneProbleme) Beim Betrachten des Stacked Line plots werden trotzdem einige Dinge gut erkennbar: So ist das größere Wachstum der Genres Shooter gegenüber der gleichbleibenden Entwicklung bei Puzzle und Platform Games in den 2010er deutlich. Auch das deutliche Wachstum bei Action, Strategy, Misc und Sports Games wird erkennbar. 
+
 
 
 ### Genreverschiebung
@@ -1632,17 +1733,18 @@ plot_ly(x = ~Year, y = ~Anzahl, type = 'scatter', mode = 'none', stackgroup = 'o
          )
 ```
 
-Beim Betrachten fällt hier direkt auf, dass Action Games 1980-1984 einen großen Marktanteil, teilweise bis hin zu 50% ausgemacht haben. Diese bis 1994 auf gerademal 3% absinken bevor der Stetige Wachstum beginnt bis sie 2016 wieder bei Knap 40% enden. Auch die große Marktpräsenz von Platform Spielen zwischen 1984 und 1992 ist gut erkennbar wohingegen Racing Games sich zwischen 1994 und 2004 der größten beliebtheit erfreuen.
+Beim Betrachten fällt hier direkt auf, dass Action Games 1980-1984 einen großen Marktanteil, teilweise bis zu 50% ausgemacht haben. Sie verlieren diesen Anteil in 1994 bis auf nur noch 3%, jedoch dann beginnt eine gegenläufige Entwicklung, bis sie 2016 wieder bei knapp 40% enden. Auch die große Marktpräsenz von Platform-Spielen zwischen 1984 und 1992 ist gut erkennbar. Allerdings erfreuen sich Racing Games zwischen 1994 und 2004 der größten Beliebtheit.
+
 
 ## {-}
 
-Hierbei zu erkennen ist Obwohl die Anzahl der Jährlichen Spielereleases über die Jahre hinweg stetig wächst bleiben die Meisten Genres ähnlich viel vertreten. Auffällig sind hierbei Strategy-Games die erst 1991 das erste mal auftretem Seitdem obwohl sie Leicht an Marketshare verlieren grob gleich bleiben. Außerdem sind Action Games die Spiele mit der wohl größten volatilität. Sind es 1982 noch fast 50% der Gamereleases fällt deren aufkommen 1084 schon auf nur noch knapp 10% ab und 1986 steigt der Wert wieder auf fast 30%. Dieser Trend setzt sich fort bis 1996 ab welchem Zeitpunkt sich Action Games von 3.6% über die Jahre bis 2016 bis 35% entwickeln.
+Deutlich wird, dass trotz stetiger Zunahme der jährlichen Spiele-Releases über die Jahre hinweg , die meisten Genres im Vergleich zueinander ähnlich häufig vertreten bleiben. Auffällig hierbei nur die Strategy-Games, die nach dem erstmaligen Release 1991 auftauchen, aber seitdem - trotz leichten Verlusten am Marketshare - auch diesem Trend folgen. Action Games sind die Spiele mit der wohl größten Volatilität: 1982 noch fast 50 % der Game-Releases, jedoch bereits in 1984 nur noch knapp 10 % der Releases und in 1986 die Steigerung auf wieder fast 30 %. Dieser Trend setzt sich fort bis 1996, wobei sich Action Games dann aber von 3,6% über die Jahre bis 2016 wieder auf 35 % steigern.
 
 ***
 
-# Genreentwicklung im laufe der Jahre nach Verkaufszahlen {#GenreSalesPerYear}
+# Genre-Entwicklung im Laufe der Jahre nach Verkaufszahlen {#GenreSalesPerYear}
 
-Schauen wir uns an wie sich die verkäufe entwickelt haben. Hierzu verwenden wir die gleichen Diagramme wie bereits bei der Betrachtung der Spiele Anzahl. Eine erklärung der erstellung der Diagramme gibt es [hier](#GenreAmountPerYear).
+Zum Vergleich der Entwicklung der Verkäufe werden  die gleichen Diagrammformate genutzt,  wie bereits bei der Betrachtung der Spieleanzahl. Eine nähere Erläuterung findet sich [hier](#GenreAmountPerYear).
 
 ## Verkäufe pro Jahr {.tabset}
 
@@ -1677,7 +1779,8 @@ plot_ly() %>%
 
 ```
 
-Beim ersten Betrachten  fällt hier direkt die hohe volatilität der einzelnen Graphen auf, welches durch den hohen Einfluss einiger gutlaufender Games auf die Verkaufszahlen zurückzuführen ist. Am einfachsten ist dies zwischen 1980 und 1992 erkennbar. 1981 ist ein spike in Action Games erkennbar, nametlich durch die veröffentlichung namentlicher spiele wie Frogger und Pitfall. Im Jahr 1984 erkennbar ist dann der spike von Shootern durch Duck-Game sowie Platform games in 1985 durch Super Mario Bros. Super Mario prägt die Historie der Platform Games auch zwischen 1988 und 1990 mit Super Mario Bros 3 und Super Mario World. Das Spiel welches 1989 einen ausschlag der Puzzle-Games verursacht dürfte sogar Lesern, welche nicht Teil der Gaming-Community sind ein begriff sein: Tetris.
+Beim ersten Betrachten fällt hier direkt die hohe Volatilität der einzelnen Graphen auf, welche durch den hohen Einfluss einiger gut performender Games auf die Verkaufszahlen zurückzuführen ist. Am besten ist dies zwischen 1980 und 1992 erkennbar: 1981 ist ein hoher Ausschlag bei Action Games erkennbar, namentlich durch die Veröffentlichung von Verkaufsschlagern wie Frogger und Pitfall. Im Jahr 1984 sind dann Höchststände bei Shootern durch Duck-Game sowie 1985 bei Platform Games durch Super Mario Bros erkennbar. Super Mario prägt die Historie der Platform Games auch zwischen 1988 und 1990 mit Super Mario Bros 3 und Super Mario World. Das Spiel, das 1989 das Ranking der Puzzle-Games nach oben treibt, dürfte sogar Menschen außerhalb der Gaming-Community ein Begriff sein: Tetris.
+
 
 ### Filled Lines
 
@@ -1710,7 +1813,7 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', fill = 'tozeroy
 
 ```
 
-Durch Betrachten des Filled Line Plots erkennen wir gut den Hoch der Strategiespiele im Jahr 1999 durch spiele wie Pokemon Stadium, Warzone 2100 oder Age of Empires II. Auch die Spikes der Role-Playing Games im gleichen Jahr durch Pokemon Gold/Silber und Final Fantasy VIII sowie 1996 durch Pokemon Rot/Blau sind deutlich erkennbar.
+Durch Betrachten des Filled Line Plots wird das Hoch der Strategiespiele im Jahr 1999 durch Spiele wie Pokemon Stadium, Warzone 2100 oder Age of Empires II deutlich. Auch der Gipfel der Role-Playing Games im gleichen Jahr durch Pokemon Gold/Silber und Final Fantasy VIII sowie 1996 durch Pokemon Rot/Blau sind deutlich erkennbar.
 
 ### Stacked Lines {.active}
 
@@ -1742,7 +1845,8 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          )
 ```
 
-Stacked Lines sind vermutlich das Beste Diagramm um Verkaufszahlen mit der Anzahl zu vergleichen. Am auffälligsten hier sind, dass die Volatilität in den früheren Jahren (1980-1995) bei geringerer präsenz von Videospielen deutlich größer ausfällt als in der anzahl der Videospiele. In den Späteren Jahren vorallem ab 2003 fallen die Schwankungen hier jedoch deutlich geringer aus, was vermutlich an der höheren Masse von Videospielen und damit einem breit gefächerterem Nutzerinteresse liegt.
+Auch hier wird Stacked Lines, das vermutlich beste Vergleichs-Diagramm, verwendet.
+Am auffälligsten ist hier, dass die Volatilität in den früheren Jahren (1980-1995)  - bei geringerer Präsenz von Videospielen - deutlich größer ausfällt. Danach – vor allem ab 2003 - fallen die Schwankungen jedoch deutlich geringer aus, was vermutlich am größeren Angebot von Videospielen und einem breiter gefächerten Konsumverhalten liegt.
 
 ### Genreverschiebung
 
@@ -1774,17 +1878,19 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          )
 ```
 
-Durch die hohe Volatilität ist die Grafik in den früheren Jahren vorallem zwischen 1980 und 1992 sehr durcheinandern und Teilweise recht schwierig zu lesen. In den darauf folgenden Jahren ist es aber deutlich leichter bestimmte dinge wie das erstmalige auftretens der Strategiespiele 1992 oder die fast Vollständige Abstinenz von Puzzle Games zwischen 1995 und 2002 sowie ab 2012 zu erkennen.
+Durch die hohe Volatilität ist die Grafik in den frühen Jahren vor allem zwischen 1980 und 1992 sehr unübersichtlich und teilweise schwierig zu sichten. In den nachfolgenden Jahren wird es aber deutlich einfacher, bestimmte Dinge, wie das erstmalige Auftreten der Strategiespiele 1992 oder die fast vollständige Abwesenheit von Puzzle Games zwischen 1995 und 2002 und ab 2012, zu erkennen.
 
 ## {-}
 
-Wie zu erwarten lässt sich hier ein Großer overlap zu den Anzahl der Gamereleases feststellen es kann jedoch eine Hohe Volitilität durch einzelne Spielereleases vorallem in früheren Jahren festgestellt werden. Dies hat den Grund das einige "Kassenschlager" hier einen großteil des Marktes ausmachen und ihn somit stark beeinflussen. Anzumerkten ist jedoch das Spiele gerne Rereleast werden vorallem auf unterschiedlichen Konsolen, dies in unserem Datensatz jedoch nicht zusammegeführt wird. Weiteres hierzu im [Fazit](#AufgetreteneProbleme)
+Wie zu erwarten ergeben sich hier große Parallelitäten zu den Feststellungen zur Anzahl der Game-Releases: Auch hier ist eine hohe Volatilität durch einzelne Spiele-Releases, vor allem in früheren Jahren feststellbar. Grund hierfür dürften die teils hohen Marktanteile einzelner “Kassenschlager” sein. 
+
+Hinweis: Obwohl einige Spiele auch rereleast werden - vor allem für unterschiedliche Konsolen - werden diese Daten in unserem Datensatz nicht zusammengeführt. Weiteres hierzu im [Fazit](#AufgetreteneProbleme)
 
 ***
 
 # Genreentwicklung im laufe der Jahre nach Verkaufszahlen pro Spiel {#GenreSalesPerGamePerYear}
 
-Nachdem wir nun Analysiert haben wie sich die Anzahl der Spielereleases sowie die Verkaufszahlen entwickelt haben wäre es doch interessant beides gegenüberzustellen und direkt zu vergleichen. Hierzu verwenden wir erneut die bereits bekannten [Diagramme](#GenreAmountPerYear) nutzen jedoch in der *dplyr::summarize()* funktion die Summe der Verkaufszahlen welche wir durch die Anzahl der Einträge teilen.
+Im nachfolgendem Vergleich der Entwicklung der Anzahl der Spiele-Releases sowie der Verkaufszahlen werden erneut die bereits bekannten [Diagramm-Formate](#GenreAmountPerYear) genutzt, jedoch in der *dplyr::summarize()* Funktion die Summe der Verkaufszahlen durch die Anzahl der Einträge dividiert.
 
 ## Verkäufe pro Spiel pro Jahr {.tabset}
 
@@ -1818,11 +1924,11 @@ plot_ly() %>%
 
 ```
 
-Im Lines-Plot erkennen wir direkt die in der [Verkaufszahlanalys](#GenreSalesPerYear) genannten Extreme welche durch einzelne Spiele, vorallem in den früheren Jahren, beeinflusst werden. Am deutlichsten ist dies in Shooter Games 1984 durch Duck-Game und Platform spiele 1985 durch Super Mario Bros. Auch Tetris (Puzzle 1989) sowie Super Mario Bros 3 (Platform 1988) und Super Mario World (Platform 1990) sind deutlich erkennbar. Neu erkennbar ist hier der Ausschlag in Racing games 1992 durch den Klassiker Super Mario Kart wessen Nachfolger bis heute auf fast jeder Nintendo Konsole veröffentlicht wurden.
+Im Lines-Plot werden in der [Verkaufszahlanalys](#GenreSalesPerYear) die genannten Extreme, welche durch einzelne Spiele, vor allem in den früheren Jahren, beeinflusst werden, deutlich dargestellt. Am eindrücklichsten wird dies bei Shooter Games 1984 durch Duck-Game und bei den Plattform-Spielen 1985 durch Super Mario Bros. Auch die deutlichen Ausschläge durch Tetris (Puzzle 1989) sowie Super Mario Bros 3 (Platform 1988) und Super Mario World (Platform 1990) sind deutlich erkennbar. Erstmalig wird hier der Anstieg bei Racing Games 1992 durch den Klassiker Super Mario Kart, dessen Nachfolger bis heute auf fast jeder Nintendo Konsole zu finden ist.
 
 ### Filled Lines {.active}
 
-In dem Fall der Verkäufe Pro Jahr sind die Stacked Lines leider wenig ausschlaggebend und daher auch nicht als erste ansicht vorausgewählt. Zum verstehen der Analyse sollte jedoch der Lines-Tab zuerst gelesen werden.
+Für die Darstellung der Verkäufe pro Jahr sind die Stacked Lines leider wenig aussagekräftig und daher auch nicht als erste Ansicht vorausgewählt. Zum besseren Verständnis der Analyse empfiehlt sich ein vorheriges Lesen der Lines-Tab.
 
 ```{r plot(SalesPerGamePerGenrebyYear2), echo = TRUE, message=FALSE, results='markup', }
 
@@ -1851,7 +1957,7 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', fill = 'tozeroy
 
 ```
 
-Beim Betrachten der Filled-Lines fällt auf das neben den Bereits genannten Extremen Racing games auch im Jahre 1990 schon einen Hochpunkt durch F-1 Race erfuhr. Auch das Extrem des Action genres 1987 durch Zelda II: The Adventure of Link ist hier deutlicher erkennbar.
+Beim Betrachten der Filled-Lines ist auffallend, dass das neben den bereits genannten Extremausschlägen Racing-Games bereits im Jahre 1990 einen Ausschlag durch F-1 Race erfuhr. Einen noch deutlicheren Extremausschlag des Action Genres in 1987 ergab auch Zelda II: The Adventure of Link.
 
 ### Stacked Lines 
 
@@ -1881,7 +1987,7 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          )
 ```
 
-Stacked Lines ist hier für eine Analyse der einzelnen Spielegenres leider nicht hilfreich. Der aufmerksame Beobachter wird sich jedoch an eine der ersten Grafiken erinnern in denen wir [die Sales pro Game](#VideoGameReleases) analysiert haben und sich Fragen warum die Werte hier deutlich höher ausfallen als noch bevor. War in der Analyse ohne Genres der Maximalwert noch bei 4 so ist er Hier bei mehr als 20. Dies liegt vorallem daran, dass Action games in den Früheren Jahren einen großteil der Releases ausmachen bei den verkaufszahlen aber eher gering ausfallen und den durchschnitt daher herunterziehen. Sind die Spiele nach Genre aufgeteilt beeinflusst das schlecht performende Action Genre die Verkaufszahlen pro Spiel der anderen jedoch nicht und so erhalten wir additiv eine deutlich größere Zahl als zuvor.
+Stacked Lines ist hier für eine Analyse der einzelnen Spiele-Genres leider nicht hilfreich. Der aufmerksame Beobachter wird sich jedoch an eine der ersten Grafiken erinnern, in denen [die Sales pro Game](#VideoGameReleases) analysiert wurde und Fragen unbeantwortet blieben, warum die Werte hier deutlich höher ausfallen als vorher. War in der Analyse ohne Genres der Maximalwert noch bei 4, liegt er hier über 20. Dies liegt in erster Linie daran, dass Action Games in den frühen Jahren einen Großteil der Releases ausmachten, bei den Verkaufszahlen aber eher gering in Erscheinung traten und so den Durchschnitt hier verringern. Sind dagegen die Spiele nach Genres aufgeteilt, beeinflusst das schlecht performende Action-Genre die Verkaufszahlen pro Spiel der anderen nicht, sodass additiv eine deutlich größere Zahl dargestellt wird.
 
 ### Genreverschiebung 
 
@@ -1910,19 +2016,20 @@ plot_ly(x = ~Year, y = ~gr_sum, type = 'scatter', mode = 'none', stackgroup = 'o
          )
 ```
 
-Durch die hohe volatilität in den Früheren Jahren ist auch hier wie bei den Verkaufszahlen das Genreshift Diagramm wenig ausschlaggebend. AB 1994 kann man jedoch deutlich erkennen wir sich die Genres im laufe der Jahre entwickeln. Shooter werden deutlich beliebter wohingegebn Role-Playing games auf dem absteigenden Ast sind.
+Durch die hohe Volatilität der frühen Jahre ist auch hier - wie bei den Verkaufszahlen - das Genreshift-Diagramm wenig aussagekräftig. Ab 1994 wird jedoch deutlich, wie sich die Genres im Laufe der Jahre entwickeln. Shooter werden deutlich beliebter, wohingegen Role-Playing Games verlieren.
 
 ## {-}
 
-Auch hier ist wie erwartet die Entwicklung Prozentual ähnlich. Auffällig ist jedoch das Shooter trotz ihrer geringen Vertretung in der Prozentualen Verteilung 1984 sowie 2014,2015 und 2016 die Nase Vorne haben. Platform Games haben 1985,1988 und 1990 die Nase Vorne. Die Hochzeit der Puzzle Games sind unangefochten 1988 mit dem Weltweitbekannten und auf Platz 6 der meistverkauften videospiele: Tetris. Auffällig sind vorallem die Moderneren entwicklungen. Sind in den 1996-2005er Jahren Role-Playing und somit langsame immersive erlebnisse noch deutlich Beliebter haben heutzutage Shooter mit ihrem Rundenbasiertem, "Fast Paced" also schnellem spielfluss die Nase Vorne. In der Modernen Welt ist es deutlich einfacher und für Viele leute weniger Zeitintensiv kurz eine Runde von 15-45 minuten zu spielen als sich Stundenlang in eine Rolle hineinzuversetzen. Vielen Menschen fehlt einfach Zeit oder Geduld um sich in der Zeit von modernen Medien wie Tik-Tok oder Instagramm, welche sich auf kurze erlebnisse von oft wenigen Sekunden spezialisiert haben, in ein Immersives erlebnis hereinzuversetzen.
+Erwartbar ist die Entwicklung in Prozent ähnlich. Auffällig ist jedoch, dass Shooter - trotz ihrer geringen Vertretung in der prozentualen Verteilung - 1984 sowie 2014, 2015 und 2016 an erster Stelle gelistet sind. Plattform-Games haben dagegen 1985, 1988 und 1990 die Nase vorne, während Puzzle-Games in 1988 unangefochten mit dem weltweit bekanntem  - Platz 6 der meistverkauften - Videospiele Tetris führt. 
+Auffällig die neuesten Entwicklungen: So werden in den Jahren 1996 bis 2005 Role-Playing und nach und nach auch immersive Erlebnisse deutlich beliebter. Derzeit dominiert Shooter mit ihrem rundenbasierten „Fast Paced”  - dem schnellen Spielfluss –. Offenkundig entwickelt sich das Nutzerverhalten weg von zeitintensiven Games (Rollenspielen) hin zu weniger zeitintensiven - eine Runde von 15-45 Minuten -.  Nutzende bevorzugen es zunehmend, kurz zu spielen, als sich stundenlang in eine Rolle hineinzuversetzen. Vielen Menschen fehlt möglicherweise auch einfach Zeit oder Geduld, um sich in einer Zeit der modernen sozialen Medien, wie Tik-Tok oder Instagram, die sich auf kurze Erlebnisse von oft wenigen Sekunden spezialisiert haben, in ein zeit- und geld intensives , immersives Gameerlebnis zu vertiefen.
 
 ***
 
 # Genreverteilung nach Publisher {#GenreByPublisherGlobal}  
 
-Da wir nun sowohl Genres als auch Publisher betrachtet haben wäre es doch der einzig logische schritt diese beiden Daten zusammenzuführen und zu vergleichen. Gibt es hier Publisher die verschiedene Genres bevorzugen bzw. deren Bestseller sich in bestimmten Genres Tummeln?
+Nach der Betrachtung der Entwicklungen der Genres und der Publisher werden nun diese Daten für einen Vergleich und zur Klärung der Fragen zusammengeführt:  Gibt es Publisher, die bestimmte Genres bevorzugt anbieten, und/oder Publisher, die hohe Verkaufszahlen von Games eines bestimmten Genres verzeichnen? 
+Verwendung findet hier ein stacked Bar-Plot. Während der Beginn der Diagrammerstellung bei [Paretodiagrammen](#Platformanalyse) ähnelt, werden dann jedoch statt nur eines Dataframes zwei erzeugt: neben der bereits bekannte  *grouped* die Publisher, Genres und Verkaufszahlen beinhaltet, die Dataframe *PublisherSales* die eine Liste der Publisher mit Gesamtverkaufszahlen über 300 Millionen enthält. Mittels Letzterer werden im weiteren Verlauf aus unserem *grouped* Datensatz die Publisher entfernt, die sich nicht in  *PublisherSales* finden. Das geschieht mit Hilfe des *filter()* commands und dem Schlagwort *%in%*. Die restliche Diagrammerstellung ist äquivalent zur [Publisheranalyse](#PublisherReleases). Einziger Unterschied: Die Bars werden bei der Diagrammerstellung nicht sortiert.
 
-Hierzu verwenden wir ein stacked Bar-Plot. Der beginn der Diagrammerstellung ist hierbei ähnlich wie noch bei [Paretodiagrammen](#Platformanalyse). Relativ schnell fällt hier jedoch auf das wir anstatt nur eines Dataframes Zwei Produzieren. Zum einen der bereits bekannte *grouped* Dataframe welcher Publisher, Genre und Verkaufszahlen ebenjener Genres beinhaltet. Zum anderen *PublisherSales* welcher eine Liste der Publisher mit Gesamtverkaufszahlen von mehr als 300 mio enthält. Diesen verwenden wir im weiteren verlauf um aus unserem *grouped* Datensatz alle Publisher zu entfernen die sich nicht in *PublisherSales* befinden. Das geschieht mit hilfe des *filter()* commands und dem Schlagwort *%in%*. Der rest der Diagrammerstellung verhält sich equivalent zur [Publisheranalyse](#PublisherReleases) mit dem unterschied das die Bars bei der Diagrammerstellung nicht sortiert werden.
 
 
 ## Genreverteilung pro Publisher {.tabset}
@@ -1963,7 +2070,7 @@ ax <- list(
 )
 
 ay <- list(
-  title = "Verkäufe (in mio)"
+  title = "Verkäufe (in Millionen)"
 
 )
 
@@ -1981,7 +2088,7 @@ grouped%>%
 
 ```
 
-Beim Betrachten der Verkaufszahlen fällt direkt auf, dass die meisten Publisher bestimmte Genres präferieren. Activision haben mit Call of Duty einen großteil ihrer verkäufe im Shooter Genre. Das Electronic Arts mit FIFA und MaddenNFL im Sport Genre breit vertreten sind ist wenig Verwunderlich. Shootern (Battlefield) und Racing (Need for Speed) sind jedoch auch sehr Beliebte Genres bei dem US-basiertem Gaming riesen. Nintendo spezifiziert sich wenig Verwunderlich auf Platform (Super Mario) und Role-Playing(Pokemon). Sony hingegen fächern ihr angebot relativ breit und haben neben 110.57 mio in Racing auch 104 mio in Platform, 80 mio in Misc und 94.5 mio in Action. Take-Two mit Grand Theft Auto und Read dead Redemption spezifieren sich wenig verwunderlich auf Action wohingegen sich THQ wieder relativ breit fächert. Zu guter letzt fährt Ubisoft eine zweigeteilte Schniene mit Action (Assassin's Creed) und Misc (Just Dance).
+Beim Betrachten der Verkaufszahlen fällt direkt auf, dass die meisten Publisher bestimmte Genres präferieren. Activision hat mit Call of Duty den überwiegenden Teil ihrer Verkäufe im Shooter-Genre. Das Electronic Arts mit FIFA und MaddenNFL überwiegend im Sport-Genre vertreten ist, ist auch wenig verwunderlich. Bei dem US-basiertem Gaming-Riesen sind  die Genres Shooter (Battlefield) und Racing (Need for Speed) auch sehr beliebt. Nintendo ist dagegen  - wenig verwunderlich - auf die Genres Platform (Super Mario) und Role-Playing (Pokemon) spezifiziert. Sony hingegen fächert ihr Angebot relativ breit und hat neben 110.57 Millionen im Genre Racing auch 104 Millionen im Genre Platform, 80 Millionen im Genre Misc und 94,5 in Millionen im Genre Action. Take-Two mit Grand Theft Auto und Red Dead Redemption sind nicht überraschend auf das Genre Action spezialisiert, wohingegen sich THQ relativ breit fächert. Ubisoft hat dagegen eine zweigeteilte Genre-Fokussierung mit Action (Assassin’s Creed) und Misc (Just Dance).
 
 ### Anzahl
 
@@ -2040,18 +2147,18 @@ grouped%>%
 
 ```
 
-Betrachten wir die Anzahl der Spiele und stell diese den Verkaufszahlen gegenüber fällt hier vorallem auf, dass Firmen mit Focus in den Verkaufszahlen diese in der Produktion noch mehr Prioritisieren. Interessant ist auch, das Activison produktionsfocus deutlich mehr auf action Games liegt als auf Shootern diese sich im vergleich jedoch deutlich schlechter verkaufen.
+Stellt man die Anzahl der Spiele den Verkaufszahlen gegenüber, fällt auf, dass Firmen mit Focus auf ihre Verkaufszahlen die Genres in der Produktion noch mehr priorisieren. Interessant ist auch, dass Activison ihren Focus deutlich mehr auf Action Games legt, als auf Shooter, die sich vergleichsweise deutlich schlechter verkaufen.
 
 ## {-}
 
-Bei dem vergleich der Werte ist hier zu bemerken, dass die meisten Publisher Hierbei sich mit der Anzahl der Spiele und den Sales gut abdecken. Die auffälligsten diskrepanzen sind hierbei EA mit dem Sports Genre und ihren järlich releasten Spielen FiFa/NBA2k etc. sowie Nintendo mit der Platformreihe Super Mario. 
+Beim Vergleich dieser Werte ist festzuhalten, dass sich bei den meisten Publisher die Anzahl der Spiele und der Verkäufe/Sales gut abdecken. Auffällig sind hier EA mit dem Sports Genre und ihren jährlich releasten Spielen FIFA/NBA2K etc. sowie Nintendo mit der dem Genre Platform zuzuschreibenden „Super Mario“-Reihe.
 
 ***
 
 
-# Genreverteilung für Publisher Electronic Arts{#GenreByPublisherEA} 
+# Genre-Verteilung für Publisher Electronic Arts{#GenreByPublisherEA} 
 
-Schauen wir uns diese Beiden Firmen noch einmal im Detail an. Hierzu verwenden wir erneut [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion) die uns bereits aus vorderen Teilen der Ausarbeitung bekannt sind.
+Für die Detailbetrachtung wird erneut [Pareto-](#Platformanalyse) und [Kreisdiagramm](#PlatformRankingByRegion) genutzt, die bereits oben dargestellt sind.
 
 ## Genre für Electronic Arts {.tabset}
 
@@ -2095,7 +2202,7 @@ grouped%>%
 
 ```
 
-Beim Betrachten der Sales erkennen wir das wie bereits vorher festgestellt Sports (479.67 mio) an erster Stelle steht. Mit deutlichem Abstand danach folgen Shooter (158.26 mio), Racing (145.77 mio) und Action (115.54 mio). Das einzig andere Relevante Genre ist Simulation mit 89.53 mio in Sales. Role-Playing (35.3 mio), Fighting (31.39 mio), Misc (24.95 mio) sowie Strategy (14.08 mio), Platform (6.53 mio), Adventure (4.75 mio) und Puzzle (4.55 mio) spielen eine eher untergeordnete Rolle.
+Bei Auswertung der Verkäufe/Sales der Genres steht Sports (479,67 Millionen) auf dem ersten Rang. Mit deutlichem Abstand folgen Shooter (158,26 Millionen), Racing (145,77 Millionen) und Action (115,54 Millionen). Das einzig noch relevante Genre ist Simulation mit 89,53 Millionen Verkäufen/Sales. Role-Playing (35,3 Millionen), Fighting (31,39 Millionen), Misc (24,95 Millionen) sowie Strategy (14,08 Millionen), Platform (6,53 Millionen), Adventure (4,75 Millionen) und Puzzle (4,55 Millionen) spielen hierbei eher untergeordnete Rollen.
 
 #### Anzahl
 
@@ -2130,7 +2237,7 @@ grouped%>%
 
 ```
 
-In der Detaillansicht sehen Anzahl der Spiele und Sales deutlich geringer aus. Den ersten Platz belegt weiterhin Sports (561) vor Action (183), Racing (159), Shooter (139) und Simulation (116). Auch die eher irelevanten Genres wie Misc (46), Fighting (39) und Strategy (37) sind weiterhin kaum vertreten.
+In der Detailansicht erscheint die Anzahl der Spiele und Sales deutlich geringer. Den ersten Platz belegt auch hier Sports (561) vor Action (183), Racing (159), Shooter (139) und Simulation (116). Auch die eher irrelevanten Genres wie Misc (46), Fighting (39) und Strategy (37) sind hier kaum vertreten.
 
 ### Kreisdiagramme {.tabset}
 
@@ -2175,7 +2282,9 @@ grouped%>%
 
 Beim Betrachten der Sales erkennen wir das wie bereits vorher festgestellt Sports (43.2%) an erster Stelle steht. Mit deutlichem Abstand danach folgen Shooter (14.3%), Racing (13.1%) und Action (10.4%). Das einzig andere Relevante Genre ist Simulation mit 8.06% der Sales. Role-Playing (3.18%), Fighting (2.83%), Misc (2.25%) sowie Strategy (1.27%), Platform (0.588%), Adventure (0.428%) und Puzzle (0.41%) spielen eine eher untergeordnete Rolle.
 
-#### Amnzahl
+Bei Auswertung der Verkäufe/Sales der Genres steht Sports (43.2%) auf dem ersten Rang. Mit deutlichem Abstand folgen Shooter (14.3%), Racing (13.1%) und Action (10.4%). Das einzig noch relevante Genre ist Simulation mit 7.06% der Verkäufe/Sales. Role-Playing (3.18%), Fighting (2.83%), Misc (2.25%) sowie Strategy (1.27%), Platform (0.588%), Adventure (0.428%) und Puzzle (0.41%) spielen hierbei eher untergeordnete Rollen.
+
+#### Anzahl
 
 ```{r plot(AmountGenrebyPublisherEA2), echo = TRUE, message=FALSE, results='markup', }
 
@@ -2207,19 +2316,20 @@ grouped%>%
 
 ```
 
-In der Detaillansicht sehen Anzahl der Spiele und Sales deutlich geringer aus. Den ersten Platz belegt weiterhin Sports (41.5%) vor Action (13.5%), Racing (11.8%), Shooter (10.3%) und Simulation (8.59%). Auch die eher irelevanten Genres wie Misc (3.4%), Fighting (2.89%) und Strategy (2.74%) sind weiterhin kaum vertreten.
+In der Detailansicht erscheint die Anzahl der Spiele und Sales deutlich geringer. Den ersten Platz belegt auch hier Sports (41,5%) vor Action (13,5%), Racing (11,8%), Shooter (10,3%) und Simulation (8,59%). Auch die eher irrelevanten Genres wie Misc (3,4%), Fighting (2,89%) und Strategy (2,74%) sind hier kaum vertreten.
 
 ## {-}
 
-Schauen wir uns EA hier im Detail an fällt auf das die Diskrepanz zwischen Sales und Anzahl der Gamereleases für EA bei Sports gar nicht so groß ist (41.5% vs 43.2%) wie vorher gedacht. Die größeren diskrepanzen sind hier Shooter welches nur 10% der Gamereleases sind aber gut 15% der Sales und Action mit 13.5% der Gamereleases und 10.4% der Sales.
+Bei einer Detailbetrachtung von EA fällt die Diskrepanz zwischen Verkäufen/Sales und der Anzahl der Game-Releases, die für EA bei Sports nicht so groß ist (41,5 % zu 43,2 %), wie angenommen. Die größeren Diskrepanzen finden sich im Genre Shooter, bei dem nur 10 % der Game-Releases gut 15 % der Verkäufe/Sales bedingen und im Genre Action mit 13.5% der Game-Releases und 10,4 % Verkäufen/Sales.
 
-# Genreverteilung für Nintendo {#GenreByPublisherNintendo} 
+# Genre-Verteilung bei Nintendo {#GenreByPublisherNintendo} 
 
-Nachdem wir nun herausgefunden haben das bei Electronic Arts die Diskrepanz zwischen Sales und Anzahl der Spiele gar nicht so groß ist wie vorher gedacht betrachten wir nun die gleichen Daten für Nintendo. Die Frage die sich hier stellt ist ob bei Nintendo ein ähnlicher verlauf feststellbar ist oder ob sich bei diesen bestimmte Genres einfach deutlich besser verkaufen als sie sollten.
+Während bei Electronic Arts die Diskrepanz zwischen Verkäufen/Sales und Anzahl der Spiele nicht so groß ist wie angenommen, fragt sich, ob dies bei Nintendo ähnlich feststellbar ist oder ob sich bei Nintendo bestimmte Genres besser verkaufen als anzunehmen.
+
 
 ***
 
-## Genreverteilung für Nintendo {.tabset}
+## Genre-Verteilung bei Nintendo {.tabset}
 
 ### Balkendiagramme {.tabset}
 
@@ -2262,7 +2372,8 @@ grouped%>%
 
 ```
 
-Wie bereits in der [Genreanalyse der Publisher](#GenreByPublisherGlobal) festgestellt verkaufen sich Platform-Spiele (427.21 mio) für Nintendo am besten. Doch auch Role-Playing (284.9 mio), Sports (218 mio) und Misc (180.67 mio) machen keinen unwesentlichen Teil ihrer Verkäufe aus. Selbst die weniger Prominenten Genres wie Racing (151.3 mio), Action (128.18 mio) und Puzzle (124.88 mio). verkaufen sich immernoch deutlich besser als die entsprechenden Spielegenres der Konkurrenz EA. Am deutlichsten ist der Unterschied vermutlich bei den ganz "kleinen" Genres Simulation (85.27 mio), Shooter (69.73 mio), Fighting (53.35 mio) und Adventure (35.71). Auch wenn diese sich nicht an der Exakt gleichen stelle in der Rangliste der Sales befinden hat der letzte Platz von Nintendo Strategy (27.35%) dennoch mehr als das 6 Fache an Sales als der von EA. Trotz das Nintendo mehr Total Sales hat als Electronic Arts ist dieser wert nicht 6 mal so groß sondern umfasst nichtmal das doppelte.
+Wie bereits in der [Genre-Analyse der Publisher](#GenreByPublisherGlobal) festgestellt, verkaufen sich Platform-Spiele (427,21 Millionen) bei Nintendo am besten. Doch auch Role-Playing (284,9 Millionen), Sports (218 Millionen) und Misc (180,67 Millionen) machen keinen unwesentlichen Teil ihrer Verkäufe aus. Selbst die weniger prominenten Genres wie Racing (151,3 Millionen), Action (128,18 Millionen) und Puzzle (124,88 Millionen) verkaufen sich immer noch deutlich besser als die entsprechenden Spiele-Genres der Konkurrenz EA. Am deutlichsten ist der Unterschied bei den „kleinen” Genres Simulation (85,27 Millionen), Shooter (69,73 Millionen), Fighting (53,35 Millionen) und Adventure (35,71). Auch wenn diese sich nicht immer im gleichen Rang der Verkäufe/Sales befinden, hat der letzte Rangplatz von Nintendo Strategy (27,35 Millionen) dennoch mehr als das 6-fache der Verkäufe/Sales als der letzte Rangplatz von EA. Dem zum Trotz betragen Nintendos Gesamtverkäufe/Total Sales gegenüber denen von Electronic Arts nicht das 6-fache, sondern weniger als das Doppelte.
+
 
 #### Anzahl
 ```{r plot(AmountGenrebyPublisherNintendo1), echo = TRUE, message=FALSE, results='markup', }
@@ -2298,7 +2409,7 @@ grouped%>%
 
 ```
 
-Im ersten Moment fällt direkt auf, dass der Ausschlag von Platform (112) hier deutlich geringer ausfällt als noch in den Verkaufszahlen. Sowohl Role-Playing (106) als auch Misc (100) umfassen nur ein paar weniger Spiele. Auch das Mittelfeld umfasst mit Action (79), Puzzle (74) und Sports (55) immernoch eine Relativ große Anzahl an Spielen. Selbst die hinteren Plätze mit Racing (37), Adventure (35) und Strategy (32) sind nur knapp vor Simulation (29), Shooter (26) und Fighting (18).
+Hier fällt direkt auf, dass der Ausschlag von Platform (112) deutlich geringer ausfällt, als noch in den Verkaufszahlen. Sowohl Role-Playing (106), als auch Misc (100) umfassen nur wenige Spiele. Im Mittelfeld sind mit Action (79), Puzzle (74) und Sports (55) immer noch eine relativ große Anzahl an Spielen. Selbst die hinteren Plätze mit Racing (37), Adventure (35) und Strategy (32) liegen nur knapp vor Simulation (29), Shooter (26) und Fighting (18).
 
 ### Kreisdiagramme {.tabset}
 
@@ -2341,7 +2452,9 @@ grouped%>%
 
 ```
 
-Wie bereits in der [Genreanalyse der Publisher](#GenreByPublisherGlobal) festgestellt verkaufen sich Platform-Spiele (23.9%) für Nintendo am besten. Doch auch Role-Playing (15.9%), Sports (12.2%) und Misc (10.1%) machen keinen unwesentlichen Teil ihrer Verkäufe aus. Selbst die weniger Prominenten Genres wie Racing (8.47%), Action (7.17%) und Puzzle (6.99%). verkaufen sich immernoch deutlich besser als die entsprechenden Spielegenres der Konkurrenz EA. Am deutlichsten ist der Unterschied vermutlich bei den ganz "kleinen" Genres Simulation (4.77%), Shooter (3.9%), Fighting (2.99%) und Adventure (2%). Auch wenn diese sich nicht an der Exakt gleichen stelle in der Rangliste der Sales befinden hat der letzte Platz von Nintendo Strategy (1.53%) dennoch mehr als das 6 Fache an Sales als der von EA. Trotz das Nintendo mehr Total Sales hat als Electronic Arts ist dieser wert nicht 6 mal so groß sondern umfasst nichtmal das doppelte.
+Wie bereits in der [Genreanalyse der Publisher](#GenreByPublisherGlobal) festgestellt, verkaufen sich Platform-Spiele (23.9%) bei Nintendo am besten. Doch auch Role-Playing (15.9%), Sports (12.2%) und Misc (10.1%) machen keinen unwesentlichen Teil ihrer Verkäufe aus. Selbst die weniger prominenten Genres wie Racing (8.47%), Action (7.17%) und Puzzle (6.99%) verkaufen sich immer noch deutlich besser als die entsprechenden Spiele-Genres der Konkurrenz EA. Am deutlichsten ist der Unterschied bei den „kleinen” Genres Simulation (4.77%), Shooter (3.9%), Fighting (2.99%) und Adventure (2%). Auch wenn diese sich nicht immer im gleichen Rang der Verkäufe/Sales befinden, hat der letzte Rangplatz von Nintendo Strategy (1.53%) dennoch mehr als das 6-fache der Verkäufe/Sales als der letzte Rangplatz von EA. Dem zum Trotz betragen Nintendos Gesamtverkäufe/Total Sales gegenüber denen von Electronic Arts nicht das 6-fache, sondern weniger als das Doppelte.
+
+
 
 #### Anzahl
 
@@ -2374,58 +2487,57 @@ grouped%>%
 
 ```
 
-Im ersten Moment fällt direkt auf, dass der Ausschlag von Platform (15.9%) hier deutlich geringer ausfällt als noch in den Verkaufszahlen. Sowohl Role-Playing (15.1%) als auch Misc (14.1%) umfassen nur ein paar weniger Spiele. Auch das Mittelfeld umfasst mit Action (11.2%), Puzzle (10.5%) und Sports (7.82%) immernoch eine Relativ große Anzahl an Spielen. Selbst die hinteren Plätze mit Racing (5.26%), Adventure (4.98%) und Strategy (4.55%) sind nur knapp vor Simulation (4.13%), Shooter (3.7%) und Fighting (2.56%).
-
+Hier fällt direkt auf, dass der Ausschlag von Platform (15,9%) deutlich geringer ausfällt, als noch in den Verkaufszahlen. Sowohl Role-Playing (15,1%), als auch Misc (14,1%) umfassen nur wenige Spiele. Im Mittelfeld sind mit Action (11,2%), Puzzle (10,5%) und Sports (7,82%) immer noch eine relativ große Anzahl an Spielen. Selbst die hinteren Plätze mit Racing (5,26%), Adventure (4,98%) und Strategy (4,55%) liegen nur knapp vor Simulation (4,13%), Shooter (3,7%) und Fighting (2,56%).
 
 ## {-}
 
-Beim vergleichen der Werte von Nintendo wird einem aufmerksamen beobachter ziemlich schnell klar, dass Platform Spiele ein Kassenchlager sind. Nehmen diese nur 16% der spielereleases ein so bringen sie dennoch 24% der Sales ein. Gleiches Gilt für Sport games. 8% gegenüber 12%. Action (11% vs 7%), Misc (14% vs 10%) und Puzzle Games (10.5% vs 7%) sind jedoch nicht so erfolgreich. Die Frage woran dies liegen könnte wäre bestimmt auch eine interessante und etwas für einen [Ausblick in die Zukunft](#AusblickInDieZukunft)
+Diese Werte machen deutlich, dass die Spiele des Genre Platform die Kassenschlager sind. Obwohl diese nur 16 % der Spiele-Releases haben, erbringen sie dennoch 24 % der Verkäufe/Sales. Vergleichbares gilt für die Sport-Games, hier ergibt sich bei 8 % Releaseanteil ein Anteil an Verkäufen/Sales von 12 %. Die Spiele der Genres Action (11 % zu 7 %), Misc (14 % zu 10 %) und Puzzle Games (10,5 % zu 7 %) sind im Vergleich nicht so erfolgreich. Die Frage, woran dies liegen könnte, wird im [Ausblick in die Zukunft](#AusblickInDieZukunft) versucht zu beantworten.
 
 ***
 
 
 # Ausblick in die Zukunft {#AusblickInDieZukunft}
 
-Bei der Analyse des Datensatzes beziehungsweise der Entstandenen Grafiken sind sowohl dem Aufmerksamen leser als auch mir dem Ersteller einige weiter Ideen beziehungsweise weitere Ansätze gekommen die mit sicherheit interessant wären zu Verfolge. Einige dieser Beispiele habe ich im Folgenden als Ideen für Zukünftige Projekte Niedergeschrieben. 
+Die vorliegend erläuterte Analyse des Datensatzes und die so erzeugten Grafiken haben weitere Fragen und Ansätze aufgezeigt, bei denen  es sich sicher lohnen würde, diese weiter zu verfolgen. Hier als Beispiele und Anregung künftiger Projekte:
 
-* Beim Vergleich der allgemeinen [Game Sales](#VideoGameReleases) haben wir ausschläge Festgestellt die möglicherweise etwas mit bestimmten Videospielen oder andere äußeren Einflussfaktoren wie den einfacheren Zugriff auf Konsolen, eine breitere Akzeptanz für Videospiele oder die Entwicklung des Internets. Eine genauere Analyse der Ausschläge wäre dementsprechend ein Interessantes Thema.
+* Beim Vergleich der allgemeinen [Game Sales](#VideoGameReleases) wurden Abweichungen festgestellt, die sich möglicherweise auf einzelne Videospiele oder andere, äußere Einflussfaktoren - wie den einfacheren Zugriff auf Konsolen, eine breitere Akzeptanz für Videospiele oder die Entwicklung des Internets- zurückführen lassen könnten. 
 
-* Interessant wäre Demtnsprechend auch eine genauere Analyse der Gamesales pro Jahr also in welchem Jahr welches Spiel wie oft gekauft wurde. Wurde Beispielsweise Tetris 1950 30 mal und 2015 300.000 mal verkauft. Dies geben die vorliegenden Daten jedoch leider nicht her also wäre ein andere Datensatz bzw weitere Daten notwendig.
+* Interessant wäre auch eine genauere Analyse der Gesamtverkäufe/total sales der einzelnen Games pro Jahr. Wurde beispielsweise Tetris im Jahr 1950 nur 30 mal verkauft, erreichte es im Jahr 2015 300.000 Verkäufe. Hierzu wären jedoch weitere Daten notwendig.
 
-* Im gleichen Gedankenschritt kommt eine analyse der Veränderungen im Kaufverhalten während der Cronapandemie und dem darauf folgenden Lockdown ist aber aus gleichem Grund leider nicht möglich.
+* Auch eine Analyse der Veränderungen des Kaufverhalten während der Zeit der Kontaktbeschränkungen und Lockdowns der Corona Pandemie wäre interessant, aber ohne weitere Daten leider nicht möglich.
 
-* Das Gleiche Trifft auf die [Verkaufszhlentwicklung im laufe der Jahre](#SalesPerPlatform) mit einer genauern Analyse der verkauften Spiele pro Platform im laufe der Jahre zu.
+* Dies betrifft auch eine genauere Analyse der Entwicklung der [Verkaufszahlen](#SalesPerPlatform) im Verhältnis zur Entwicklung der Zahl der verkauften Spiele pro Plattform zu.
 
-* Desweiteren haben wir uns beim vergleich  der [Platformen](#Platformanalyse) die Frage gestellt wie sich die Spieleverkäufe pro Platform verhalten. Ein Vergleich ebenjener Daten währe dementsprechend interessant um zu klären ob sich Biespielsweise Nintendospiele besser auf Nintendo konsolen oder Sony Spiele besser auf der Playstation verkaufen. Dies benötigt jedoch vorallem aufgrund von Exklusivtiteln wie "The Legend of Zelda: Breath of the Wild" oder "God of War" extensive analysearbeit.
+* Auch drängt sich beim Vergleich der [Plattformen](#Platformanalyse) die Frage auf, wie sich die Spieleverkäufe pro Plattform verändern. Der Vergleich könnte die Frage zu beantworten helfen, ob sich beispielsweise Nintendo-Spiele besser auf deren Konsolen oder entsprechend Sony-Spiele besser auf deren Playstation verkaufen. Dies bedingte jedoch vor bei Exklusiv Titeln, wie “The Legend of Zelda: Breath of the Wild” oder “God of War”, extensive Analysearbeit aufgrund weiterer Datensätze.
 
-* In der [Publisheranalyse](#PublisherReleases) haben wir uns Anzahl der Spielereleases sowie Anzahl der Verkäufe verglichen. Interreant währe hier ein direkter 1 zu 1 vergleich möglicherweise sogar unter bezugnahme auf Platformen und Genres.
+* Im Bereich der [Publisheranalyse](#PublisherReleases) würde ein direkter Vergleich der Anzahl der Spiele-Releases zur Anzahl der Verkäufe/Sales möglicherweise unter Bezugnahme der Ergebnisse der Analyse der Plattformen und Genres zu weiteren Erkenntnissen führen.
 
-* Ein vergleich der Spiele nach Herstellerregion in der [Platformanalys](#Platformanalyse) wäre sehr interessant gewesen ist jedoch anhand des Datensatzes leider nicht möglich. Selbst eine annahme des Herkunftslandes anhand des Publishers ist nicht möglich da viele Publisher Studios in unterschiedlichsten Ländern und Regionen betreibt. Ubisoft hat beispielsweise Standorte in Paris, Mainz, New York und Singapur.
+* Auch der sich anbietende Vergleich der Spiele nach Herstellerregion in der [Platformanalyse](#Platformanalyse) setzt weitere Datensätze voraus, da selbst eine Annahme des Herkunftslandes anhand der Angaben des Publishers nicht möglich ist, da viele Publisher Studios in unterschiedlichsten Ländern und Regionen betreibt. So hat Ubisoft hat beispielsweise Standorte in Paris, Mainz, New York und Singapur.
 
-* Ein Regionaler vergleich anhand der Einwohnerzahlen einer Region bzw allgemein ein Vergleich der Spieleverkäufe mit der Entwicklung der Weltbevölkerung, welche sich seit 1980 [fast verdoppelt hat](https://de.statista.com/statistik/daten/studie/1694/umfrage/entwicklung-der-weltbevoelkerungszahl/).
+* Interessant wäre eine Auswertung im Sinne eines regionalen Vergleichs der Einwohnerzahlen einer Region mit den dortigen Verkaufszahlen oder – allgemeiner - ein Vergleich der Spieleverkäufe mit der Entwicklung der Weltbevölkerung, die sich seit 1980 [fast verdoppelt hat](https://de.statista.com/statistik/daten/studie/1694/umfrage/entwicklung-der-weltbevoelkerungszahl/), insbesondere bei Differenzierung der verschiedenen Alterskohorten.
 
-Dies ist nur ein kleiner ausschnitt der schier unendlichen Möglichkeiten die einem bei der Analyse von den mittlerweile mehr als 4 mio Videospielen bleibt und das nur angenommen wir bleiben bei einem eher allgemeinerem Vergleich. Jedes dieser Videospiele hat vermutlich genug öffentliche Daten um eine Arbeit zu produzieren die ein vielfaches des Volumens dieser Arbeit, für welche mir nur knapp 70h zu Verfügung standen, hat.
+
+Zusammenfassend stellt diese Liste nur einen kleinen Ausschnitt der schier unendlichen Möglichkeiten zur Analyse von mittlerweile mehr als 4 Millionen Videospielen dar. Zu jedem der Videospiele existieren genug öffentliche Daten für entsprechende Arbeiten. Dabei würde jedoch der vorliegend vorgegebene Zeitrahmen von rund 70 Stunden allerdings meistens nicht reichen.  
 
 # Aufgetretene Probleme {#AufgetreteneProbleme}
 
-Nun aber zu dem unschönen teil einer jeder Arbeit. Den aufgetretenen Problemen, welche entweder nicht lösbar oder eine relativ starke überarbeitung der Ausarbeitung nachziehen würden.
+Hier nun die Darstellung der aufgetretenen Problemen, welche entweder nicht lösbar waren oder eine relativ starke Überarbeitung der Ausarbeitung erforderlich machen würde.
 
-* Das Erste und für den Aufmerksamen Leser, welcher sich vorallem die Line Plots im direkten vergleich angeschaut hat, offensichtliche. Der am Anfag erstellte Colorbrewer, welcher die Farben für die Grafiken liefert wird aus irgendeinam Grund nicht in jeder Grafik akzeptiert. Dies scheint hier rein zufällig zu sein und folgt keinem offensichtlichem Pattern. Der Einziger unterschied zwischen Filled Lines und Stacked Lines ist die Abwesenheit des *fill* parameters und stattdessen die verwendung von *stackgroup='one'*. Trotz diesen minimalen unterschiedes Akzeptiert die Filled Lines Grafik die Farbauswahl, Stacked Lines jedoch nicht.
+* Zunächst das beim Vergleich der Line Plots optisch offensichtliche Problem: Der zu Beginn erstellte Colorbrewer, welcher die Farben für die Grafiken liefern soll, wird aus unerfindlichen Grund nicht in jeder Grafik akzeptiert. Dies scheint zufällig und keinem offensichtlichem Pattern folgend. Einziger Unterschied zwischen Filled Lines und Stacked Lines ist die Abwesenheit des *fill* parameters und der verwendung von *stackgroup='one'*. Trotz dieser nur minimal eingeschätzten Abweichung akzeptiert die Stacked Lines Grafik, im gegensatz zu Filled Lines, die Farbauswahl mittels des erstellten Colorbrewers jedoch nicht.
 
-* Ein weiterer mir unerklärlicher Fehler in der Dokumenterstellung ist die änderung des Formats nach dem importieren der Librarys. Es gibt keinen offensichtlichen Grund warum sich hier das Format ändern sollte auf einmal füllt der Text jedoch 100% des Bildschirms was z.T. zu sehr schwer zu leseneden Worten führt.
+* Keine Erklärung konnte dafür gefunden werden, dass sich bei der Dokumenterstellung das Format nach dem Importieren der Librarys ändert. Es gibt keinen offensichtlichen Grund, trotzdem füllt der Text 100% des Bildausschnitts, was z.T. das Lesen sehr erschwert.
 
-* Wie bereits in der Analyse der [Sales per Game per Year](#GenreSalesPerGamePerYear) festgestellt werden Spiele häufig auf mehreren Konsolen veröffentlicht. Eine zusammenfassung der Spiele zum Zweck der [Sales per Game](#VideoGameReleases) Analyse wäre dafür vonnöten.
+* Wie oben bei der Analyse der [Sales per Game per Year](#GenreSalesPerGamePerYear) festgestellt, werden Spiele häufig für mehrere Konsolen veröffentlicht. Eine Zusammenfassung der Zahlen pro Spiel zum Zweck der [Sales-per-Game-Analyse](#VideoGameReleases) wäre notwendig.
 
-* Bei Betrachtung des Codes, welcher die Grafiken erzeugt wird den meisten auffallen, dass oft doppelter Code durch verwendung in mehreren Diagrammen mit nur leichten Änderungen entsteht. Zusammenfassung ist hier durch die Nutzung von mehreren Data Frames und anwendung der jeweiligen durchaus möglich benötigt jedoch zum Teil gravierende überarbeitung der einzelnen Abschnitte.
+* Oft erscheinen beim Betrachten des Codes, welcher die Grafiken erzeugt, doppelte Codes durch die Verwendung in mehreren Diagrammen mit nur leichten Änderungen. Eine Zusammenfassung wäre hier durch die Nutzung mehrerer Data Frames zwar möglich, setzte aber eine teilweise gravierende Überarbeitung der einzelnen Abschnitte voraus.
 
+* Ein Filtern der [Platformverkäufe pro Jahr](#SalesPerPlatform) nach Total Sales wäre deutlich aussagekräftiger als ein Filtern nach den Sales in einem Jahr. Dies würde allerdings die Erzeugung eines zusätzlichen Data Frames voraussetzen, wäre jedoch deutlich informativer, als der aktuelle Stand, bei dem einige Jahre ganz aus dem Raster fallen.
 
-* Ein Filtern der [Platformverkäufe pro Jahr](#SalesPerPlatform) nach total Sales wäre deutlich besser als ein Filtern nach den Sales in einem Jahr. Dies würde die Erzeugung eines zusätzlichen Data Frames benötigen wäre jedoch deutlich informativer als der aktuelle stand bei dem einige Jahre ganz aus dem Shema fallen.
+* Das [Publischer Ranking nach Region](#PublisherRankingbyRegion) würde vermutlich für die im Vergleich kleinere Region Japan einen deutlich anderen Wert ergeben, wenn nicht nach der Anzahl der Spiele, sondern beispielsweise dem Wert der Verkaufszahlen gefiltert würde. Dies führte allerdings andererseits dazu, dass unterschiedliche Publisher verglichen würden, was dann den Informationsgehalt insgesamt minimieren würde.
 
-* Das [Publischer Ranking nach Region](#PublisherRankingbyRegion) würde vermutlich vorallem die kleinere Region Japan einen deutlich anderen ausgang aufzeigen, sollte nicht nach der Anzahl der Spiele sondern beispielsweise dem wert der Verkaufszahlen gefiltert werde. Dies führt jedoch dazu, dass unterschiedlichen Publisher verglichen werden was den informationsgehalt minimieren würde.
+* Bei der [Platformanalys](#Platformanalyse) fehlen im vorgegeben Datensatz Mobile Games. Das Fehlen der am weitest vertretenen und mittlerweile [umsatzstärksten](https://de.statista.com/infografik/22414/umsatz-ausgewaehlter-sektoren-der-unterhaltungsindustrie/) Plattform verzerrt eine Analyse des Datensatzes. Ebenso sind bedauerlicherweise nur knapp 16.000 der weltweit mehr als [3.3 mio]( https://www.statista.com/statistics/293304/number-video-gamers/#:~:text=In%20total%2C%20there%20were%20an,billion%20gamers%20across%20the%20globe) Videospiele in dem Datensatz vorhanden.
 
-* Bei der [Platformanalys](#Platformanalyse) wird den meisten, vorallem nicht Gamingversierten Lesern aufgefallen sein das Mobilegames im Datensatz komplett fehlen. Als die wohl am weit vertretenste und mittlerweile [umsatzstärkste](https://de.statista.com/infografik/22414/umsatz-ausgewaehlter-sektoren-der-unterhaltungsindustrie/) Platform beeinflusst dies den Datensatz ungemein. Allgemein sind nur knapp 16.000 der weltweit mehr als [3.3 mio]( https://www.statista.com/statistics/293304/number-video-gamers/#:~:text=In%20total%2C%20there%20were%20an,billion%20gamers%20across%20the%20globe) Videospiele in dem Datensatz vorhanden.
-
-* Nun zu Vermutlich dem größten Problem neben den bereits vorherig etwähnten fehlenden Daten. Viele spiele werden auf verschiedenen Platformen, zum teil auf Konkurrenten oder nachfolgern rereleast. Das bedeutet das ein Spiel für mehrere Konsolen veröffentlicht wird. Diese Daten werdem im Vorhandenen Datensatznicht zusammengeführt und kommen dementsprechend mehrmals vor. Super Mario bros existiert beispielsweise 13 mal und Grand Theft Auto 4 belegt platz 52 auf der xboX360 und Platz 57 auf der PS3.
+* Größtes Problem neben den bereits erwähnten fehlenden Daten, waren die fehlenden Date zu den Rereleasen. Da viele Spiele auf verschiedenen Plattformen, auch zum Teil bei Konkurrenten oder Nachfolgern rereleast werden, bedeutet das, dass ein Spiel für mehrere Konsolen veröffentlicht wird. Diese Daten sind im vorhandenen Datensatz nicht zusammengeführt. Es kommt folglich zu Mehrfachnennungen und unterschiedlichen Rankingangaben. Super Mario bros existiert im Datensatz so beispielsweise 13 Mal. Grand Theft Auto 4 belegt sowohl Platz 52 im Ranking der xboX360 und Platz 57 im Ranking der PS3.
 
 # Literatur und Quellenverzeichnis {#Literaturverzeichnis}
 
